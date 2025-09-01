@@ -1,0 +1,33 @@
+### Node / Angular ###
+cvgen-angular/node_modules/
+cvgen-angular/dist/
+cvgen-angular/.angular/cache/
+cvgen-angular/.angular/
+cvgen-angular/.idea/
+cvgen-angular/.vscode/
+cvgen-angular/npm-debug.log*
+cvgen-angular/yarn-debug.log*
+cvgen-angular/yarn-error.log*
+
+### Java / Spring Boot / Maven ###
+cvgen-api/target/
+cvgen-api/.mvn/wrapper/maven-wrapper.jar
+cvgen-api/.classpath
+cvgen-api/.project
+cvgen-api/.settings/
+cvgen-api/.idea/
+cvgen-api/.vscode/
+cvgen-api/*.iml
+cvgen-api/logs/
+cvgen-api/*.log
+
+### OS / IDE ###
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+### General ###
+*.tmp
+*.bak
+*.cache
