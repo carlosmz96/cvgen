@@ -1,5 +1,6 @@
 package dev.carlosmz.cvgen.api.cvgenapi.models.entities;
 
+import dev.carlosmz.cvgen.api.cvgenapi.enums.SkillLevel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -38,7 +39,7 @@ public class Skill {
     private String name;
 
     @Enumerated(EnumType.STRING)
-    private String level;
+    private SkillLevel level;
 
     private String category;
 
