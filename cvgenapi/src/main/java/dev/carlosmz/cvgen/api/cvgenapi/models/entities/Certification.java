@@ -1,6 +1,6 @@
 package dev.carlosmz.cvgen.api.cvgenapi.models.entities;
 
-import java.time.Instant;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,10 +41,10 @@ public class Certification {
     private String issuer;
 
     @Column(name = "date_obtained", nullable = false)
-    private Instant dateObtained;
+    private LocalDate dateObtained;
 
     @Column(name = "valid_until")
-    private Instant validUntil;
+    private LocalDate validUntil;
 
     @Column(name = "credential_id")
     private String credentialId;

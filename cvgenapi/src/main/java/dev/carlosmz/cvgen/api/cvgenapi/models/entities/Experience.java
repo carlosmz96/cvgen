@@ -1,8 +1,12 @@
 package dev.carlosmz.cvgen.api.cvgenapi.models.entities;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -43,13 +47,17 @@ public class Experience {
     private String location;
 
     @Column(name = "start_date", nullable = false)
-    private String startDate;
+    private LocalDate startDate;
 
     @Column(name = "end_date")
-    private String endDate;
+    private LocalDate endDate;
 
     private String description; // texto libre
 
-    private List<String> highlights; // lista corta de logros
+    @ElementCollection
+    @CollectionTable(name = "experience_highlights", joinColumns = @JoinColumn(name = "experience_id"))
+    @Column(name = "highlight", nullable = false, length = 500)
+    @Builder.Default
+    private List<String> highlights = new ArrayList<>(); // lista corta de logros
 
 }

@@ -1,5 +1,7 @@
 package dev.carlosmz.cvgen.api.cvgenapi.models.entities;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -36,7 +38,7 @@ public class Education {
     private String degree;
 
     @Column(nullable = false)
-    private String field;
+    private String educationField;
 
     @Column(nullable = false)
     private String institution;
@@ -44,10 +46,10 @@ public class Education {
     private String location;
 
     @Column(name = "start_date", nullable = false)
-    private String startDate;
+    private LocalDate startDate;
 
     @Column(name = "end_date")
-    private String endDate;
+    private LocalDate endDate;
 
     private String description; // detalles relevantes, proyectos, nota media...
 

@@ -1,0 +1,59 @@
+package dev.carlosmz.cvgen.api.cvgenapi.services.impl;
+
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import dev.carlosmz.cvgen.api.cvgenapi.models.dto.CurriculumDTO;
+import dev.carlosmz.cvgen.api.cvgenapi.models.entities.Curriculum;
+import dev.carlosmz.cvgen.api.cvgenapi.models.mappers.CurriculumMapper;
+import dev.carlosmz.cvgen.api.cvgenapi.repositories.CurriculumRepository;
+import dev.carlosmz.cvgen.api.cvgenapi.services.CurriculumService;
+
+@Service
+public class CurriculumServiceImpl implements CurriculumService {
+
+    @Autowired
+    private CurriculumRepository curriculumRepository;
+
+    @Autowired
+    private CurriculumMapper curriculumMapper;
+
+    @Override
+    @Transactional(readOnly = true)
+    public CurriculumDTO getCurriculum(Long id) {
+        return curriculumMapper.toDto(curriculumRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Currículum con id=" + id + " no encontrado")));
+    }
+
+    @Override
+    @Transactional
+    public CurriculumDTO createCurriculum(CurriculumDTO dto) {
+        return curriculumMapper.toDto(curriculumRepository.save(curriculumMapper.toEntity(dto)));
+    }
+
+    @Override
+    @Transactional
+    public CurriculumDTO updateCurriculum(CurriculumDTO dto) {
+        Optional<Curriculum> optCurriculum = curriculumRepository.findById(dto.getId());
+        if (optCurriculum.isPresent()) {
+            return curriculumMapper.toDto(curriculumRepository.save(curriculumMapper.toEntity(dto)));
+        } else {
+            throw new NoSuchElementException();
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteCurriculum(Long id) {
+        if (curriculumRepository.existsById(id)) {
+            curriculumRepository.deleteById(id);
+        } else {
+            throw new NoSuchElementException();
+        }
+    }
+
+}
