@@ -1,0 +1,34 @@
+<div class="container mt-5">
+  <form>
+    <!-- Nombre completo -->
+    <div class="mb-3">
+      <label for="fullName" class="form-label label-strong">Nombre completo</label>
+      <input type="text" class="form-control" id="fullName" placeholder="Introduce tu nombre completo">
+    </div>
+
+    <!-- Título -->
+    <div class="mb-3">
+      <label for="title" class="form-label label-strong">Título</label>
+      <input type="text" class="form-control" id="title" placeholder="Introduce tu título actual">
+    </div>
+
+    <!-- Ciudad -->
+    <div class="mb-3">
+      <label for="locationCity" class="form-label label-strong">Ciudad</label>
+      <input type="text" class="form-control" id="locationCity" placeholder="Introduce una ciudad">
+    </div>
+
+    <!-- País -->
+    <div class="mb-3">
+      <label for="locationCountry" class="form-label label-strong">País</label>
+      <p-select [options]="countries" [(ngModel)]="selectedCountry" [ngModelOptions]="{standalone: true}" [filter]="true"
+        [showClear]="true" placeholder="Selecciona un país" class="w-full md:w-56">
+        <ng-template let-country #item>
+          <div class="flex items-center gap-2">
+            {{ country }}
+          </div>
+        </ng-template>
+    </p-select>
+    </div>
+  </form>
+</div>
