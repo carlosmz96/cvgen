@@ -43,6 +43,7 @@
           },
           "configurations": {
             "production": {
+              "fileReplacements": [],
               "budgets": [
                 {
                   "type": "initial",
@@ -58,6 +59,12 @@
               "outputHashing": "all"
             },
             "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environments.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ],
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
@@ -103,5 +110,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
