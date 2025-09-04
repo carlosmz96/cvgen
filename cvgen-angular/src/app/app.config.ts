@@ -1,5 +1,6 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { provideHttpClient } from '@angular/common/http';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
@@ -12,6 +13,7 @@ import Aura from '@primeng/themes/aura';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    importProvidersFrom(ReactiveFormsModule),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
@@ -19,7 +21,10 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     providePrimeNG({
       theme: {
-        preset: Aura
+        preset: Aura,
+        options: {
+          darkModeSelector: false || 'none'
+        }
       }
     })
   ]

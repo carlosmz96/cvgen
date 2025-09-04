@@ -1,0 +1,136 @@
+<div class="container mt-5">
+  <h1>Nuevo currículum</h1>
+  <p class="mb-5">Por favor, completa los campos obligatorios (<span class="mandatory">*</span>)</p>
+
+  <form [formGroup]="cvForm" (ngSubmit)="onSubmit()" class="mb-5">
+    <h2 class="mb-3">Datos personales</h2>
+
+    <!-- Nombre completo -->
+    <div class="mb-3">
+      <label for="fullName" class="form-label">Nombre completo <span class="mandatory">*</span></label>
+      <div class="flex flex-col gap-1">
+        <input pInputText type="text" id="fullName" placeholder="Introduce tu nombre completo"
+          formControlName="fullName" [ngClass]="isInvalid('fullName') ? 'ng-invalid ng-dirty' : ''" />
+        @if (isInvalid('fullName')) {
+        <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
+        }
+      </div>
+    </div>
+
+    <!-- Título profesional -->
+    <div class="mb-3">
+      <label for="title" class="form-label">Título profesional <span class="mandatory">*</span></label>
+      <div class="flex flex-col gap-1">
+        <input pInputText type="text" id="title" placeholder="Introduce tu título profesional" formControlName="title"
+          [ngClass]="isInvalid('title') ? 'ng-invalid ng-dirty' : ''" />
+        @if (isInvalid('title')) {
+        <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
+        }
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="mb-3">
+      <label for="email" class="form-label">Correo electrónico <span class="mandatory">*</span></label>
+      <div class="flex flex-col gap-1">
+        <input pInputText type="email" id="email" placeholder="Introduce tu correo electrónico" formControlName="email"
+          [ngClass]="isInvalid('email') ? 'ng-invalid ng-dirty' : ''" />
+        @if (isInvalid('email')) {
+        <p-message severity="error" size="small" variant="simple">El correo electrónico no es válido</p-message>
+        }
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Localidad -->
+      <div class="mb-3 col-md-6">
+        <label for="locationCity" class="form-label">Localidad <span class="mandatory">*</span></label>
+        <div class="flex flex-col gap-1">
+          <input pInputText type="text" id="locationCity" placeholder="Introduce tu localidad"
+            formControlName="locationCity" [ngClass]="isInvalid('locationCity') ? 'ng-invalid ng-dirty' : ''" />
+          @if (isInvalid('locationCity')) {
+          <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
+          }
+        </div>
+      </div>
+
+      <!-- País -->
+      <div class="mb-3 col-md-6">
+        <label for="locationCountry" class="form-label">País <span class="mandatory">*</span></label>
+        <div class="flex flex-col gap-1">
+          <p-select [options]="countries" [filter]="true" formControlName="locationCountry"
+            placeholder="Selecciona un país">
+            <ng-template let-country #item>
+              {{ country }}
+            </ng-template>
+          </p-select>
+          @if (isInvalid('locationCountry')) {
+          <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Resumen profesional -->
+    <div class="mb-3">
+      <label for="summary" class="form-label">Resumen profesional</label>
+      <div class="flex flex-col gap-1">
+        <textarea pTextarea rows="5" cols="30" id="summary" formControlName="summary" [autoResize]="true"></textarea>
+      </div>
+    </div>
+
+    <h2 class="mb-3">Experiencia profesional</h2>
+
+    <p>...</p>
+
+    <h2 class="mb-3">Habilidades</h2>
+
+    <p>...</p>
+
+    <h2 class="mb-3">Educación</h2>
+
+    <p>...</p>
+
+    <h2 class="mb-3">Certificaciones</h2>
+
+    <p>...</p>
+
+    <h2 class="mb-3">Contacto y presencia online</h2>
+
+    <!-- URL Linkedin -->
+    <div class="mb-3">
+      <label for="linkedinUrl" class="form-label">URL Linkedin</label>
+      <div class="flex flex-col gap-1">
+        <input pInputText type="text" id="linkedinUrl" placeholder="Introduce la URL de tu perfil de Linkedin"
+          formControlName="linkedinUrl" [ngClass]="isInvalid('linkedinUrl') ? 'ng-invalid ng-dirty' : ''" />
+        @if (isInvalid('linkedinUrl')) {
+        <p-message severity="error" size="small" variant="simple">La URL no es válida</p-message>
+        }
+      </div>
+    </div>
+
+    <!-- URL github -->
+    <div class="mb-3">
+      <label for="githubUrl" class="form-label">URL Github</label>
+      <div class="flex flex-col gap-1">
+        <input pInputText type="text" id="githubUrl" placeholder="Introduce la URL de tu perfil de Github"
+          formControlName="githubUrl" [ngClass]="isInvalid('githubUrl') ? 'ng-invalid ng-dirty' : ''" />
+        @if (isInvalid('githubUrl')) {
+        <p-message severity="error" size="small" variant="simple">La URL no es válida</p-message>
+        }
+      </div>
+    </div>
+
+    <!-- URL portfolio -->
+    <div class="mb-3">
+      <label for="portfolioUrl" class="form-label">URL Portfolio</label>
+      <div class="flex flex-col gap-1">
+        <input pInputText type="text" id="portfolioUrl" placeholder="Introduce la URL de tu portfolio"
+          formControlName="portfolioUrl" [ngClass]="isInvalid('portfolioUrl') ? 'ng-invalid ng-dirty' : ''" />
+        @if (isInvalid('portfolioUrl')) {
+        <p-message severity="error" size="small" variant="simple">La URL no es válida</p-message>
+        }
+      </div>
+    </div>
+  </form>
+</div>

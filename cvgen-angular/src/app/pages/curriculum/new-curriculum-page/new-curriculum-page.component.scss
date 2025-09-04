@@ -1,0 +1,23 @@
+.mandatory {
+  color: orange;
+}
+
+input {
+  width: 100%;
+  box-shadow: 0 3px 0 0 #cbd5e1;
+}
+
+::ng-deep .p-message-text {
+  margin-top: 0.4rem;
+  margin-left: 0.2rem;
+}
+
+::ng-deep p-select {
+  width: 100%;
+  box-shadow: 0 3px 0 0 #cbd5e1 !important;
+}
+
+::ng-deep textarea {
+  width: 100%;
+  box-shadow: 0 3px 0 0 #cbd5e1 !important;
+}

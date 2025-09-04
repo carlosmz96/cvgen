@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Curriculum } from '../../models/Curriculum';
 
 @Injectable({
   providedIn: 'root'
 })
-export class Curriculum {
+export class CurriculumService {
 
   cvUrl: string = environment.apiBaseUrl + '/curriculums';
 
@@ -19,7 +20,6 @@ export class Curriculum {
   }
 
   createCurriculum(cv: Curriculum): Observable<Curriculum> {
-    // const headers = new HttpHeaders({'': ''})
     return this.httpClient.post<Curriculum>(this.cvUrl, { cv });
   }
 

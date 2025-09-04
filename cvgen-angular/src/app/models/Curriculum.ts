@@ -7,6 +7,7 @@ export interface Curriculum {
   id: number;
   fullName: string;
   title: string;
+  email: string;
   locationCity: string;
   locationCountry: string;
   summary: string;
