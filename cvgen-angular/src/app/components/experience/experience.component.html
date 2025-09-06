@@ -1,0 +1,84 @@
+<div [formGroup]="group">
+  <!-- Posición -->
+  <div class="mb-3">
+    <label for="position" class="form-label">Posición <span class="mandatory">*</span></label>
+    <div class="flex flex-col gap-1">
+      <input pInputText formControlName="position" id="position" placeholder="Introduce la posición"
+        [ngClass]="isInvalid('position') ? 'ng-invalid ng-dirty' : ''">
+      @if (isInvalid('position')) {
+      <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
+      }
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Empresa -->
+    <div class="mb-3 col-md-6">
+      <label for="company" class="form-label">Empresa <span class="mandatory">*</span></label>
+      <div class="flex flex-col gap-1">
+        <input pInputText formControlName="company" id="company" placeholder="Nombre de la empresa"
+          [ngClass]="isInvalid('company') ? 'ng-invalid ng-dirty' : ''">
+        @if (isInvalid('company')) {
+        <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
+        }
+      </div>
+    </div>
+
+    <!-- Ubicación -->
+    <div class="mb-3 col-md-6">
+      <label for="location" class="form-label">Ubicación</label>
+      <div class="flex flex-col gap-1">
+        <input pInputText formControlName="location" id="location" placeholder="Ubicación de la empresa">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Fecha de inicio -->
+    <div class="mb-3 col-md-6">
+      <label for="startDate" class="form-label">Fecha de inicio <span class="mandatory">*</span></label>
+      <div class="flex flex-col gap-1">
+        <p-datepicker formControlName="startDate" id="startDate" [showIcon]="true" inputId="startDate"
+          [showOnFocus]="false" dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa"
+          [ngClass]="isInvalid('startDate') ? 'ng-invalid ng-dirty' : ''" />
+        @if (isInvalid('startDate')) {
+        <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
+        }
+      </div>
+    </div>
+
+    <!-- Fecha de fin -->
+    <div class="mb-3 col-md-6">
+      <label for="endDate" class="form-label">Fecha de fin</label>
+      <div class="flex flex-col gap-1">
+        <p-datepicker formControlName="endDate" id="endDate" [showIcon]="true" inputId="endDate" [showOnFocus]="false"
+          dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Descripción de la experiencia -->
+  <div class="mb-3">
+    <label for="description" class="form-label">Descripción</label>
+    <div class="flex flex-col gap-1">
+      <textarea pTextarea rows="5" cols="30" id="description" formControlName="description" [autoResize]="true"
+        placeholder="Introduce una breve descripción sobre la experiencia profesional"></textarea>
+    </div>
+  </div>
+
+  <!-- Logros o puntos a destacar -->
+  <div formArrayName="highlights" class="mb-1">
+    <h4>Logros</h4>
+    <p>Añade logros o hitos que destaquen tu contribución en este puesto (proyectos, mejoras, reconocimientos, etc.).
+    </p>
+
+    @for (hl of highlights.controls; track highlights; let idx = $index) {
+    <div class="d-flex mb-3">
+      <input pInputText [formControlName]="idx" [id]="idx" placeholder="Introduce un logro o momento relevante">
+      <p-button (click)="removeHighlight(idx)" icon="pi pi-trash" severity="danger" styleClass="removeItem"></p-button>
+    </div>
+    }
+
+    <p-button label="Añadir logro" (click)="addHighlight()" icon="pi pi-plus" severity="success"></p-button>
+  </div>
+</div>

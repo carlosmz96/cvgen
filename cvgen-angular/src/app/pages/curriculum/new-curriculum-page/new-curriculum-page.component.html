@@ -75,25 +75,53 @@
     <div class="mb-3">
       <label for="summary" class="form-label">Resumen profesional</label>
       <div class="flex flex-col gap-1">
-        <textarea pTextarea rows="5" cols="30" id="summary" formControlName="summary" [autoResize]="true"></textarea>
+        <textarea pTextarea rows="5" cols="30" id="summary" formControlName="summary" [autoResize]="true"
+          placeholder="Introduce un breve resumen de tu carrera profesional"></textarea>
       </div>
     </div>
 
+    <hr>
+
     <h2 class="mb-3">Experiencia profesional</h2>
 
-    <p>...</p>
+    <p>Añade aquí tus experiencias profesionales más relevantes. Incluye el puesto, la empresa, las fechas y una breve
+      descripción de tus logros principales.</p>
+
+    <div formArrayName="experiences" class="mb-3">
+      @for (exp of experiences.controls; track idx; let idx = $index) {
+      <div [formGroupName]="idx" class="exp-card">
+        <div class="space-between">
+          <h3>{{ exp.get('position')?.value || 'Nueva experiencia' }}</h3>
+          <p-button label="Descartar" icon="pi pi-trash" severity="danger" (click)="removeExperience(idx)"
+          type="button" [ngStyle]="{'margin-left': 'auto'}"></p-button>
+        </div>
+        <hr>
+        <app-experience [group]="exp"></app-experience>
+      </div>
+      }
+    </div>
+
+    <p-button label="Añadir experiencia" icon="pi pi-plus" severity="success" (click)="addExperience()"></p-button>
+
+    <hr>
 
     <h2 class="mb-3">Habilidades</h2>
 
     <p>...</p>
 
+    <hr>
+
     <h2 class="mb-3">Educación</h2>
 
     <p>...</p>
 
+    <hr>
+
     <h2 class="mb-3">Certificaciones</h2>
 
     <p>...</p>
+
+    <hr>
 
     <h2 class="mb-3">Contacto y presencia online</h2>
 
@@ -132,5 +160,9 @@
         }
       </div>
     </div>
+
+    <hr>
+
+    <p-button label="Guardar CV" type="submit" icon="pi pi-check" severity="success"></p-button>
   </form>
 </div>
