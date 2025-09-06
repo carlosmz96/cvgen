@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import org.hibernate.validator.constraints.URL;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -25,20 +24,17 @@ public class CertificationDTO {
 
     private Long id;
 
-    @JsonIgnore
-    private CurriculumDTO curriculum;
-
     @NotBlank @Size(max = 200)
     private String name;
 
     @NotBlank @Size(max = 200)
     private String issuer;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @NotNull
     private LocalDate dateObtained;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate validUntil;
 
     @Size(max = 120)

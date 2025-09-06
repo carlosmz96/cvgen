@@ -52,6 +52,7 @@ public class Experience {
     @Column(name = "end_date")
     private LocalDate endDate;
 
+    @Column(length = 3000)
     private String description; // texto libre
 
     @ElementCollection

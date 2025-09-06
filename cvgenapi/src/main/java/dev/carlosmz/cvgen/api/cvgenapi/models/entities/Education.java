@@ -51,6 +51,7 @@ public class Education {
     @Column(name = "end_date")
     private LocalDate endDate;
 
+    @Column(length = 2000)
     private String description; // detalles relevantes, proyectos, nota media...
 
 }

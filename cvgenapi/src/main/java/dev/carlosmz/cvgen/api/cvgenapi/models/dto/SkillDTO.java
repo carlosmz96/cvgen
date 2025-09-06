@@ -1,7 +1,5 @@
 package dev.carlosmz.cvgen.api.cvgenapi.models.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -18,9 +16,6 @@ import lombok.Setter;
 public class SkillDTO {
 
     private Long id;
-
-    @JsonIgnore
-    private CurriculumDTO curriculum;
 
     @NotBlank @Size(max = 100)
     private String name;

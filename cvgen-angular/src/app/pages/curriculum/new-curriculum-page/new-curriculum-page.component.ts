@@ -1,18 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Curriculum } from './../../../models/Curriculum';
 
+import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
-import { ButtonModule } from 'primeng/button';
 
-import { CountryService } from '../../../services/country/country.service';
+import { CertificationComponent } from "../../../components/certification/certification.component";
+import { EducationComponent } from "../../../components/education/education.component";
 import { ExperienceComponent } from "../../../components/experience/experience.component";
 import { SkillComponent } from "../../../components/skill/skill.component";
-import { EducationComponent } from "../../../components/education/education.component";
-import { CertificationComponent } from "../../../components/certification/certification.component";
+
+import { CountryService } from '../../../services/country/country.service';
+import { CurriculumService } from '../../../services/curriculum/curriculum.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-curriculum-page',
@@ -28,7 +32,7 @@ import { CertificationComponent } from "../../../components/certification/certif
     SkillComponent,
     EducationComponent,
     CertificationComponent
-],
+  ],
   templateUrl: './new-curriculum-page.component.html',
   styleUrl: './new-curriculum-page.component.scss'
 })
@@ -38,9 +42,30 @@ export class NewCurriculumPageComponent {
 
   countries: string[] = [];
 
+  curriculum: Curriculum = {
+    id: 0,
+    fullName: '',
+    title: '',
+    email: '',
+    locationCity: '',
+    locationCountry: '',
+    summary: '',
+    createdAt: new Date(),
+    updated: new Date(),
+    experiences: [],
+    skills: [],
+    educations: [],
+    certifications: [],
+    linkedinUrl: '',
+    githubUrl: '',
+    portfolioUrl: '',
+  };
+
   constructor(
     private fb: FormBuilder,
-    private countryService: CountryService
+    private countryService: CountryService,
+    private cvService: CurriculumService,
+    private router: Router
   ) {
     this.cvForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.maxLength(200)]],
@@ -80,7 +105,40 @@ export class NewCurriculumPageComponent {
   }
 
   onSubmit(): void {
-    console.log(this.cvForm);
+    const raw = this.cvForm.getRawValue();
+
+    // transformar fechas
+    raw.experiences = raw.experiences.map((e: any) => ({
+      ...e,
+      startDate: this.toDateOnly(e.startDate),
+      endDate: this.toDateOnly(e.endDate)
+    }));
+
+    raw.educations = raw.educations.map((e: any) => ({
+      ...e,
+      startDate: this.toDateOnly(e.startDate),
+      endDate: this.toDateOnly(e.endDate)
+    }));
+
+    raw.certifications = raw.certifications.map((c: any) => ({
+      ...c,
+      dateObtained: this.toDateOnly(c.dateObtained),
+      validUntil: this.toDateOnly(c.validUntil)
+    }));
+
+    this.curriculum = raw;
+    console.log(this.curriculum)
+    this.cvService.createCurriculum(this.curriculum).subscribe(
+      {
+        next: (data: Curriculum) => {
+          console.log(data);
+          this.router.navigateByUrl('/curriculum/details/' + data.id);
+        },
+        error: err => {
+          console.error('Error al obtener el currículum: ', err);
+        }
+      }
+    );
   }
 
   isInvalid(field: string): boolean {
@@ -170,6 +228,16 @@ export class NewCurriculumPageComponent {
 
   removeCertification(index: number) {
     this.certifications.removeAt(index);
+  }
+
+  private toDateOnly(value: any): string | null {
+    if (!value) return null;
+    // Si ya es string con formato yyyy-MM-dd lo dejamos
+    if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
+      return value;
+    }
+    // Si es Date → cortamos solo la parte de fecha
+    return new Date(value).toISOString().split('T')[0];
   }
 
 }

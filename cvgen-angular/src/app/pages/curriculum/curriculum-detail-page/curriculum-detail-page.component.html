@@ -1,1 +1,221 @@
-<p>curriculum-detail-page works!</p>
+<div class="container mt-5">
+  <h1>Detalles del currículum</h1>
+
+  <form [formGroup]="cvForm" (ngSubmit)="onSubmit()" class="mb-5">
+    <h2 class="mb-3">Datos personales</h2>
+
+    <!-- Nombre completo -->
+    <div class="mb-3">
+      <label for="fullName" class="form-label">Nombre completo <span class="mandatory">*</span></label>
+      <div class="flex flex-col gap-1">
+        <input pInputText type="text" id="fullName" placeholder="Introduce tu nombre completo"
+          formControlName="fullName" [ngClass]="isInvalid('fullName') ? 'ng-invalid ng-dirty' : ''" />
+        @if (isInvalid('fullName')) {
+        <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
+        }
+      </div>
+    </div>
+
+    <!-- Título profesional -->
+    <div class="mb-3">
+      <label for="title" class="form-label">Título profesional <span class="mandatory">*</span></label>
+      <div class="flex flex-col gap-1">
+        <input pInputText type="text" id="title" placeholder="Introduce tu título profesional" formControlName="title"
+          [ngClass]="isInvalid('title') ? 'ng-invalid ng-dirty' : ''" />
+        @if (isInvalid('title')) {
+        <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
+        }
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="mb-3">
+      <label for="email" class="form-label">Correo electrónico <span class="mandatory">*</span></label>
+      <div class="flex flex-col gap-1">
+        <input pInputText type="email" id="email" placeholder="Introduce tu correo electrónico" formControlName="email"
+          [ngClass]="isInvalid('email') ? 'ng-invalid ng-dirty' : ''" />
+        @if (isInvalid('email')) {
+        <p-message severity="error" size="small" variant="simple">El correo electrónico no es válido</p-message>
+        }
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Localidad -->
+      <div class="mb-3 col-md-6">
+        <label for="locationCity" class="form-label">Localidad <span class="mandatory">*</span></label>
+        <div class="flex flex-col gap-1">
+          <input pInputText type="text" id="locationCity" placeholder="Introduce tu localidad"
+            formControlName="locationCity" [ngClass]="isInvalid('locationCity') ? 'ng-invalid ng-dirty' : ''" />
+          @if (isInvalid('locationCity')) {
+          <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
+          }
+        </div>
+      </div>
+
+      <!-- País -->
+      <div class="mb-3 col-md-6">
+        <label for="locationCountry" class="form-label">País <span class="mandatory">*</span></label>
+        <div class="flex flex-col gap-1">
+          <p-select [options]="countries" [filter]="true" formControlName="locationCountry"
+            placeholder="Selecciona un país">
+            <ng-template let-country #item>
+              {{ country }}
+            </ng-template>
+          </p-select>
+          @if (isInvalid('locationCountry')) {
+          <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Resumen profesional -->
+    <div class="mb-3">
+      <label for="summary" class="form-label">Resumen profesional</label>
+      <div class="flex flex-col gap-1">
+        <textarea pTextarea rows="5" cols="30" id="summary" formControlName="summary" [autoResize]="true"
+          placeholder="Introduce un breve resumen de tu carrera profesional"></textarea>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Experiencia profesional -->
+    <h2 class="mb-3">Experiencia profesional</h2>
+
+    <p>Añade aquí tus experiencias profesionales más relevantes. Incluye el puesto, la empresa, las fechas y una breve
+      descripción junto con tus logros principales.</p>
+
+    <div formArrayName="experiences" class="mb-3">
+      @for (exp of experiences.controls; track idx; let idx = $index) {
+      <div [formGroupName]="idx" class="list-card">
+        <div class="space-between">
+          <h3>{{ exp.get('position')?.value || 'Nueva experiencia' }}</h3>
+          <p-button label="Descartar" icon="pi pi-trash" severity="danger" (click)="removeExperience(idx)" type="button"
+            [ngStyle]="{'margin-left': 'auto'}"></p-button>
+        </div>
+        <hr>
+        <app-experience [group]="exp"></app-experience>
+      </div>
+      }
+    </div>
+
+    <p-button label="Añadir experiencia" icon="pi pi-plus" severity="success" (click)="addExperience()"></p-button>
+
+    <hr>
+
+    <h2 class="mb-3">Habilidades</h2>
+
+    <p>Indica aquí tus principales habilidades técnicas y personales. Selecciona aquellas que mejor representen tu
+      perfil profesional y que aporten valor al puesto al que aspiras.</p>
+
+    <div formArrayName="skills" class="mb-3">
+      @for (skill of skills.controls; track idx; let idx = $index) {
+      <div [formGroupName]="idx" class="list-card">
+        <div class="space-between">
+          <h3>{{ skill.get('name')?.value || 'Nueva habilidad' }}</h3>
+          <p-button label="Descartar" icon="pi pi-trash" severity="danger" (click)="removeSkill(idx)" type="button"
+            [ngStyle]="{'margin-left': 'auto'}"></p-button>
+        </div>
+        <hr>
+        <app-skill [group]="skill"></app-skill>
+      </div>
+      }
+    </div>
+
+    <p-button label="Añadir habilidad" icon="pi pi-plus" severity="success" (click)="addSkill()"></p-button>
+
+    <hr>
+
+    <h2 class="mb-3">Educación</h2>
+
+    <p>Incluye tu formación académica: grado o título, campo de estudio, institución, ubicación y fechas. Puedes añadir
+      una breve descripción de los contenidos o logros más relevantes.</p>
+
+    <div formArrayName="educations" class="mb-3">
+      @for (edu of educations.controls; track idx; let idx = $index) {
+      <div [formGroupName]="idx" class="list-card">
+        <div class="space-between">
+          <h3>{{ edu.get('degree')?.value || 'Nueva educación' }}</h3>
+          <p-button label="Descartar" icon="pi pi-trash" severity="danger" (click)="removeEducation(idx)" type="button"
+            [ngStyle]="{'margin-left': 'auto'}"></p-button>
+        </div>
+        <hr>
+        <app-education [group]="edu"></app-education>
+      </div>
+      }
+    </div>
+
+    <p-button label="Añadir educación" icon="pi pi-plus" severity="success" (click)="addEducation()"></p-button>
+
+    <hr>
+
+    <h2 class="mb-3">Certificaciones</h2>
+
+    <p>Añade aquí las certificaciones y credenciales que avalan tu formación y competencias. Indica el nombre de la
+      certificación, la institución que la expide, la fecha de obtención y, si aplica, la fecha de validez. También
+      puedes incluir el ID de la credencial y un enlace para verificarla.</p>
+
+    <div formArrayName="certifications" class="mb-3">
+      @for (cer of certifications.controls; track idx; let idx = $index) {
+      <div [formGroupName]="idx" class="list-card">
+        <div class="space-between">
+          <h3>{{ cer.get('name')?.value || 'Nueva certificación' }}</h3>
+          <p-button label="Descartar" icon="pi pi-trash" severity="danger" (click)="removeCertification(idx)"
+            type="button" [ngStyle]="{'margin-left': 'auto'}"></p-button>
+        </div>
+        <hr>
+        <app-certification [group]="cer"></app-certification>
+      </div>
+      }
+    </div>
+
+    <p-button label="Añadir certificación" icon="pi pi-plus" severity="success" (click)="addCertification()"></p-button>
+
+    <hr>
+
+    <h2 class="mb-3">Contacto y presencia online</h2>
+
+    <!-- URL Linkedin -->
+    <div class="mb-3">
+      <label for="linkedinUrl" class="form-label">URL Linkedin</label>
+      <div class="flex flex-col gap-1">
+        <input pInputText type="text" id="linkedinUrl" placeholder="Introduce la URL de tu perfil de Linkedin"
+          formControlName="linkedinUrl" [ngClass]="isInvalid('linkedinUrl') ? 'ng-invalid ng-dirty' : ''" />
+        @if (isInvalid('linkedinUrl')) {
+        <p-message severity="error" size="small" variant="simple">La URL no es válida</p-message>
+        }
+      </div>
+    </div>
+
+    <!-- URL github -->
+    <div class="mb-3">
+      <label for="githubUrl" class="form-label">URL Github</label>
+      <div class="flex flex-col gap-1">
+        <input pInputText type="text" id="githubUrl" placeholder="Introduce la URL de tu perfil de Github"
+          formControlName="githubUrl" [ngClass]="isInvalid('githubUrl') ? 'ng-invalid ng-dirty' : ''" />
+        @if (isInvalid('githubUrl')) {
+        <p-message severity="error" size="small" variant="simple">La URL no es válida</p-message>
+        }
+      </div>
+    </div>
+
+    <!-- URL portfolio -->
+    <div class="mb-3">
+      <label for="portfolioUrl" class="form-label">URL Portfolio</label>
+      <div class="flex flex-col gap-1">
+        <input pInputText type="text" id="portfolioUrl" placeholder="Introduce la URL de tu portfolio"
+          formControlName="portfolioUrl" [ngClass]="isInvalid('portfolioUrl') ? 'ng-invalid ng-dirty' : ''" />
+        @if (isInvalid('portfolioUrl')) {
+        <p-message severity="error" size="small" variant="simple">La URL no es válida</p-message>
+        }
+      </div>
+    </div>
+
+    <hr>
+
+    <p-button label="Guardar CV" type="submit" icon="pi pi-check" severity="success"></p-button>
+    <p-button label="Descargar CV" icon="pi pi-save" severity="info"></p-button>
+  </form>
+</div>

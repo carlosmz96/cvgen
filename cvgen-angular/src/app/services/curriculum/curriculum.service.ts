@@ -20,11 +20,11 @@ export class CurriculumService {
   }
 
   createCurriculum(cv: Curriculum): Observable<Curriculum> {
-    return this.httpClient.post<Curriculum>(this.cvUrl, { cv });
+    return this.httpClient.post<Curriculum>(this.cvUrl, cv);
   }
 
   updateCurriculum(cv: Curriculum, id: number): Observable<Curriculum> {
-    return this.httpClient.put<Curriculum>(this.cvUrl + `/${id}`, { cv });
+    return this.httpClient.put<Curriculum>(this.cvUrl + `/${id}`, cv);
   }
 
   deleteCurriculum(id: number): Observable<any> {

@@ -3,7 +3,6 @@ package dev.carlosmz.cvgen.api.cvgenapi.models.dto;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -23,9 +22,6 @@ public class EducationDTO {
 
     private Long id;
 
-    @JsonIgnore
-    private CurriculumDTO curriculum;
-
     @NotBlank @Size(max = 150)
     private String degree;
 
@@ -38,11 +34,11 @@ public class EducationDTO {
     @Size(max = 150)
     private String location;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @NotNull
     private LocalDate startDate;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 
     @Size(max = 2000)

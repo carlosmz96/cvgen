@@ -11,7 +11,7 @@ export const routes: Routes = [
     path: 'curriculum', children: [
       { path: '', redirectTo: 'new', pathMatch: 'full' },
       { path: 'new', component: NewCurriculumPageComponent },
-      { path: 'detail/:id', component: CurriculumDetailPageComponent }
+      { path: 'details/:id', component: CurriculumDetailPageComponent }
     ]
   },
   {

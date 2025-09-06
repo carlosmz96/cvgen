@@ -39,8 +39,14 @@ public class CurriculumController {
         return ResponseEntity.status(HttpStatus.CREATED).body(curriculumService.createCurriculum(dto));
     }
 
+    @PostMapping("/echo")
+    public String echo(@Valid @RequestBody String raw) {
+        return raw;
+    }
+
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CurriculumDTO> updateCurriculum(@Valid @RequestBody CurriculumDTO dto, @PathVariable Long id) {
+    public ResponseEntity<CurriculumDTO> updateCurriculum(@Valid @RequestBody CurriculumDTO dto,
+            @PathVariable Long id) {
         if (dto.getId() != null && !dto.getId().equals(id)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }

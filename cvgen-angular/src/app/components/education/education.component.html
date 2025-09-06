@@ -53,7 +53,7 @@
       <label for="startDate" class="form-label">Fecha de inicio <span class="mandatory">*</span></label>
       <div class="flex flex-col gap-1">
         <p-datepicker formControlName="startDate" id="startDate" [showIcon]="true" inputId="startDate"
-          [showOnFocus]="false" dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa"
+          [showOnFocus]="false" dateFormat="mm/yy" placeholder="mm/aaaa"
           [ngClass]="isInvalid('startDate') ? 'ng-invalid ng-dirty' : ''" />
         @if (isInvalid('startDate')) {
         <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
@@ -66,7 +66,7 @@
       <label for="endDate" class="form-label">Fecha de fin</label>
       <div class="flex flex-col gap-1">
         <p-datepicker formControlName="endDate" id="endDate" [showIcon]="true" inputId="endDate" [showOnFocus]="false"
-          dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa" />
+          dateFormat="mm/yy" placeholder="mm/aaaa" />
       </div>
     </div>
   </div>

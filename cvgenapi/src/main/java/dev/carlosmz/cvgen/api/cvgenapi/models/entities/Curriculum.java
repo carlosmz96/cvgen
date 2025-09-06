@@ -49,6 +49,7 @@ public class Curriculum {
     @Column(name = "location_country", nullable = false)
     private String locationCountry;
 
+    @Column(length = 2000)
     private String summary; // perfil profesional
 
     @Column(name = "linkedin_url")

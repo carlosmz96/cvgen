@@ -31,7 +31,7 @@
       <label for="dateObtained" class="form-label">Fecha de obtención <span class="mandatory">*</span></label>
       <div class="flex flex-col gap-1">
         <p-datepicker formControlName="dateObtained" id="dateObtained" [showIcon]="true" inputId="dateObtained"
-          [showOnFocus]="false" dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa"
+          [showOnFocus]="false" dateFormat="mm/yy" placeholder="mm/aaaa"
           [ngClass]="isInvalid('dateObtained') ? 'ng-invalid ng-dirty' : ''" />
         @if (isInvalid('dateObtained')) {
         <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
@@ -44,7 +44,7 @@
       <label for="validUntil" class="form-label">Válido hasta</label>
       <div class="flex flex-col gap-1">
         <p-datepicker formControlName="validUntil" id="validUntil" [showIcon]="true" inputId="validUntil"
-          [showOnFocus]="false" dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa" />
+          [showOnFocus]="false" dateFormat="mm/yy" placeholder="mm/aaaa" />
       </div>
     </div>
   </div>
