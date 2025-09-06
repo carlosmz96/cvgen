@@ -1,0 +1,36 @@
+<div [formGroup]="group">
+  <!-- Nombre -->
+  <div class="mb-3">
+    <label for="name" class="form-label">Nombre <span class="mandatory">*</span></label>
+    <div class="flex flex-col gap-1">
+      <input pInputText formControlName="name" id="name" placeholder="Nombre de habilidad"
+        [ngClass]="isInvalid('name') ? 'ng-invalid ng-dirty' : ''">
+      @if (isInvalid('name')) {
+      <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
+      }
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Nivel -->
+    <div class="mb-3 col-md-6">
+      <label for="level" class="form-label">Nivel <span class="mandatory">*</span></label>
+      <div class="flex flex-col gap-1">
+        <p-select [options]="levels" formControlName="level" optionLabel="label" optionValue="value"
+          placeholder="Selecciona el nivel">
+          <ng-template let-level #item>
+            {{ level.label }}
+          </ng-template>
+        </p-select>
+      </div>
+    </div>
+
+    <!-- Categoría -->
+    <div class="mb-3 col-md-6">
+      <label for="category" class="form-label">Categoría</label>
+      <div class="flex flex-col gap-1">
+        <input pInputText formControlName="category" id="category" placeholder="Indica la categoría">
+      </div>
+    </div>
+  </div>
+</div>

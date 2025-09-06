@@ -10,6 +10,7 @@ import { ButtonModule } from 'primeng/button';
 
 import { CountryService } from '../../../services/country/country.service';
 import { ExperienceComponent } from "../../../components/experience/experience.component";
+import { SkillComponent } from "../../../components/skill/skill.component";
 
 @Component({
   selector: 'app-new-curriculum-page',
@@ -21,8 +22,9 @@ import { ExperienceComponent } from "../../../components/experience/experience.c
     SelectModule,
     TextareaModule,
     ButtonModule,
-    ExperienceComponent
-  ],
+    ExperienceComponent,
+    SkillComponent
+],
   templateUrl: './new-curriculum-page.component.html',
   styleUrl: './new-curriculum-page.component.scss'
 })
@@ -44,6 +46,7 @@ export class NewCurriculumPageComponent {
       locationCountry: ['', [Validators.required, Validators.maxLength(120)]],
       summary: ['', Validators.maxLength(2000)],
       experiences: this.fb.array([]),
+      skills: this.fb.array([]),
       linkedinUrl: ['', [Validators.pattern(/^https?:\/\//), Validators.maxLength(512)]],
       githubUrl: ['', [Validators.pattern(/^https?:\/\//), Validators.maxLength(512)]],
       portfolioUrl: ['', [Validators.pattern(/^https?:\/\//), Validators.maxLength(512)]]
@@ -53,7 +56,7 @@ export class NewCurriculumPageComponent {
   }
 
   ngOnInit(): void {
-    // this.addExperience()
+
   }
 
   private getCountries(): void {
@@ -100,6 +103,24 @@ export class NewCurriculumPageComponent {
 
   removeExperience(index: number) {
     this.experiences.removeAt(index);
+  }
+
+  // ======= Skills =======
+  get skills(): FormArray<FormGroup> {
+    return this.cvForm.get('skills') as FormArray;
+  }
+
+  addSkill() {
+    const skillGroup = this.fb.group({
+      name: ['', Validators.required],
+      level: [''],
+      category: ['']
+    });
+    this.skills.push(skillGroup);
+  }
+
+  removeSkill(index: number) {
+    this.skills.removeAt(index);
   }
 
 }

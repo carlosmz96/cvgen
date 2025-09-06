@@ -82,18 +82,19 @@
 
     <hr>
 
+    <!-- Experiencia profesional -->
     <h2 class="mb-3">Experiencia profesional</h2>
 
     <p>Añade aquí tus experiencias profesionales más relevantes. Incluye el puesto, la empresa, las fechas y una breve
-      descripción de tus logros principales.</p>
+      descripción junto con tus logros principales.</p>
 
     <div formArrayName="experiences" class="mb-3">
       @for (exp of experiences.controls; track idx; let idx = $index) {
-      <div [formGroupName]="idx" class="exp-card">
+      <div [formGroupName]="idx" class="list-card">
         <div class="space-between">
           <h3>{{ exp.get('position')?.value || 'Nueva experiencia' }}</h3>
-          <p-button label="Descartar" icon="pi pi-trash" severity="danger" (click)="removeExperience(idx)"
-          type="button" [ngStyle]="{'margin-left': 'auto'}"></p-button>
+          <p-button label="Descartar" icon="pi pi-trash" severity="danger" (click)="removeExperience(idx)" type="button"
+            [ngStyle]="{'margin-left': 'auto'}"></p-button>
         </div>
         <hr>
         <app-experience [group]="exp"></app-experience>
@@ -107,7 +108,24 @@
 
     <h2 class="mb-3">Habilidades</h2>
 
-    <p>...</p>
+    <p>Indica aquí tus principales habilidades técnicas y personales. Selecciona aquellas que mejor representen tu
+      perfil profesional y que aporten valor al puesto al que aspiras.</p>
+
+    <div formArrayName="skills" class="mb-3">
+      @for (skill of skills.controls; track idx; let idx = $index) {
+      <div [formGroupName]="idx" class="list-card">
+        <div class="space-between">
+          <h3>{{ skill.get('name')?.value || 'Nueva habilidad' }}</h3>
+          <p-button label="Descartar" icon="pi pi-trash" severity="danger" (click)="removeSkill(idx)" type="button"
+            [ngStyle]="{'margin-left': 'auto'}"></p-button>
+        </div>
+        <hr>
+        <app-skill [group]="skill"></app-skill>
+      </div>
+      }
+    </div>
+
+    <p-button label="Añadir habilidad" icon="pi pi-plus" severity="success" (click)="addSkill()"></p-button>
 
     <hr>
 
