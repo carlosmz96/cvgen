@@ -1,1 +1,69 @@
-<p>certification works!</p>
+<div [formGroup]="group">
+  <div class="row">
+    <!-- Nombre -->
+    <div class="mb-3 col-md-6">
+      <label for="name" class="form-label">Nombre <span class="mandatory">*</span></label>
+      <div class="flex flex-col gap-1">
+        <input pInputText formControlName="name" id="name" placeholder="Nombre de la certificación"
+          [ngClass]="isInvalid('name') ? 'ng-invalid ng-dirty' : ''">
+        @if (isInvalid('name')) {
+        <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
+        }
+      </div>
+    </div>
+
+    <!-- Emisor -->
+    <div class="mb-3 col-md-6">
+      <label for="issuer" class="form-label">Emisor <span class="mandatory">*</span></label>
+      <div class="flex flex-col gap-1">
+        <input pInputText formControlName="issuer" id="issuer" placeholder="Empresa o institución emisora"
+          [ngClass]="isInvalid('issuer') ? 'ng-invalid ng-dirty' : ''">
+        @if (isInvalid('issuer')) {
+        <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Fecha de obtención -->
+    <div class="mb-3 col-md-6">
+      <label for="dateObtained" class="form-label">Fecha de obtención <span class="mandatory">*</span></label>
+      <div class="flex flex-col gap-1">
+        <p-datepicker formControlName="dateObtained" id="dateObtained" [showIcon]="true" inputId="dateObtained"
+          [showOnFocus]="false" dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa"
+          [ngClass]="isInvalid('dateObtained') ? 'ng-invalid ng-dirty' : ''" />
+        @if (isInvalid('dateObtained')) {
+        <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
+        }
+      </div>
+    </div>
+
+    <!-- Válido hasta -->
+    <div class="mb-3 col-md-6">
+      <label for="validUntil" class="form-label">Válido hasta</label>
+      <div class="flex flex-col gap-1">
+        <p-datepicker formControlName="validUntil" id="validUntil" [showIcon]="true" inputId="validUntil"
+          [showOnFocus]="false" dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa" />
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- ID de credencial -->
+    <div class="mb-3 col-md-6">
+      <label for="credentialId" class="form-label">ID de credencial</label>
+      <div class="flex flex-col gap-1">
+        <input pInputText formControlName="credentialId" id="credentialId" placeholder="ID de credencial">
+      </div>
+    </div>
+
+    <!-- URL de credencial -->
+    <div class="mb-3 col-md-6">
+      <label for="credentialUrl" class="form-label">URL de credencial</label>
+      <div class="flex flex-col gap-1">
+        <input pInputText formControlName="credentialUrl" id="credentialUrl" placeholder="URL de credencial">
+      </div>
+    </div>
+  </div>
+</div>

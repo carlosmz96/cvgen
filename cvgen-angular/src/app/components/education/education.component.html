@@ -1,1 +1,82 @@
-<p>education works!</p>
+<div [formGroup]="group">
+  <div class="row">
+    <!-- Grado -->
+    <div class="mb-3 col-md-6">
+      <label for="degree" class="form-label">Grado <span class="mandatory">*</span></label>
+      <div class="flex flex-col gap-1">
+        <input pInputText formControlName="degree" id="degree" placeholder="Nombre del grado o título"
+          [ngClass]="isInvalid('degree') ? 'ng-invalid ng-dirty' : ''">
+        @if (isInvalid('degree')) {
+        <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
+        }
+      </div>
+    </div>
+
+    <!-- Campo de estudio -->
+    <div class="mb-3 col-md-6">
+      <label for="educationField" class="form-label">Campo <span class="mandatory">*</span></label>
+      <div class="flex flex-col gap-1">
+        <input pInputText formControlName="educationField" id="educationField" placeholder="Campo de educación"
+          [ngClass]="isInvalid('educationField') ? 'ng-invalid ng-dirty' : ''">
+        @if (isInvalid('educationField')) {
+        <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Institución -->
+    <div class="mb-3 col-md-6">
+      <label for="institution" class="form-label">Institución <span class="mandatory">*</span></label>
+      <div class="flex flex-col gap-1">
+        <input pInputText formControlName="institution" id="institution" placeholder="Nombre de la institución"
+          [ngClass]="isInvalid('institution') ? 'ng-invalid ng-dirty' : ''">
+        @if (isInvalid('institution')) {
+        <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
+        }
+      </div>
+    </div>
+
+    <!-- Ubicación -->
+    <div class="mb-3 col-md-6">
+      <label for="location" class="form-label">Ubicación</label>
+      <div class="flex flex-col gap-1">
+        <input pInputText formControlName="location" id="location" placeholder="Ubicación de la institución">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Fecha de inicio -->
+    <div class="mb-3 col-md-6">
+      <label for="startDate" class="form-label">Fecha de inicio <span class="mandatory">*</span></label>
+      <div class="flex flex-col gap-1">
+        <p-datepicker formControlName="startDate" id="startDate" [showIcon]="true" inputId="startDate"
+          [showOnFocus]="false" dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa"
+          [ngClass]="isInvalid('startDate') ? 'ng-invalid ng-dirty' : ''" />
+        @if (isInvalid('startDate')) {
+        <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
+        }
+      </div>
+    </div>
+
+    <!-- Fecha de fin -->
+    <div class="mb-3 col-md-6">
+      <label for="endDate" class="form-label">Fecha de fin</label>
+      <div class="flex flex-col gap-1">
+        <p-datepicker formControlName="endDate" id="endDate" [showIcon]="true" inputId="endDate" [showOnFocus]="false"
+          dateFormat="dd/mm/yy" placeholder="dd/mm/aaaa" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Descripción -->
+  <div class="mb-3">
+    <label for="description" class="form-label">Descripción</label>
+    <div class="flex flex-col gap-1">
+      <textarea pTextarea rows="5" cols="30" id="description" formControlName="description" [autoResize]="true"
+        placeholder="Introduce una breve descripción sobre el grado o título"></textarea>
+    </div>
+  </div>
+</div>

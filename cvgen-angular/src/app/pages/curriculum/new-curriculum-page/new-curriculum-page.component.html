@@ -131,13 +131,48 @@
 
     <h2 class="mb-3">Educación</h2>
 
-    <p>...</p>
+    <p>Incluye tu formación académica: grado o título, campo de estudio, institución, ubicación y fechas. Puedes añadir
+      una breve descripción de los contenidos o logros más relevantes.</p>
+
+    <div formArrayName="educations" class="mb-3">
+      @for (edu of educations.controls; track idx; let idx = $index) {
+      <div [formGroupName]="idx" class="list-card">
+        <div class="space-between">
+          <h3>{{ edu.get('degree')?.value || 'Nueva educación' }}</h3>
+          <p-button label="Descartar" icon="pi pi-trash" severity="danger" (click)="removeEducation(idx)" type="button"
+            [ngStyle]="{'margin-left': 'auto'}"></p-button>
+        </div>
+        <hr>
+        <app-education [group]="edu"></app-education>
+      </div>
+      }
+    </div>
+
+    <p-button label="Añadir educación" icon="pi pi-plus" severity="success" (click)="addEducation()"></p-button>
 
     <hr>
 
     <h2 class="mb-3">Certificaciones</h2>
 
-    <p>...</p>
+    <p>Añade aquí las certificaciones y credenciales que avalan tu formación y competencias. Indica el nombre de la
+      certificación, la institución que la expide, la fecha de obtención y, si aplica, la fecha de validez. También
+      puedes incluir el ID de la credencial y un enlace para verificarla.</p>
+
+    <div formArrayName="certifications" class="mb-3">
+      @for (cer of certifications.controls; track idx; let idx = $index) {
+      <div [formGroupName]="idx" class="list-card">
+        <div class="space-between">
+          <h3>{{ cer.get('name')?.value || 'Nueva certificación' }}</h3>
+          <p-button label="Descartar" icon="pi pi-trash" severity="danger" (click)="removeCertification(idx)"
+            type="button" [ngStyle]="{'margin-left': 'auto'}"></p-button>
+        </div>
+        <hr>
+        <app-certification [group]="cer"></app-certification>
+      </div>
+      }
+    </div>
+
+    <p-button label="Añadir certificación" icon="pi pi-plus" severity="success" (click)="addCertification()"></p-button>
 
     <hr>
 
