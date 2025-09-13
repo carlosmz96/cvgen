@@ -4,3 +4,21 @@
   border-radius: 6px;
   margin-bottom: 1rem;
 }
+
+::ng-deep .p-accordionpanel {
+  border-style: none !important;
+}
+
+::ng-deep .p-accordionheader {
+  border: 1px solid #cbd5e1 !important;
+}
+
+::ng-deep .p-accordioncontent-content {
+  border: 1px solid #cbd5e1;
+  border-top: none !important;
+  padding-top: 1rem;
+}
+
+.space-between {
+  width: 100%;
+}

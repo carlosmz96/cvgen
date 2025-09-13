@@ -1,19 +1,24 @@
 import { Component, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CurriculumService } from '../../../services/curriculum/curriculum.service';
 import { ActivatedRoute } from '@angular/router';
-import { Curriculum } from '../../../models/Curriculum';
 import { CommonModule } from '@angular/common';
-import { MessageModule } from 'primeng/message';
-import { SelectModule } from 'primeng/select';
+
+import { CurriculumService } from '../../../services/curriculum/curriculum.service';
 import { CountryService } from '../../../services/country/country.service';
-import { TextareaModule } from 'primeng/textarea';
+
 import { ExperienceComponent } from '../../../components/experience/experience.component';
 import { SkillComponent } from '../../../components/skill/skill.component';
 import { EducationComponent } from '../../../components/education/education.component';
 import { CertificationComponent } from '../../../components/certification/certification.component';
+
+import { Curriculum } from '../../../models/Curriculum';
+
+import { MessageModule } from 'primeng/message';
+import { SelectModule } from 'primeng/select';
+import { TextareaModule } from 'primeng/textarea';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { AccordionModule } from 'primeng/accordion';
 
 @Component({
   selector: 'app-curriculum-detail-page',
@@ -25,6 +30,7 @@ import { InputTextModule } from 'primeng/inputtext';
     SelectModule,
     TextareaModule,
     ButtonModule,
+    AccordionModule,
     ExperienceComponent,
     SkillComponent,
     EducationComponent,
