@@ -24,37 +24,40 @@ public class CurriculumDTO {
 
     private Long id;
 
-    @NotBlank
-    @Size(max = 200)
+    @NotBlank(message = "{cv.fullName.notBlank}")
+    @Size(max = 200, message = "{cv.fullName.size}")
     private String fullName;
 
-    @NotBlank
-    @Size(max = 120)
+    @NotBlank(message = "{cv.title.notBlank}")
+    @Size(max = 120, message = "{cv.title.size}")
     private String title;
 
-    @NotBlank
-    @Email
-    @Size(max = 320)
+    @NotBlank(message = "{cv.email.notBlank}")
+    @Email(message = "{cv.email.email}")
+    @Size(max = 320, message = "{cv.email.size}")
     private String email;
 
-    @NotBlank
-    @Size(max = 120)
+    @NotBlank(message = "{cv.locationCity.notBlank}")
+    @Size(max = 120, message = "{cv.locationCity.size}")
     private String locationCity;
 
-    @NotBlank
-    @Size(max = 120)
+    @NotBlank(message = "{cv.locationCountry.notBlank}")
+    @Size(max = 120, message = "{cv.locationCountry.size}")
     private String locationCountry;
 
-    @Size(max = 2000)
+    @Size(max = 2000, message = "{cv.summary.size}")
     private String summary;
 
-    @URL @Size(max = 512)
+    @URL(message = "{cv.linkedinUrl.url}")
+    @Size(max = 512, message = "{cv.linkedinUrl.size}")
     private String linkedinUrl;
 
-    @URL @Size(max = 512)
+    @URL(message = "{cv.githubUrl.url}")
+    @Size(max = 512, message = "{cv.githubUrl.size}")
     private String githubUrl;
 
-    @URL @Size(max = 512)
+    @URL(message = "{cv.portfolioUrl.url}")
+    @Size(max = 512, message = "{cv.portfolioUrl.size}")
     private String portfolioUrl;
 
     private Instant createdAt;

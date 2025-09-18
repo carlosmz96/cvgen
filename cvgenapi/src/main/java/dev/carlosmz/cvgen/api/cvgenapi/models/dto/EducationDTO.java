@@ -22,26 +22,29 @@ public class EducationDTO {
 
     private Long id;
 
-    @NotBlank @Size(max = 150)
+    @NotBlank(message = "{edu.degree.notBlank}")
+    @Size(max = 150, message = "{edu.degree.size}")
     private String degree;
 
-    @NotBlank @Size(max = 150)
+    @NotBlank(message = "{edu.educationField.notBlank}")
+    @Size(max = 150, message = "{edu.educationField.size}")
     private String educationField;
 
-    @NotBlank @Size(max = 200)
+    @NotBlank(message = "{edu.institution.notBlank}")
+    @Size(max = 200, message = "{edu.institution.size}")
     private String institution;
 
-    @Size(max = 150)
+    @Size(max = 150, message = "{edu.location.size}")
     private String location;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    @NotNull
+    @NotNull(message = "{edu.startDate.notNull}")
     private LocalDate startDate;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 
-    @Size(max = 2000)
+    @Size(max = 2000, message = "{edu.description.size}")
     private String description;
 
 }

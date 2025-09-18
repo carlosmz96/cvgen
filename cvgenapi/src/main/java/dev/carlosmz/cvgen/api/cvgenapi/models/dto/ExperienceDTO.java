@@ -24,26 +24,28 @@ public class ExperienceDTO {
 
     private Long id;
 
-    @NotBlank @Size(max = 150)
+    @NotBlank(message = "{exp.position.notBlank}")
+    @Size(max = 150, message = "{exp.position.size}")
     private String position;
 
-    @NotBlank @Size(max = 150)
+    @NotBlank(message = "{exp.company.notBlank}")
+    @Size(max = 150, message = "{exp.company.size}")
     private String company;
 
-    @Size(max = 150)
+    @Size(max = 150, message = "{exp.location.size}")
     private String location;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    @NotNull
+    @NotNull(message = "{exp.startDate.notNull}")
     private LocalDate startDate;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 
-    @Size(max = 3000)
+    @Size(max = 3000, message = "{exp.description.size}")
     private String description;
 
     @Builder.Default
-    private List<@Size(max = 500) String> highlights = new ArrayList<>();
+    private List<@Size(max = 500, message = "{exp.highlight.size}") String> highlights = new ArrayList<>();
 
 }

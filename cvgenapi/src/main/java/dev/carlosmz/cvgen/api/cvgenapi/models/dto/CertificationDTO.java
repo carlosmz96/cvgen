@@ -24,23 +24,26 @@ public class CertificationDTO {
 
     private Long id;
 
-    @NotBlank @Size(max = 200)
+    @NotBlank(message = "{cert.name.notBlank}")
+    @Size(max = 200, message = "{cert.name.size}")
     private String name;
 
-    @NotBlank @Size(max = 200)
+    @NotBlank(message = "{cert.issuer.notBlank}")
+    @Size(max = 200, message = "{cert.issuer.size}")
     private String issuer;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    @NotNull
+    @NotNull(message = "{cert.dateObtained.notNull}")
     private LocalDate dateObtained;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate validUntil;
 
-    @Size(max = 120)
+    @Size(max = 120, message = "{cert.credentialId.size}")
     private String credentialId;
 
-    @URL @Size(max = 512)
+    @URL(message = "{cert.credencialUrl.url}")
+    @Size(max = 512, message = "{cert.credencialUrl.size}")
     private String credentialUrl;
 
 }

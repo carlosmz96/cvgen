@@ -17,13 +17,14 @@ public class SkillDTO {
 
     private Long id;
 
-    @NotBlank @Size(max = 100)
+    @NotBlank(message = "{skill.name.notBlank}")
+    @Size(max = 100, message = "{skill.name.size}")
     private String name;
 
-    @Size(max = 50)
+    @Size(max = 50, message = "{skill.level.size}")
     private String level;
 
-    @Size(max = 50)
+    @Size(max = 50, message = "{skill.category.size}")
     private String category;
 
 }
