@@ -35,7 +35,7 @@ public class Experience {
     private Long id;
 
     @JoinColumn(name = "curriculum_id")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Curriculum curriculum;
 
     @Column(nullable = false)
