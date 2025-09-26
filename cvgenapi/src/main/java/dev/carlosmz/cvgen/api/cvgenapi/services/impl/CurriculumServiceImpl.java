@@ -1,5 +1,6 @@
 package dev.carlosmz.cvgen.api.cvgenapi.services.impl;
 
+import java.time.Instant;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -48,7 +49,9 @@ public class CurriculumServiceImpl implements CurriculumService {
     public CurriculumDTO updateCurriculum(CurriculumDTO dto) {
         Optional<Curriculum> optCurriculum = curriculumRepository.findById(dto.getId());
         if (optCurriculum.isPresent()) {
-            return curriculumMapper.toDto(curriculumRepository.save(curriculumMapper.toEntity(dto)));
+            Curriculum curriculum = curriculumMapper.toEntity(dto);
+            curriculum.setUpdatedAt(Instant.now());
+            return curriculumMapper.toDto(curriculumRepository.save(curriculum));
         } else {
             throw new NoSuchElementException();
         }

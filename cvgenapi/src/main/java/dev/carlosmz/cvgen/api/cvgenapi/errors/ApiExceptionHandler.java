@@ -3,19 +3,20 @@ package dev.carlosmz.cvgen.api.cvgenapi.errors;
 import java.time.OffsetDateTime;
 import java.util.stream.Collectors;
 
-import jakarta.validation.ConstraintViolationException; // <-- VALIDACIÓN CORRECTA
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.ConstraintViolationException; // <-- VALIDACIÓN CORRECTA
 
 @RestControllerAdvice
 public class ApiExceptionHandler {

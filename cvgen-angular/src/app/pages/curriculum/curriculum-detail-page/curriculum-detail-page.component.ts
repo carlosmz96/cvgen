@@ -140,7 +140,16 @@ export class CurriculumDetailPageComponent {
   }
 
   onSubmit(): void {
-
+    this.cvService.updateCurriculum(this.curriculum, this.curriculumId).subscribe(
+      {
+        next: (data: Curriculum) => {
+          this.curriculum = data;
+        },
+        error: err => {
+          console.error('Error al modificar los datos del CV: ', err);
+        }
+      }
+    )
   }
 
   isInvalid(field: string): boolean {
