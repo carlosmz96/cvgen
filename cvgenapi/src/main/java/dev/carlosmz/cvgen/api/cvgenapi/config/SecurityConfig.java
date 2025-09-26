@@ -15,17 +15,19 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 public class SecurityConfig {
 
+    @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(Customizer.withDefaults())
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(
-                        auth -> auth
-                                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                                .anyRequest().permitAll());
+            .cors(Customizer.withDefaults())
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(
+                auth -> auth
+                    .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
+                    .requestMatchers(HttpMethod.GET,"/api/curriculums/**").permitAll()
+                    .anyRequest().authenticated());
         return http.build();
     }
-    
+
     @Bean
     CorsConfigurationSource corsConfigurationSource(CorsConfig corsConfig) {
         CorsConfiguration cors = new CorsConfiguration();
@@ -36,7 +38,7 @@ public class SecurityConfig {
         cors.setExposedHeaders(List.of("Location"));
         cors.setAllowCredentials(true);
         cors.setMaxAge(3600L);
-        
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/api/**", cors);
         return source;

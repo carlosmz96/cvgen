@@ -26,6 +26,7 @@ public class CurriculumController {
     @Autowired
     private CurriculumService curriculumService;
 
+    @GetMapping
     public Page<CurriculumDTO> list(Pageable pageable) {
         return curriculumService.findAll(pageable);
     }
