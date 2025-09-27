@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Curriculum } from '../../models/Curriculum';
 
@@ -29,6 +29,10 @@ export class CurriculumService {
 
   deleteCurriculum(id: number): Observable<any> {
     return this.httpClient.delete<any>(this.cvUrl + `${id}`);
+  }
+
+  downloadCurriculum(id: number, template: string): Observable<Blob> {
+    return this.httpClient.get(this.cvUrl + `/${id}/pdf?template=${template}`, { responseType: 'blob' });
   }
 
 }

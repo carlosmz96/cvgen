@@ -152,6 +152,24 @@ export class CurriculumDetailPageComponent {
     )
   }
 
+  downloadCvPdf(): void {
+    const template: string = 'classic';
+    this.cvService.downloadCurriculum(this.curriculumId, template).subscribe(
+      {
+        next: (data: Blob) => {
+          const url = window.URL.createObjectURL(data);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'cv-' + template + '.pdf';
+          a.click();
+        },
+        error: err => {
+          console.error('Error al descargar el CV: ', err);
+        }
+      }
+    )
+  }
+
   isInvalid(field: string): boolean {
     const fieldToCheck = this.cvForm.get(field);
     return fieldToCheck?.invalid! && fieldToCheck.touched;

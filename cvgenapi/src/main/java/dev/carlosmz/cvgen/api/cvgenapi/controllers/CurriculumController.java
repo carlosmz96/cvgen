@@ -3,6 +3,7 @@ package dev.carlosmz.cvgen.api.cvgenapi.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.carlosmz.cvgen.api.cvgenapi.models.dto.CurriculumDTO;
 import dev.carlosmz.cvgen.api.cvgenapi.services.CurriculumService;
+import dev.carlosmz.cvgen.api.cvgenapi.services.PdfService;
 import jakarta.validation.Valid;
 
 @RestController
@@ -25,6 +28,9 @@ public class CurriculumController {
 
     @Autowired
     private CurriculumService curriculumService;
+
+    @Autowired
+    private PdfService pdfService;
 
     @GetMapping
     public Page<CurriculumDTO> list(Pageable pageable) {
@@ -70,6 +76,18 @@ public class CurriculumController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/{id}/pdf")
+    public ResponseEntity<byte[]> generatePdf(@PathVariable Long id,
+            @RequestParam(defaultValue = "classic") String template) throws Exception {
+        CurriculumDTO curriculumDTO = curriculumService.getCurriculum(id);
+        byte[] pdfBytes = pdfService.generateCvPdf(curriculumDTO, template);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=cv.pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdfBytes);
     }
 
 }

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; color: #333; }
+    h1 { font-size: 30px; margin-bottom: 5px; }
+    h2 { font-size: 20px; margin-top: 20px; border-bottom: 1px solid #ccc; }
+    h3 { font-size: 16px; margin: 5px 0; }
+    p { margin: 6px 0; }
+    ul { margin: 5px 0 15px 20px; }
+    .section { margin-bottom: 20px; }
+    .contact { font-size: 12px; color: #555; }
+    .small { font-size: 12px; color: #444; }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <h1>${fullName}</h1>
+  <h2>${title}</h2>
+  <p class="contact">
+    ${locationCity}, ${locationCountry}<br />
+    ${email}
+  </p>
+
+  <!-- Summary -->
+  <#if summary?? && summary?length gt 0>
+  <div class="section">
+    <h2>Perfil Profesional</h2>
+    <#list summary?split("\n") as paragraph>
+      <#if paragraph?trim?length gt 0>
+        <p>${paragraph}</p>
+      </#if>
+    </#list>
+  </div>
+  </#if>
+
+  <!-- Experience -->
+  <#if experiences?size gt 0>
+  <div class="section">
+    <h2>Experiencia</h2>
+    <#list experiences as exp>
+      <h3>${exp.position} - ${exp.company}</h3>
+      <p class="small">
+        ${exp.startDate} - 
+        <#if exp.endDate??>${exp.endDate}<#else>Actual</#if>
+        <#if exp.location??> | ${exp.location}</#if>
+      </p>
+      <#if exp.description??><p>${exp.description}</p></#if>
+      <#if exp.highlights?size gt 0>
+      <ul>
+        <#list exp.highlights as hl>
+          <li>${hl}</li>
+        </#list>
+      </ul>
+      </#if>
+    </#list>
+  </div>
+  </#if>
+
+  <!-- Education -->
+  <#if educations?size gt 0>
+  <div class="section">
+    <h2>Educación</h2>
+    <#list educations as edu>
+      <h3>${edu.degree} en ${edu.educationField}</h3>
+      <p class="small">${edu.institution}<#if edu.location??> | ${edu.location}</#if></p>
+      <p class="small">
+        ${edu.startDate} - 
+        <#if edu.endDate??>${edu.endDate}<#else>Actual</#if>
+      </p>
+      <#if edu.description??><p>${edu.description}</p></#if>
+    </#list>
+  </div>
+  </#if>
+
+  <!-- Skills -->
+  <#if skills?size gt 0>
+  <div class="section">
+    <h2>Habilidades</h2>
+    <ul>
+      <#list skills as skill>
+        <li>${skill.name}
+          <#if skill.level??> (${skill.level})</#if>
+          <#if skill.category??> - ${skill.category}</#if>
+        </li>
+      </#list>
+    </ul>
+  </div>
+  </#if>
+
+  <!-- Certifications -->
+  <#if certifications?size gt 0>
+  <div class="section">
+    <h2>Certificaciones</h2>
+    <#list certifications as cert>
+      <h3>${cert.name}</h3>
+      <p class="small">
+        ${cert.issuer} | ${cert.dateObtained}
+        <#if cert.validUntil??> - ${cert.validUntil}</#if>
+      </p>
+    </#list>
+  </div>
+  </#if>
+
+  <!-- Links -->
+  <#if linkedinUrl?? || githubUrl?? || portfolioUrl??>
+  <div class="section">
+    <h2>Enlaces</h2>
+    <ul>
+      <#if linkedinUrl?? && linkedinUrl?has_content><li>LinkedIn: <a href="${linkedinUrl?html}">${linkedinUrl?html}</a></li></#if>
+      <#if githubUrl?? && githubUrl?has_content><li>GitHub: <a href="${githubUrl?html}">${githubUrl?html}</a></li></#if>
+      <#if portfolioUrl?? && portfolioUrl?has_content><li>Portfolio: <a href="${portfolioUrl?html}">${portfolioUrl?html}</a></li></#if>
+    </ul>
+  </div>
+  </#if>
+</body>
+</html>
