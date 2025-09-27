@@ -1,0 +1,40 @@
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar fijo */
+.sidebar {
+  width: 300px;
+  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 0 10px 1px #cbd5e1 !important;
+}
+
+/* Contenido principal */
+.content {
+  flex-grow: 1;
+  padding: 2rem 1rem 1rem 1rem;
+  margin-left: 300px;
+  /* deja espacio al sidebar */
+  width: calc(100% - 300px);
+}
+
+/* En móvil: sidebar oculto, contenido ocupa todo */
+@media (max-width: 991.98px) {
+  .content {
+    padding: 5rem 1rem 1rem 1rem;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .content {
+    margin-left: 0;
+    width: 100%;
+  }
+}

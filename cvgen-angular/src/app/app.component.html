@@ -1,1 +1,23 @@
-<router-outlet></router-outlet>
+<app-navigation></app-navigation>
+
+<div class="app-layout">
+  <!-- Sidebar (desktop) -->
+  <div class="sidebar d-none d-lg-block">
+    <div class="p-3">
+      <a href="/" class="p-2">
+        <img src="assets/images/logotipo.webp" alt="CVGen" height="50">
+      </a>
+
+      <ul class="nav flex-column mt-5">
+        <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Currículums</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Plantillas</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="content flex-grow-1">
+    <router-outlet></router-outlet>
+  </div>
+</div>

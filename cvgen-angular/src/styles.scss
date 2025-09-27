@@ -69,3 +69,17 @@ textarea {
   justify-content: space-between;
   align-items: center;
 }
+
+.navbar-toggler:focus {
+  box-shadow: none !important;
+}
+
+.navbar-toggler {
+  border: none;
+  padding: 0.15rem 0rem;
+}
+
+.offcanvas-header .btn-close {
+  margin-top: -0.5rem;
+  margin-right: 0.4rem;
+}

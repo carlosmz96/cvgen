@@ -6,17 +6,9 @@
 }
 
 ::ng-deep .p-accordionpanel {
-  border-style: none !important;
-}
-
-::ng-deep .p-accordionheader {
-  border: 1px solid #cbd5e1 !important;
-}
-
-::ng-deep .p-accordioncontent-content {
-  border: 1px solid #cbd5e1;
-  border-top: none !important;
-  padding-top: 1rem;
+  border-width: 1px !important;
+  border-radius: 6px;
+  box-shadow: 0 3px 0 0 #cbd5e1 !important;
 }
 
 .space-between {
