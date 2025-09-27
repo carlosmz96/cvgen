@@ -61,7 +61,7 @@ npm start
 
 ## 🗺️ Roadmap corto
 - [ ] Autenticación (JWT)
-- [✓] Exportar a PDF desde front
+- [x] Exportar a PDF desde front
 - [ ] Versionado de CVs
 - [ ] Tests e2e básicos
 
