@@ -153,7 +153,7 @@ export class CurriculumDetailPageComponent {
   }
 
   downloadCvPdf(): void {
-    const template: string = 'classic';
+    const template: string = 'modern';
     this.cvService.downloadCurriculum(this.curriculumId, template).subscribe(
       {
         next: (data: Blob) => {

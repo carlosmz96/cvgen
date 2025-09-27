@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8" />
+    <style>
+        /* Márgenes del PDF */
+        @page {
+            size: A4;
+            margin: 0;
+            /* sin margen general */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            margin: 0;
+            color: #333;
+        }
+
+        /* Layout con table */
+        .container {
+            display: table;
+            width: 100%;
+            height: 297mm;
+            table-layout: fixed;
+        }
+
+        .sidebar {
+            display: table-cell;
+            width: 25%;
+            background: #2e86c1;
+            color: white;
+            padding: 0;
+            vertical-align: top;
+            height: 297mm;
+            /* ocupar toda la altura de la página */
+        }
+
+        .main {
+            display: table-cell;
+            width: 75%;
+            padding: 5mm;
+            vertical-align: top;
+        }
+
+        /* Tipografía */
+        h1 {
+            font-size: 28px;
+            margin: 20px 15px 5px 15px;
+        }
+
+        h2 {
+            font-size: 18px;
+            margin: 15px 0 5px 0;
+            border-bottom: 2px solid #2e86c1;
+            padding-bottom: 2px;
+        }
+
+        h3 {
+            font-size: 14px;
+            margin: 4px 0;
+        }
+
+        p {
+            margin: 3px 0;
+            font-size: 12px;
+        }
+
+        /* Listas sin puntos y con mínima indentación */
+        ul {
+            margin: 5px 0 10px 0;
+            padding-left: 0;
+            font-size: 12px;
+            list-style-type: none;
+        }
+
+        ul .highlights {
+            list-style-type: square;
+            padding-left: 1rem;
+        }
+
+        li {
+            margin-bottom: 3px;
+        }
+
+        /* Contacto y enlaces */
+        .contact,
+        .links {
+            font-size: 11px;
+            color: #ddd;
+            margin: 0 15px;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: underline !important;
+            /* subrayado para diferenciar enlaces */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h1 style="font-size: 16px;">${fullName}</h1>
+            <h3 style="margin: 0 15px 15px 15px;">${title}</h3>
+            <p class="contact">${locationCity}, ${locationCountry}</p>
+            <p class="contact">
+                <a href="mailto:${email}">${email}</a>
+            </p>
+
+            <#if skills?size gt 0>
+                <div class="section" style="margin: 15px;">
+                    <h2 style="border-bottom: 1px solid #fff;">Habilidades</h2>
+                    <ul>
+                        <#list skills as skill>
+                            <li>${skill.name}</li>
+                        </#list>
+                    </ul>
+                </div>
+            </#if>
+
+            <#if (linkedinUrl?? && linkedinUrl?has_content) || (githubUrl?? && githubUrl?has_content) || (portfolioUrl??
+                && portfolioUrl?has_content)>
+                <div class="section links" style="margin: 15px;">
+                    <h2 style="border-bottom: 1px solid #fff;">Enlaces</h2>
+                    <ul>
+                        <#if linkedinUrl?? && linkedinUrl?has_content>
+                            <li><a href="${linkedinUrl?html}">LinkedIn</a></li>
+                        </#if>
+                        <#if githubUrl?? && githubUrl?has_content>
+                            <li><a href="${githubUrl?html}">GitHub</a></li>
+                        </#if>
+                        <#if portfolioUrl?? && portfolioUrl?has_content>
+                            <li><a href="${portfolioUrl?html}">Portfolio</a></li>
+                        </#if>
+                    </ul>
+                </div>
+            </#if>
+        </div>
+
+        <!-- Main -->
+        <div class="main">
+            <#if summary?? && summary?has_content>
+                <div class="section">
+                    <h2>Perfil Profesional</h2>
+                    <#list summary?split("\n") as paragraph>
+                        <#if paragraph?trim?length gt 0>
+                            <p>${paragraph}</p>
+                        </#if>
+                    </#list>
+                </div>
+            </#if>
+
+            <#if experiences?size gt 0>
+                <div class="section">
+                    <h2>Experiencia</h2>
+                    <#list experiences as exp>
+                        <h3>${exp.position} - ${exp.company}</h3>
+                        <p>${exp.startDate} - ${exp.endDate}<#if exp.location??> | ${exp.location}</#if>
+                        </p>
+                        <#if exp.description??>
+                            <p>${exp.description}</p>
+                        </#if>
+                        <#if exp.highlights?size gt 0>
+                            <ul>
+                                <#list exp.highlights as hl>
+                                    <li class="highlights">${hl}</li>
+                                </#list>
+                            </ul>
+                        </#if>
+                    </#list>
+                </div>
+            </#if>
+
+            <#if educations?size gt 0>
+                <div class="section">
+                    <h2>Educación</h2>
+                    <#list educations as edu>
+                        <h3>${edu.degree} en ${edu.educationField}</h3>
+                        <p>${edu.institution}<#if edu.location??> | ${edu.location}</#if>
+                        </p>
+                        <p>${edu.startDate} - ${edu.endDate}</p>
+                        <#if edu.description??>
+                            <p>${edu.description}</p>
+                        </#if>
+                    </#list>
+                </div>
+            </#if>
+
+            <#if certifications?size gt 0>
+                <div class="section">
+                    <h2>Certificaciones</h2>
+                    <#list certifications as cert>
+                        <h3>${cert.name}</h3>
+                        <p>${cert.issuer} | ${cert.dateObtained}<#if cert.validUntil??> - ${cert.validUntil}</#if>
+                        </p>
+                    </#list>
+                </div>
+            </#if>
+        </div>
+    </div>
+</body>
+
+</html>
