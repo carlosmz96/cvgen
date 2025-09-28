@@ -29,7 +29,7 @@ RUN mvn dependency:go-offline
 COPY cvgenapi/ ./
 
 # Recursos estáticos compilados
-COPY --from=frontend /app/cvgen-angular/dist/cvgen-angular/ ./src/main/resources/static/
+COPY --from=frontend /app/cvgen-angular/dist/cvgen-angular/browser/ ./cvgenapi/src/main/resources/static/
 
 # Build Spring Boot
 RUN mvn clean package -DskipTests
