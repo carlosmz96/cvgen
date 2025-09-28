@@ -7,10 +7,10 @@
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <!-- Nombre completo -->
         <div class="form-group">
-          <label for="fullname" class="form-label">Nombre completo <span class="mandatory">*</span></label>
-          <input pInputText type="text" id="fullname" placeholder="Introduce tu nombre completo" formControlName="fullname"
-            [ngClass]="isInvalid('fullname') ? 'ng-invalid ng-dirty' : ''">
-          @if (isInvalid('fullname')) {
+          <label for="fullName" class="form-label">Nombre completo <span class="mandatory">*</span></label>
+          <input pInputText type="text" id="fullName" placeholder="Introduce tu nombre completo" formControlName="fullName"
+            [ngClass]="isInvalid('fullName') ? 'ng-invalid ng-dirty' : ''">
+          @if (isInvalid('fullName')) {
           <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
           }
         </div>

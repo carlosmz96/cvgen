@@ -4,6 +4,7 @@ import { PageNotFoundComponent } from './pages/errors/page-not-found/page-not-fo
 import { CurriculumDetailPageComponent } from './pages/curriculum/curriculum-detail-page/curriculum-detail-page.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { LoginComponent } from './pages/auth/login/login.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -20,7 +21,8 @@ export const routes: Routes = [
       { path: '', redirectTo: 'new', pathMatch: 'full' },
       { path: 'new', component: NewCurriculumPageComponent },
       { path: 'details/:id', component: CurriculumDetailPageComponent }
-    ]
+    ],
+    canActivate: [authGuard]
   },
   {
     path: '**', component: PageNotFoundComponent
