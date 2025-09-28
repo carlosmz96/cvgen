@@ -28,10 +28,7 @@ RUN mvn dependency:go-offline
 # Copiamos el código backend
 COPY cvgenapi/ ./
 
-# 👇 Copiamos el Angular build (browser/ si existe, si no la raíz)
-#   NOTA: la carpeta "browser" solo existe si Angular tenía SSR antes.
-#   Si no existe, Docker lo ignora y copia la raíz.
-COPY --from=frontend /app/cvgen-angular/dist/cvgen-angular/browser/ ./src/main/resources/static/
+# Recursos estáticos compilados
 COPY --from=frontend /app/cvgen-angular/dist/cvgen-angular/ ./src/main/resources/static/
 
 # Build Spring Boot
