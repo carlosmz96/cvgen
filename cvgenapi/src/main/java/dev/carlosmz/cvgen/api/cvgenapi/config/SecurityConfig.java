@@ -49,10 +49,12 @@ public class SecurityConfig {
                             "/",
                             "/index.html",
                             "/favicon.ico",
+                            "/media/**",
                             "/assets/**",
                             "/*.js",
                             "/*.css")
                     .permitAll()
+                    .requestMatchers("/{path:[^\\.]*}", "/**/{path:[^\\.]*}").permitAll()
 
                     .anyRequest().authenticated());
 
