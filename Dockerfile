@@ -23,7 +23,7 @@ RUN mvn dependency:go-offline
 COPY cvgenapi/ ./
 
 # Copiamos Angular ya compilado al static/
-COPY --from=frontend /app/cvgen-angular/dist/cvgen-angular/browser/ ./cvgenapi/src/main/resources/static/
+COPY --from=frontend /app/cvgen-angular/dist/cvgen-angular/ ./src/main/resources/static/
 
 RUN mvn clean package -DskipTests
 
