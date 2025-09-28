@@ -23,7 +23,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SecurityConfig {
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationProvider authenticationProvider) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationProvider authenticationProvider)
+            throws Exception {
         http
             .cors(Customizer.withDefaults())
             .csrf(csrf -> csrf.disable())
@@ -38,10 +39,20 @@ public class SecurityConfig {
                     .requestMatchers("/api/auth/**").permitAll()
 
                     // curriculum
-                    .requestMatchers(HttpMethod.GET,"/api/curriculums/**").permitAll()
-                    .requestMatchers(HttpMethod.POST,"/api/curriculums/**").permitAll()
-                    .requestMatchers(HttpMethod.PUT,"/api/curriculums/**").permitAll()
-                    .requestMatchers(HttpMethod.DELETE,"/api/curriculums/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/curriculums/**").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/api/curriculums/**").permitAll()
+                    .requestMatchers(HttpMethod.PUT, "/api/curriculums/**").permitAll()
+                    .requestMatchers(HttpMethod.DELETE, "/api/curriculums/**").permitAll()
+
+                    // Angular
+                    .requestMatchers(
+                            "/",
+                            "/index.html",
+                            "/favicon.ico",
+                            "/assets/**",
+                            "/*.js",
+                            "/*.css")
+                    .permitAll()
 
                     .anyRequest().authenticated());
 
@@ -50,7 +61,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+    AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService,
+            PasswordEncoder passwordEncoder) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
         provider.setPasswordEncoder(passwordEncoder);
         return provider;
@@ -63,7 +75,7 @@ public class SecurityConfig {
         // cors.setAllowedOrigins(corsConfig.getAllowedOrigins());
         cors.setAllowedOriginPatterns(List.of("http://localhost:*", "http://127.0.0.1:*"));
         cors.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
-        cors.setAllowedHeaders(List.of("Content-Type","Authorization","X-Requested-With","Accept","Origin"));
+        cors.setAllowedHeaders(List.of("Content-Type", "Authorization", "X-Requested-With", "Accept", "Origin"));
         cors.setExposedHeaders(List.of("Location"));
         cors.setAllowCredentials(true);
         cors.setMaxAge(3600L);
