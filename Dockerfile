@@ -12,7 +12,7 @@ RUN npm install
 COPY cvgen-angular/ ./
 
 # Build producción
-RUN npm run build --configuration production
+RUN npm run build
 
 
 # -------------------------
