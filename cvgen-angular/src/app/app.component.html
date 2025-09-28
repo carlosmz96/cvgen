@@ -1,6 +1,6 @@
-<app-navigation></app-navigation>
+<app-navigation *ngIf="isAuthenticated"></app-navigation>
 
-<div class="app-layout">
+<div class="app-layout" *ngIf="isAuthenticated">
   <!-- Sidebar (desktop) -->
   <div class="sidebar d-none d-lg-block">
     <div class="p-3">
@@ -9,7 +9,7 @@
       </a>
 
       <ul class="nav flex-column mt-5">
-        <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link active" routerLink="/">Inicio</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Currículums</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Plantillas</a></li>
       </ul>
@@ -20,4 +20,8 @@
   <div class="content flex-grow-1">
     <router-outlet></router-outlet>
   </div>
+</div>
+
+<div *ngIf="!isAuthenticated">
+  <router-outlet></router-outlet>
 </div>

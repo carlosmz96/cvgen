@@ -1,0 +1,41 @@
+<div class="login-wrapper">
+  <div class="login-container">
+    <img src="../../../../assets/images/logotipo.webp" alt="CVGen" class="login-image">
+
+    <div class="card login">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <!-- Username -->
+        <div class="form-group">
+          <label for="username" class="form-label">Usuario</label>
+          <input pInputText type="text" id="username" placeholder="Usuario" formControlName="username"
+            [ngClass]="isInvalid('username') ? 'ng-invalid ng-dirty' : ''">
+          @if (isInvalid('username')) {
+          <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
+          }
+        </div>
+
+        <!-- Password -->
+        <div class="form-group mt-3">
+          <label for="password" class="form-label">Contraseña</label>
+          <input pInputText type="password" id="password" placeholder="Contraseña" formControlName="password"
+            [ngClass]="isInvalid('password') ? 'ng-invalid ng-dirty' : ''">
+          @if (isInvalid('password')) {
+          <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
+          }
+        </div>
+
+        <p-button label="Iniciar sesión" type="submit" severity="info" styleClass="mt-4 w-100"
+          title="Iniciar sesión"></p-button>
+
+        <div class="login-help">
+          <div class="password-info">
+            <a href="#">¿Olvidaste tu contraseña?</a>
+          </div>
+          <div class="register-info">
+            ¿No tienes cuenta? <a routerLink="/register">Regístrate</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

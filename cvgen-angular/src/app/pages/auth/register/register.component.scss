@@ -1,0 +1,54 @@
+.register-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card.register {
+  width: 50rem;
+  max-width: 90%;
+  padding: 1.5rem;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .card.register {
+    width: 100%;
+    max-width: 95%;
+    padding: 1rem;
+  }
+}
+
+::ng-deep span.p-button-label {
+  padding: 0 1rem;
+}
+
+.register-help {
+  text-align: center;
+  font-size: 14px;
+}
+
+.password-info {
+  margin: 1rem 0 0 0;
+}
+
+.register-info {
+  margin: 0.25rem 0 0 0;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

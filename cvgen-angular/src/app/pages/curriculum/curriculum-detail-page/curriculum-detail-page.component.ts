@@ -43,7 +43,7 @@ export class CurriculumDetailPageComponent {
 
   cvForm: FormGroup;
 
-  countries: string[] = [];
+  countries: any[] = [];
 
   curriculumId: number;
   curriculum: Curriculum = {
@@ -95,17 +95,16 @@ export class CurriculumDetailPageComponent {
   }
 
   private getCountries(): void {
-    this.countryService.getCountries().subscribe(
-      {
-        next: (data: any[]) => {
-          data.forEach(e => {
-            this.countries.push(e.translations.spa.common);
-          });
-
-          this.countries.sort((a: string, b: string) => a.localeCompare(b));
-        }
+    this.countryService.getCountries().subscribe({
+      next: (data: any[]) => {
+        this.countries = data
+          .map(e => ({
+            label: e.translations.spa.common,
+            value: e.translations.spa.common
+          }))
+          .sort((a, b) => a.label.localeCompare(b.label));
       }
-    );
+    });
   }
 
   private getCurriculum(): void {

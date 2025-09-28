@@ -1,0 +1,70 @@
+<div class="register-wrapper">
+  <div class="register-container">
+    <div class="card register">
+      <h1>Formulario de registro</h1>
+      <p>Por favor, rellena todos los campos obligatorios (<span class="mandatory">*</span>)</p>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <!-- Nombre completo -->
+        <div class="form-group">
+          <label for="fullname" class="form-label">Nombre completo <span class="mandatory">*</span></label>
+          <input pInputText type="text" id="fullname" placeholder="Introduce tu nombre completo" formControlName="fullname"
+            [ngClass]="isInvalid('fullname') ? 'ng-invalid ng-dirty' : ''">
+          @if (isInvalid('fullname')) {
+          <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
+          }
+        </div>
+
+        <!-- Username -->
+        <div class="form-group mt-3">
+          <label for="username" class="form-label">Usuario <span class="mandatory">*</span></label>
+          <input pInputText type="text" id="username" placeholder="Introduce un nombre de usuario" formControlName="username"
+            [ngClass]="isInvalid('username') ? 'ng-invalid ng-dirty' : ''">
+          @if (isInvalid('username')) {
+          <p-message severity="error" size="small" variant="simple">El campo es obligatorio</p-message>
+          }
+        </div>
+
+        <!-- Email -->
+        <div class="form-group mt-3">
+          <label for="email" class="form-label">Correo electrónico <span class="mandatory">*</span></label>
+          <input pInputText type="text" id="email" placeholder="Introduce un correo electrónico" formControlName="email"
+            [ngClass]="isInvalid('email') ? 'ng-invalid ng-dirty' : ''">
+          @if (isInvalid('email')) {
+          <p-message severity="error" size="small" variant="simple">El correo electrónico no es válido</p-message>
+          }
+        </div>
+
+        <!-- Password -->
+        <div class="form-group mt-3">
+          <label for="password" class="form-label">Contraseña <span class="mandatory">*</span></label>
+          <input pInputText type="password" id="password" placeholder="Introduce una contraseña" formControlName="password"
+            [ngClass]="isInvalid('password') ? 'ng-invalid ng-dirty' : ''">
+          @if (isInvalid('password')) {
+          <p-message severity="error" size="small" variant="simple">El campo no es válido</p-message>
+          }
+        </div>
+
+        <!-- Password repeated -->
+        <div class="form-group mt-3">
+          <label for="passwordRepeated" class="form-label">Repite la contraseña <span class="mandatory">*</span></label>
+          <input pInputText type="password" id="passwordRepeated" placeholder="Introduce de nuevo la contraseña" formControlName="passwordRepeated"
+            [ngClass]="isInvalid('passwordRepeated') || pswdNotEqual ? 'ng-invalid ng-dirty' : ''">
+          @if (isInvalid('passwordRepeated')) {
+          <p-message severity="error" size="small" variant="simple">El campo no es válido</p-message>
+          }
+          @if (pswdNotEqual) {
+          <p-message severity="error" size="small" variant="simple">{{pswdNotEqualMsg}}</p-message>
+          }
+        </div>
+
+        <div class="buttons">
+          <p-button label="Volver" severity="danger" styleClass="mt-4 w-100"
+          title="Volver" routerLink="/login"></p-button>
+          <p-button label="Regístrate" type="submit" severity="info" styleClass="mt-4 w-100"
+          title="Regístrate"></p-button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

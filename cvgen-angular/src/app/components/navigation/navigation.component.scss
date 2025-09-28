@@ -7,3 +7,22 @@
   background-color: white;
   z-index: 10000;
 }
+
+ul {
+  margin-right: -1rem;
+}
+
+li {
+  background-color: #f1f1f1;
+  padding: 0.25rem 0 0 1rem;
+  margin-bottom: 0.25rem;
+  border-radius: 8px;
+}
+
+li a {
+  font-weight: 500;
+}
+
+li a:hover {
+  color: black;
+}
