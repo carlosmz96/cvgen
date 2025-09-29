@@ -45,6 +45,4 @@ COPY --from=backend /app/cvgenapi/target/*.jar app.jar
 EXPOSE 8080
 
 # Usamos shell form para expansión de variables
-CMD java -jar app.jar \
-    --server.port=${PORT} \
-    --spring.profiles.active=${SPRING_PROFILES_ACTIVE:prod}
+CMD ["java", "-jar", "app.jar"]
