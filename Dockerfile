@@ -45,4 +45,4 @@ COPY --from=backend /app/cvgenapi/target/*.jar app.jar
 EXPOSE 8080
 
 # Usamos shell form para expansión de variables
-CMD ["java", "-jar", "app.jar"]
+CMD ["sh", "-c", "java -jar app.jar --server.port=${PORT:-8080}"]
