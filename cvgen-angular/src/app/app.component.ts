@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { RouterOutlet, RouterModule, Router } from '@angular/router';
-import { NavigationComponent } from './components/navigation/navigation.component';
 import { CommonModule } from '@angular/common';
+import { RouterOutlet, RouterModule, Router } from '@angular/router';
+
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { LoadingOverlayComponent } from './components/loading-overlay/loading-overlay.component';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +11,8 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     RouterOutlet,
     NavigationComponent,
-    RouterModule
+    RouterModule,
+    LoadingOverlayComponent
 ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

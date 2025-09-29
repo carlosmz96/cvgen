@@ -60,7 +60,7 @@
         <label for="locationCountry" class="form-label">País <span class="mandatory">*</span></label>
         <div class="flex flex-col gap-1">
           <p-select [options]="countries" [filter]="true" formControlName="locationCountry" optionLabel="label" optionValue="value"
-            placeholder="Selecciona un país">
+            placeholder="Selecciona un país" [ngClass]="isInvalid('locationCountry') ? 'ng-invalid ng-dirty' : ''">
             <ng-template let-country #item>
               {{ country.label }}
             </ng-template>
@@ -100,7 +100,7 @@
           </ng-template>
         </p-accordion-header>
         <p-accordion-content>
-          <div formArrayName="experiences" class="mb-3">
+          <div formArrayName="experiences">
             @for (exp of experiences.controls; track idx; let idx = $index) {
             <div [formGroupName]="idx" class="list-card">
               <div class="space-between">
@@ -138,7 +138,7 @@
           </ng-template>
         </p-accordion-header>
         <p-accordion-content>
-          <div formArrayName="skills" class="mb-3">
+          <div formArrayName="skills">
             @for (skill of skills.controls; track idx; let idx = $index) {
             <div [formGroupName]="idx" class="list-card">
               <div class="space-between">
@@ -175,7 +175,7 @@
           </ng-template>
         </p-accordion-header>
         <p-accordion-content>
-          <div formArrayName="educations" class="mb-3">
+          <div formArrayName="educations">
             @for (edu of educations.controls; track idx; let idx = $index) {
             <div [formGroupName]="idx" class="list-card">
               <div class="space-between">
@@ -213,7 +213,7 @@
           </ng-template>
         </p-accordion-header>
         <p-accordion-content>
-          <div formArrayName="certifications" class="mb-3">
+          <div formArrayName="certifications">
             @for (cer of certifications.controls; track idx; let idx = $index) {
             <div [formGroupName]="idx" class="list-card">
               <div class="space-between">

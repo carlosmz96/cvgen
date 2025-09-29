@@ -1,3 +1,4 @@
+import { LoadingService } from './../../../services/loading/loading.service';
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -40,7 +41,7 @@ export class NewCurriculumPageComponent {
 
   cvForm: FormGroup;
 
-  countries: string[] = [];
+  countries: any[] = [];
 
   curriculum: Curriculum = {
     id: 0,
@@ -65,7 +66,8 @@ export class NewCurriculumPageComponent {
     private fb: FormBuilder,
     private countryService: CountryService,
     private cvService: CurriculumService,
-    private router: Router
+    private router: Router,
+    private loading: LoadingService
   ) {
     this.cvForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.maxLength(200)]],
@@ -86,59 +88,64 @@ export class NewCurriculumPageComponent {
     this.getCountries();
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   private getCountries(): void {
     this.countryService.getCountries().subscribe(
       {
         next: (data: any[]) => {
-          data.forEach(e => {
-            this.countries.push(e.translations.spa.common);
-          });
-
-          this.countries.sort((a: string, b: string) => a.localeCompare(b));
+          this.countries = data
+          .map(e => ({
+            label: e.translations.spa.common,
+            value: e.translations.spa.common
+          }))
+          .sort((a, b) => a.label.localeCompare(b.label));
         }
       }
     );
   }
 
   onSubmit(): void {
-    const raw = this.cvForm.getRawValue();
+    this.loading.show('Cargando...');
+    if (this.cvForm.valid) {
+      const raw = this.cvForm.getRawValue();
 
-    // transformar fechas
-    raw.experiences = raw.experiences.map((e: any) => ({
-      ...e,
-      startDate: this.toDateOnly(e.startDate),
-      endDate: this.toDateOnly(e.endDate)
-    }));
+      // transformar fechas
+      raw.experiences = raw.experiences.map((e: any) => ({
+        ...e,
+        startDate: this.toDateOnly(e.startDate),
+        endDate: this.toDateOnly(e.endDate)
+      }));
 
-    raw.educations = raw.educations.map((e: any) => ({
-      ...e,
-      startDate: this.toDateOnly(e.startDate),
-      endDate: this.toDateOnly(e.endDate)
-    }));
+      raw.educations = raw.educations.map((e: any) => ({
+        ...e,
+        startDate: this.toDateOnly(e.startDate),
+        endDate: this.toDateOnly(e.endDate)
+      }));
 
-    raw.certifications = raw.certifications.map((c: any) => ({
-      ...c,
-      dateObtained: this.toDateOnly(c.dateObtained),
-      validUntil: this.toDateOnly(c.validUntil)
-    }));
+      raw.certifications = raw.certifications.map((c: any) => ({
+        ...c,
+        dateObtained: this.toDateOnly(c.dateObtained),
+        validUntil: this.toDateOnly(c.validUntil)
+      }));
 
-    this.curriculum = raw;
-    console.log(this.curriculum)
-    this.cvService.createCurriculum(this.curriculum).subscribe(
-      {
-        next: (data: Curriculum) => {
-          console.log(data);
-          this.router.navigateByUrl('/curriculum/details/' + data.id);
-        },
-        error: err => {
-          console.error('Error al obtener el currículum: ', err);
+      this.curriculum = raw;
+      this.cvService.createCurriculum(this.curriculum).subscribe(
+        {
+          next: (data: Curriculum) => {
+            this.loading.hide();
+            this.router.navigateByUrl('/curriculum/details/' + data.id);
+          },
+          error: err => {
+            this.loading.hide();
+            console.error('Error al obtener el currículum: ', err);
+          }
         }
-      }
-    );
+      );
+    } else {
+      this.loading.hide();
+      this.cvForm.markAllAsTouched();
+    }
   }
 
   isInvalid(field: string): boolean {

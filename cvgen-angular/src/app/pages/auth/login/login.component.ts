@@ -1,13 +1,17 @@
+import { LoadingService } from './../../../services/loading/loading.service';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from "primeng/inputtext";
 import { MessageModule } from 'primeng/message';
+
 import { AuthService } from '../../../services/auth/auth.service';
 import { UserLogin } from '../../../models/UserLogin';
 import { UserResponse } from '../../../models/UserResponse';
+
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -18,7 +22,7 @@ import { CookieService } from 'ngx-cookie-service';
     ReactiveFormsModule,
     MessageModule,
     CommonModule,
-    RouterModule
+    RouterModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -36,7 +40,8 @@ export class LoginComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private loading: LoadingService
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -45,6 +50,7 @@ export class LoginComponent {
   }
 
   onSubmit() {
+    this.loading.show('Cargando...');
     if (this.loginForm.valid) {
       this.userLogin = this.loginForm.value;
       this.authService.login(this.userLogin).subscribe(
@@ -55,11 +61,13 @@ export class LoginComponent {
             this.router.navigate(['/']);
           },
           error: err => {
+            this.loading.hide();
             console.error('Error al iniciar sesión:', err);
           }
         }
       );
     } else {
+      this.loading.hide();
       this.loginForm.markAllAsTouched();
     }
   }

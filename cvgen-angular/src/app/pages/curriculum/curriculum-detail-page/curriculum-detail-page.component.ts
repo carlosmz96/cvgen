@@ -1,3 +1,4 @@
+import { LoadingService } from './../../../services/loading/loading.service';
 import { Component, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -68,7 +69,8 @@ export class CurriculumDetailPageComponent {
   constructor(
     private fb: FormBuilder,
     private countryService: CountryService,
-    private cvService: CurriculumService
+    private cvService: CurriculumService,
+    private loading: LoadingService
   ) {
     this.cvForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.maxLength(200)]],
@@ -91,6 +93,7 @@ export class CurriculumDetailPageComponent {
   }
 
   ngOnInit(): void {
+    this.loading.show('Cargando...');
     this.getCurriculum();
   }
 
@@ -132,8 +135,11 @@ export class CurriculumDetailPageComponent {
           // Certificaciones
           this.certifications.clear();
           this.curriculum.certifications.forEach(cert => this.certifications.push(this.buildCertification(cert)));
+
+          this.loading.hide();
         },
         error: err => {
+          this.loading.hide();
           console.error('Error al obtener el currículum: ', err);
         }
       }
@@ -141,12 +147,15 @@ export class CurriculumDetailPageComponent {
   }
 
   onSubmit(): void {
+    this.loading.show('Cargando...');
     this.cvService.updateCurriculum(this.curriculum, this.curriculumId).subscribe(
       {
         next: (data: Curriculum) => {
           this.curriculum = data;
+          this.loading.hide();
         },
         error: err => {
+          this.loading.hide();
           console.error('Error al modificar los datos del CV: ', err);
         }
       }
@@ -154,6 +163,7 @@ export class CurriculumDetailPageComponent {
   }
 
   downloadCvPdf(): void {
+    this.loading.show('Cargando...');
     const template: string = 'modern';
     this.cvService.downloadCurriculum(this.curriculumId, template).subscribe(
       {
@@ -163,8 +173,11 @@ export class CurriculumDetailPageComponent {
           a.href = url;
           a.download = 'cv-' + template + '.pdf';
           a.click();
+
+          this.loading.hide();
         },
         error: err => {
+          this.loading.hide();
           console.error('Error al descargar el CV: ', err);
         }
       }

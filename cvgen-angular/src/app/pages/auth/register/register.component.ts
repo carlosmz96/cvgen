@@ -1,10 +1,13 @@
+import { LoadingService } from './../../../services/loading/loading.service';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
+
 import { AuthService } from '../../../services/auth/auth.service';
 import { UserRegister } from '../../../models/UserRegister';
 import { UserResponse } from '../../../models/UserResponse';
@@ -39,7 +42,8 @@ export class RegisterComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private loading: LoadingService
   ) {
     this.registerForm = this.fb.group({
       fullName: ['', Validators.required],
@@ -51,6 +55,7 @@ export class RegisterComponent {
   }
 
   onSubmit() {
+    this.loading.show('Cargando...');
     this.pswdNotEqual = false;
     if (this.registerForm.valid && this.registerForm.get('password')?.value == this.registerForm.get('passwordRepeated')?.value) {
       const { fullName, email, username, password } = this.registerForm.value;
@@ -62,11 +67,13 @@ export class RegisterComponent {
             this.router.navigate(['login']);
           },
           error: err => {
+            this.loading.hide();
             console.error('Error al registrar de usuario:', err);
           }
         }
       );
     } else {
+      this.loading.hide();
       this.registerForm.markAllAsTouched();
       this.pswdNotEqual = true;
       console.error(this.pswdNotEqualMsg);
