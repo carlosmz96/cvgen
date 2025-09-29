@@ -1,7 +1,5 @@
 package dev.carlosmz.cvgen.api.cvgenapi.controllers;
 
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -51,7 +49,6 @@ public class CurriculumController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CurriculumDTO> createCurriculum(@Valid @RequestBody CurriculumDTO dto) {
-        System.out.println(">>> OBJETO = " + dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(curriculumService.createCurriculum(dto));
     }
 
