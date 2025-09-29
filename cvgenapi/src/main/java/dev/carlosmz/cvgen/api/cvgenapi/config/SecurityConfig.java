@@ -33,19 +33,10 @@ public class SecurityConfig {
             .authorizeHttpRequests(
                 auth -> auth
                     .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
-
                     // CORS preflight
                     .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-
                     // authentication
                     .requestMatchers("/api/auth/**").permitAll()
-
-                    // curriculum
-                    .requestMatchers(HttpMethod.GET, "/api/curriculums/**").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/api/curriculums/**").permitAll()
-                    .requestMatchers(HttpMethod.PUT, "/api/curriculums/**").permitAll()
-                    .requestMatchers(HttpMethod.DELETE, "/api/curriculums/**").permitAll()
-
                     // Angular
                     .requestMatchers(
                             "/",
@@ -57,7 +48,6 @@ public class SecurityConfig {
                             "/*.css")
                     .permitAll()
                     .requestMatchers("/{path:[^\\.]*}", "/**/{path:[^\\.]*}").permitAll()
-
                     .anyRequest().authenticated());
 
         http.authenticationProvider(authenticationProvider);
