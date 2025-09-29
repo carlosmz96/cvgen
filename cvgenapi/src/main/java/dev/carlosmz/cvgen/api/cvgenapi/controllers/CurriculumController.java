@@ -1,6 +1,5 @@
 package dev.carlosmz.cvgen.api.cvgenapi.controllers;
 
-import java.io.IOException;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import dev.carlosmz.cvgen.api.cvgenapi.models.dto.CurriculumDTO;
 import dev.carlosmz.cvgen.api.cvgenapi.services.CurriculumService;
 import dev.carlosmz.cvgen.api.cvgenapi.services.PdfService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @RestController
@@ -52,10 +50,7 @@ public class CurriculumController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CurriculumDTO> createCurriculum(@Valid @RequestBody CurriculumDTO dto,
-            HttpServletRequest request) throws IOException {
-        String rawBody = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-        System.out.println(">>> RAW BODY = " + rawBody);
+    public ResponseEntity<CurriculumDTO> createCurriculum(@Valid @RequestBody CurriculumDTO dto) {
         System.out.println(">>> OBJETO = " + dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(curriculumService.createCurriculum(dto));
     }
