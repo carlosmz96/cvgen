@@ -60,17 +60,17 @@ public class ApiExceptionHandler {
     }
 
     // Violaciones de integridad en BD (ej. unique)
-    // @ExceptionHandler(DataIntegrityViolationException.class)
-    // public ResponseEntity<ApiError> handleDataIntegrity(
-    //         DataIntegrityViolationException ex, HttpServletRequest request) {
-    //     ApiError err = new ApiError();
-    //     err.setTimestamp(OffsetDateTime.now());
-    //     err.setStatus(HttpStatus.CONFLICT.value());
-    //     err.setError(HttpStatus.CONFLICT.getReasonPhrase());
-    //     err.setMessage("Data integrity violation");
-    //     err.setPath(request.getRequestURI());
-    //     return ResponseEntity.status(HttpStatus.CONFLICT).body(err);
-    // }
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ApiError> handleDataIntegrity(
+            DataIntegrityViolationException ex, HttpServletRequest request) {
+        ApiError err = new ApiError();
+        err.setTimestamp(OffsetDateTime.now());
+        err.setStatus(HttpStatus.CONFLICT.value());
+        err.setError(HttpStatus.CONFLICT.getReasonPhrase());
+        err.setMessage("Data integrity violation");
+        err.setPath(request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(err);
+    }
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ApiError> handleNotFound(

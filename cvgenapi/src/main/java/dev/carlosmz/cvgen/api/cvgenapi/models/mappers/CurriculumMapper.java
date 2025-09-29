@@ -1,6 +1,7 @@
 package dev.carlosmz.cvgen.api.cvgenapi.models.mappers;
 
 import org.mapstruct.AfterMapping;
+import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
@@ -8,9 +9,9 @@ import dev.carlosmz.cvgen.api.cvgenapi.config.GlobalMapperConfig;
 import dev.carlosmz.cvgen.api.cvgenapi.models.dto.CurriculumDTO;
 import dev.carlosmz.cvgen.api.cvgenapi.models.entities.Curriculum;
 
-@Mapper(config = GlobalMapperConfig.class)
+@Mapper(config = GlobalMapperConfig.class, builder = @Builder(disableBuilder = true))
 public interface CurriculumMapper {
-
+    
     CurriculumDTO toDto(Curriculum entity);
 
     Curriculum toEntity(CurriculumDTO dto);
