@@ -21,9 +21,11 @@ import dev.carlosmz.cvgen.api.cvgenapi.models.dto.CurriculumDTO;
 import dev.carlosmz.cvgen.api.cvgenapi.services.CurriculumService;
 import dev.carlosmz.cvgen.api.cvgenapi.services.PdfService;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping(path = "/api/curriculums", produces = MediaType.APPLICATION_JSON_VALUE)
+@Slf4j
 public class CurriculumController {
 
     @Autowired
@@ -49,6 +51,8 @@ public class CurriculumController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CurriculumDTO> createCurriculum(@Valid @RequestBody CurriculumDTO dto) {
+        log.info("[IN] DTO -> fullName='{}' | email='{}' | city='{}'",
+      dto.getFullName(), dto.getEmail(), dto.getLocationCity());
         return ResponseEntity.status(HttpStatus.CREATED).body(curriculumService.createCurriculum(dto));
     }
 
