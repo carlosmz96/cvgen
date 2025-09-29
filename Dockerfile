@@ -21,6 +21,10 @@ WORKDIR /app
 # Copiamos el JAR
 COPY --from=backend /app/cvgenapi/target/*.jar app.jar
 
-# Render pasa la variable $PORT automáticamente
+# Puerto expuesto (Railway asigna uno dinámico)
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","app.jar","--server.port=${PORT}"]
+
+# Usamos shell form para expandir variables de entorno
+CMD java -jar app.jar \
+    --server.port=${PORT} \
+    --spring.profiles.active=${SPRING_PROFILES_ACTIVE:prod}
