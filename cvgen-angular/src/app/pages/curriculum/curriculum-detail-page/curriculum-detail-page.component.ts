@@ -103,6 +103,8 @@ export class CurriculumDetailPageComponent {
             value: e.translations.spa.common
           }))
           .sort((a, b) => a.label.localeCompare(b.label));
+
+        console.log(this.countries)
       }
     });
   }

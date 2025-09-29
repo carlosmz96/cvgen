@@ -2,6 +2,7 @@ package dev.carlosmz.cvgen.api.cvgenapi.config;
 
 import java.util.List;
 
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -20,6 +21,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
+@EnableConfigurationProperties(CorsConfig.class)
 public class SecurityConfig {
 
     @Bean
@@ -74,8 +76,8 @@ public class SecurityConfig {
     CorsConfigurationSource corsConfigurationSource(CorsConfig corsConfig) {
         CorsConfiguration cors = new CorsConfiguration();
 
-        // cors.setAllowedOrigins(corsConfig.getAllowedOrigins());
-        cors.setAllowedOriginPatterns(List.of("http://localhost:*", "http://127.0.0.1:*"));
+        cors.setAllowedOriginPatterns(corsConfig.getAllowedOrigins());
+        
         cors.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         cors.setAllowedHeaders(List.of("Content-Type", "Authorization", "X-Requested-With", "Accept", "Origin"));
         cors.setExposedHeaders(List.of("Location"));
