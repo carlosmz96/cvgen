@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.URL;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -60,9 +61,6 @@ public class CurriculumDTO {
     @Size(max = 512, message = "{cv.portfolioUrl.size}")
     private String portfolioUrl;
 
-    private Instant createdAt;
-    private Instant updatedAt;
-
     @Builder.Default
     private List<ExperienceDTO> experiences = new ArrayList<>();
 
@@ -74,5 +72,11 @@ public class CurriculumDTO {
 
     @Builder.Default
     private List<CertificationDTO> certifications = new ArrayList<>();
+
+    @NotNull(message = "{cv.userId.notNull}")
+    private Long userId;
+
+    private Instant createdAt;
+    private Instant updatedAt;
 
 }

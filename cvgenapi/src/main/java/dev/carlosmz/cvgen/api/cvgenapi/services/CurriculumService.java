@@ -9,6 +9,8 @@ public interface CurriculumService {
 
     Page<CurriculumDTO> findAll(Pageable pageable);
 
+    Page<CurriculumDTO> findAllByUserId(Pageable pageable, Long userId);
+
     CurriculumDTO getCurriculum(Long id);
 
     CurriculumDTO createCurriculum(CurriculumDTO dto);

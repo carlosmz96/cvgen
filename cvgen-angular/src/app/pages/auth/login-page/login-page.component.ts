@@ -1,4 +1,4 @@
-import { LoadingService } from './../../../services/loading/loading.service';
+import { LoadingService } from '../../../services/loading/loading.service';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -13,6 +13,7 @@ import { UserLogin } from '../../../models/UserLogin';
 import { UserResponse } from '../../../models/UserResponse';
 
 import { CookieService } from 'ngx-cookie-service';
+import { JwtService } from '../../../services/jwt/jwt.service';
 
 @Component({
   selector: 'app-login',
@@ -24,8 +25,8 @@ import { CookieService } from 'ngx-cookie-service';
     CommonModule,
     RouterModule,
   ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  templateUrl: './login-page.component.html',
+  styleUrl: './login-page.component.scss'
 })
 export class LoginComponent {
 
@@ -40,8 +41,8 @@ export class LoginComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private cookieService: CookieService,
-    private loading: LoadingService
+    private loading: LoadingService,
+    private jwtService: JwtService
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -56,8 +57,8 @@ export class LoginComponent {
       this.authService.login(this.userLogin).subscribe(
         {
           next: (data: any) => {
-            console.log('Sesión iniciada con éxito:', data);
-            this.cookieService.set('token', data.token);
+            this.loading.hide();
+            this.jwtService.setToken(data.token);
             this.router.navigate(['/']);
           },
           error: err => {

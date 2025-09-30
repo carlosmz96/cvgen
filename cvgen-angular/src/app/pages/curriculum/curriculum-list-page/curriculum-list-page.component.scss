@@ -1,0 +1,15 @@
+.summary {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  // margin-bottom: 1rem;
+}
+
+.btn-new {
+  float: right;
+}

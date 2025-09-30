@@ -33,4 +33,6 @@ public class UserRegisterDTO {
     @Size(min = 6, message = "{user.register.password.size}")
     private String password;
 
+    private boolean enabled;
+
 }

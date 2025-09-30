@@ -26,6 +26,10 @@ export class CurriculumService {
     return this.httpClient.get<Curriculum>(this.cvUrl + `/${id}`, { headers: this.headers });
   }
 
+  getCurriculumsByUser(userId: number): Observable<any> {
+    return this.httpClient.get<any>(this.cvUrl + `/user/${userId}`, { headers: this.headers });
+  }
+
   createCurriculum(cv: Curriculum): Observable<Curriculum> {
     return this.httpClient.post<Curriculum>(this.cvUrl, cv, { headers: this.headers });
   }

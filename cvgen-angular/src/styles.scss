@@ -2,6 +2,7 @@
 
 body {
   background: url('assets/images/pattern.svg') repeat;
+  background-attachment: fixed;
 }
 
 .form-label {
@@ -46,6 +47,10 @@ input {
 p-select {
   width: 100%;
   box-shadow: 0 3px 0 0 #cbd5e1 !important;
+}
+
+p-select.p-paginator-rpp-dropdown {
+  width: auto;
 }
 
 textarea {
@@ -102,4 +107,31 @@ textarea {
 
 .p-progressspinner-circle {
   stroke: #0d6ffd !important;
+}
+
+.container.logged-page {
+  background-color: white;
+  padding: 2rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+@media (max-width: 768px) {
+  .container.logged-page {
+    padding: 1rem;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #eee;
+  }
+}
+
+@media (max-width: 576px) {
+  .btn-discard .p-button-label { display: none; }
+  .btn-discard .p-button-icon { margin-right: 0; }
+}
+
+.p-datatable-thead > tr > th.p-datatable-column-sorted {
+  background-color: #e4efff !important;
+  color: #0d6ffd !important;
 }

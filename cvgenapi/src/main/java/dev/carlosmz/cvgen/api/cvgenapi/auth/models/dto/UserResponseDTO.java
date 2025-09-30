@@ -19,6 +19,7 @@ public class UserResponseDTO {
     private String fullName;
     private String email;
     private String username;
+    private boolean enabled;
     private Instant createdAt;
     private Instant updatedAt;
     

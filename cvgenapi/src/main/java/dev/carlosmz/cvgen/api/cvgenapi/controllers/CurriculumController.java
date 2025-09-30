@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.carlosmz.cvgen.api.cvgenapi.models.dto.CurriculumDTO;
+import dev.carlosmz.cvgen.api.cvgenapi.models.dto.PageDTO;
 import dev.carlosmz.cvgen.api.cvgenapi.services.CurriculumService;
 import dev.carlosmz.cvgen.api.cvgenapi.services.PdfService;
 import jakarta.validation.Valid;
@@ -37,6 +38,11 @@ public class CurriculumController {
     @GetMapping
     public Page<CurriculumDTO> list(Pageable pageable) {
         return curriculumService.findAll(pageable);
+    }
+
+    @GetMapping("/user/{userId}")    
+    public PageDTO<CurriculumDTO> listByUserId(Pageable pageable, @PathVariable Long userId) {
+        return PageDTO.from(curriculumService.findAllByUserId(pageable, userId));
     }
 
     @GetMapping("/{id}")

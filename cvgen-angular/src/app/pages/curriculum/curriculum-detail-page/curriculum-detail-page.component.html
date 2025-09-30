@@ -1,9 +1,9 @@
-<div class="container">
+<div class="container logged-page">
   <h1>Detalles del currículum</h1>
   <p class="mb-5">En esta sección puedes consultar los datos de tu currículum. Si lo deseas, puedes modificar la
     información, teniendo en cuenta los campos obligatorios (<span class="mandatory">*</span>)</p>
 
-  <form [formGroup]="cvForm" (ngSubmit)="onSubmit()" class="mb-5">
+  <form [formGroup]="cvForm" (ngSubmit)="onSubmit()">
     <h2 class="mb-3">Datos personales</h2>
 
     <!-- Nombre completo -->
@@ -105,7 +105,7 @@
             <div [formGroupName]="idx" class="list-card">
               <div class="space-between">
                 <h3>{{ exp.get('position')?.value || 'Nueva experiencia' }}</h3>
-                <p-button label="Descartar" icon="pi pi-trash" severity="danger" (click)="removeExperience(idx)"
+                <p-button class="btn-discard" label="Descartar" icon="pi pi-trash" severity="danger" (click)="removeExperience(idx)"
                   type="button" [ngStyle]="{'margin-left': 'auto'}"></p-button>
               </div>
               <hr>
@@ -143,7 +143,7 @@
             <div [formGroupName]="idx" class="list-card">
               <div class="space-between">
                 <h3>{{ skill.get('name')?.value || 'Nueva habilidad' }}</h3>
-                <p-button label="Descartar" icon="pi pi-trash" severity="danger" (click)="removeSkill(idx)"
+                <p-button class="btn-discard" label="Descartar" icon="pi pi-trash" severity="danger" (click)="removeSkill(idx)"
                   type="button" [ngStyle]="{'margin-left': 'auto'}"></p-button>
               </div>
               <hr>
@@ -180,7 +180,7 @@
             <div [formGroupName]="idx" class="list-card">
               <div class="space-between">
                 <h3>{{ edu.get('degree')?.value || 'Nueva educación' }}</h3>
-                <p-button label="Descartar" icon="pi pi-trash" severity="danger" (click)="removeEducation(idx)"
+                <p-button class="btn-discard" label="Descartar" icon="pi pi-trash" severity="danger" (click)="removeEducation(idx)"
                   type="button" [ngStyle]="{'margin-left': 'auto'}"></p-button>
               </div>
               <hr>
@@ -218,7 +218,7 @@
             <div [formGroupName]="idx" class="list-card">
               <div class="space-between">
                 <h3>{{ cer.get('name')?.value || 'Nueva certificación' }}</h3>
-                <p-button label="Descartar" icon="pi pi-trash" severity="danger" (click)="removeCertification(idx)"
+                <p-button class="btn-discard" label="Descartar" icon="pi pi-trash" severity="danger" (click)="removeCertification(idx)"
                   type="button" [ngStyle]="{'margin-left': 'auto'}"></p-button>
               </div>
               <hr>

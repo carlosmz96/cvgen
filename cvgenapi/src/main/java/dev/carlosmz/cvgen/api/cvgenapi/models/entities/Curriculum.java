@@ -78,6 +78,9 @@ public class Curriculum {
     @Builder.Default
     private List<Certification> certifications = new ArrayList<>();
 
+    @Column(name = "user_id")
+    private Long userId;
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;

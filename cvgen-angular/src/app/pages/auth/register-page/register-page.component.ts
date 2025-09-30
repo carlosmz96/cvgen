@@ -1,4 +1,4 @@
-import { LoadingService } from './../../../services/loading/loading.service';
+import { LoadingService } from '../../../services/loading/loading.service';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -22,8 +22,8 @@ import { UserResponse } from '../../../models/UserResponse';
     CommonModule,
     RouterModule
   ],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  templateUrl: './register-page.component.html',
+  styleUrl: './register-page.component.scss'
 })
 export class RegisterComponent {
 
@@ -63,7 +63,7 @@ export class RegisterComponent {
       this.authService.register(this.userRegister).subscribe(
         {
           next: (data: UserResponse) => {
-            console.log('Usuario registrado con éxito:', data);
+            this.loading.hide();
             this.router.navigate(['login']);
           },
           error: err => {

@@ -32,6 +32,12 @@ public class CurriculumServiceImpl implements CurriculumService {
     }
 
     @Override
+    public Page<CurriculumDTO> findAllByUserId(Pageable pageable, Long userId) {
+        Page<Curriculum> pageCurriculum = curriculumRepository.findByUserId(pageable, userId);
+        return pageCurriculum.map(curriculumMapper::toDto);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public CurriculumDTO getCurriculum(Long id) {
         return curriculumMapper.toDto(curriculumRepository.findById(id)
