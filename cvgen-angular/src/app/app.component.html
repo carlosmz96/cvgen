@@ -1,3 +1,5 @@
+<p-toast></p-toast>
+
 <app-navigation *ngIf="isAuthenticated"></app-navigation>
 
 <div class="app-layout" *ngIf="isAuthenticated">
@@ -11,7 +13,7 @@
       <ul class="nav flex-column mt-5">
         <li class="nav-item"><a class="nav-link active" routerLink="/">Inicio</a></li>
         <li class="nav-item"><a class="nav-link" routerLink="/curriculums">Currículums</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Plantillas</a></li>
+        <li class="nav-item"><a class="nav-link text-decoration-line-through" href="#">Plantillas</a></li>
       </ul>
     </div>
   </div>

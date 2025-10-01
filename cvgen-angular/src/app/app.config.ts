@@ -9,7 +9,10 @@ import { routes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
+import { ToastModule } from 'primeng/toast';
+
 import { AuthInterceptor } from './interceptors/AuthInterceptor';
+import { MessageService } from 'primeng/api';
 
 
 export const appConfig: ApplicationConfig = {
@@ -22,6 +25,8 @@ export const appConfig: ApplicationConfig = {
       (req, next) => inject(AuthInterceptor).intercept(req, { handle: next })
     ])),
     provideAnimations(),
+    importProvidersFrom(ToastModule),
+    MessageService,
     providePrimeNG({
       theme: {
         preset: Aura,

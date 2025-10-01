@@ -20,4 +20,5 @@ export interface Curriculum {
   skills: Skill[];
   educations: Education[];
   certifications: Certification[];
+  userId: number;
 }

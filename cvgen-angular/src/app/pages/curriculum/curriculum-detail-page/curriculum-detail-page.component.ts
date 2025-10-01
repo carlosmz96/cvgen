@@ -1,25 +1,26 @@
-import { LoadingService } from './../../../services/loading/loading.service';
+import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { LoadingService } from './../../../services/loading/loading.service';
 
-import { CurriculumService } from '../../../services/curriculum/curriculum.service';
 import { CountryService } from '../../../services/country/country.service';
+import { CurriculumService } from '../../../services/curriculum/curriculum.service';
 
+import { CertificationComponent } from '../../../components/certification/certification.component';
+import { EducationComponent } from '../../../components/education/education.component';
 import { ExperienceComponent } from '../../../components/experience/experience.component';
 import { SkillComponent } from '../../../components/skill/skill.component';
-import { EducationComponent } from '../../../components/education/education.component';
-import { CertificationComponent } from '../../../components/certification/certification.component';
 
 import { Curriculum } from '../../../models/Curriculum';
 
+import { AccordionModule } from 'primeng/accordion';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { AccordionModule } from 'primeng/accordion';
+import { JwtService } from '../../../services/jwt/jwt.service';
 
 @Component({
   selector: 'app-curriculum-detail-page',
@@ -63,14 +64,16 @@ export class CurriculumDetailPageComponent {
     experiences: [],
     skills: [],
     educations: [],
-    certifications: []
+    certifications: [],
+    userId: 0
   };
 
   constructor(
     private fb: FormBuilder,
     private countryService: CountryService,
     private cvService: CurriculumService,
-    private loading: LoadingService
+    private loading: LoadingService,
+    private jwtService: JwtService
   ) {
     this.cvForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.maxLength(200)]],
@@ -106,8 +109,6 @@ export class CurriculumDetailPageComponent {
             value: e.translations.spa.common
           }))
           .sort((a, b) => a.label.localeCompare(b.label));
-
-        console.log(this.countries)
       }
     });
   }
@@ -148,6 +149,8 @@ export class CurriculumDetailPageComponent {
 
   onSubmit(): void {
     this.loading.show('Cargando...');
+    this.curriculum = this.cvForm.getRawValue();
+    this.curriculum.userId = this.jwtService.getUserId() as number;
     this.cvService.updateCurriculum(this.curriculum, this.curriculumId).subscribe(
       {
         next: (data: Curriculum) => {

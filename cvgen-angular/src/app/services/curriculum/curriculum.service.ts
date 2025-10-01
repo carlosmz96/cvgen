@@ -39,7 +39,7 @@ export class CurriculumService {
   }
 
   deleteCurriculum(id: number): Observable<any> {
-    return this.httpClient.delete<any>(this.cvUrl + `${id}`, { headers: this.headers });
+    return this.httpClient.delete<any>(this.cvUrl + `/${id}`, { headers: this.headers });
   }
 
   downloadCurriculum(id: number, template: string): Observable<Blob> {

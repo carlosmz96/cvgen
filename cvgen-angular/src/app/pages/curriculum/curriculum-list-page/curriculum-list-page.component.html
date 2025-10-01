@@ -1,3 +1,10 @@
+<p-confirmdialog #cd [closable]="false">
+  <ng-template pTemplate="footer">
+    <button pButton label="Eliminar" icon="pi pi-check" severity="danger" (click)="cd.onAccept()"></button>
+    <button pButton label="Cancelar" icon="pi pi-times" severity="secondary" outlined="true" (click)="cd.onReject()"></button>
+  </ng-template>
+</p-confirmdialog>
+
 <div class="container logged-page">
   <h1>Mis currículums</h1>
 
@@ -6,17 +13,17 @@
       routerLink="/curriculums/new"></p-button>
   </div>
   <div>
-    <p-table styleClass="mt-3" [value]="curriculums" [paginator]="true" [rows]="5" showGridlines
+    <p-table styleClass="mt-3" [value]="curriculums" [paginator]="true" [rows]="5" showGridlines responsiveLayout="stack"
       [tableStyle]="{ 'table-layout':'fixed', 'width':'100%' }" [rowsPerPageOptions]="[5, 10, 20]">
       <ng-template #header>
         <tr>
-          <th pSortableColumn="title">
+          <th pSortableColumn="title" [width]="'20%'">
             Título profesional <p-sortIcon field="title" />
           </th>
           <th pSortableColumn="summary">
             Resumen profesional <p-sortIcon field="summary" />
           </th>
-          <th>Acciones</th>
+          <th [width]="'20%'">Acciones</th>
         </tr>
       </ng-template>
 
@@ -25,8 +32,15 @@
           <td>{{ curriculum.title }}</td>
           <td class="summary" title="{{curriculum.summary}}">{{ curriculum.summary }}</td>
           <td>
-            <p-button severity="info" icon="pi pi-eye" title="Consultar detalle"
-              routerLink="/curriculums/details/{{curriculum.id}}"></p-button>
+            <div class="d-flex gap-2">
+              <!-- Consultar -->
+              <p-button severity="info" icon="pi pi-eye" title="Consultar detalle"
+                routerLink="/curriculums/details/{{curriculum.id}}"></p-button>
+
+              <!-- Eliminar -->
+              <p-button severity="danger" icon="pi pi-trash" title="Eliminar currículum"
+                (onClick)="prepareDeleteCurriculum($event, curriculum.id)"></p-button>
+            </div>
           </td>
         </tr>
       </ng-template>

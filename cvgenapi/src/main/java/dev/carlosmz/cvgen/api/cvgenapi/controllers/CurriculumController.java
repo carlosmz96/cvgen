@@ -71,6 +71,7 @@ public class CurriculumController {
 
         CurriculumDTO dtoDatabase = curriculumService.getCurriculum(id);
         if (dtoDatabase != null) {
+            dto.setId(id);
             return ResponseEntity.ok().body(curriculumService.updateCurriculum(dto));
         } else {
             return ResponseEntity.notFound().build();

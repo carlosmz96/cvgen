@@ -1,8 +1,7 @@
-import { LoadingService } from './../../../services/loading/loading.service';
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Curriculum } from './../../../models/Curriculum';
+import { Router } from '@angular/router';
 
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -17,7 +16,10 @@ import { SkillComponent } from "../../../components/skill/skill.component";
 
 import { CountryService } from '../../../services/country/country.service';
 import { CurriculumService } from '../../../services/curriculum/curriculum.service';
-import { Router } from '@angular/router';
+import { LoadingService } from './../../../services/loading/loading.service';
+
+import { Curriculum } from './../../../models/Curriculum';
+import { JwtService } from '../../../services/jwt/jwt.service';
 
 @Component({
   selector: 'app-new-curriculum-page',
@@ -60,6 +62,7 @@ export class NewCurriculumPageComponent {
     linkedinUrl: '',
     githubUrl: '',
     portfolioUrl: '',
+    userId: 0
   };
 
   constructor(
@@ -67,7 +70,8 @@ export class NewCurriculumPageComponent {
     private countryService: CountryService,
     private cvService: CurriculumService,
     private router: Router,
-    private loading: LoadingService
+    private loading: LoadingService,
+    private jwtService: JwtService
   ) {
     this.cvForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.maxLength(200)]],
@@ -130,11 +134,12 @@ export class NewCurriculumPageComponent {
       }));
 
       this.curriculum = raw;
+      this.curriculum.userId = this.jwtService.getUserId() as number;
       this.cvService.createCurriculum(this.curriculum).subscribe(
         {
           next: (data: Curriculum) => {
             this.loading.hide();
-            this.router.navigateByUrl('/curriculum/details/' + data.id);
+            this.router.navigateByUrl('/curriculums/details/' + data.id);
           },
           error: err => {
             this.loading.hide();

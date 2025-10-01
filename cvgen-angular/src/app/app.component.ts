@@ -4,6 +4,7 @@ import { RouterOutlet, RouterModule, Router } from '@angular/router';
 
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { LoadingOverlayComponent } from './components/loading-overlay/loading-overlay.component';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,8 @@ import { LoadingOverlayComponent } from './components/loading-overlay/loading-ov
     RouterOutlet,
     NavigationComponent,
     RouterModule,
-    LoadingOverlayComponent
+    LoadingOverlayComponent,
+    ToastModule
 ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

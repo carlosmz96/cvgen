@@ -77,12 +77,25 @@ textarea {
 }
 
 .p-button-info:hover {
-  background: #0a5dda !important;
+  background: #0b64e9 !important;
   border-color: #0a5dda !important;
 }
 
 .p-button-danger {
-  box-shadow: 0 3px 0 0 #dc2626 !important;
+ box-shadow: 0 3px 0 0 #dc2626 !important;
+}
+
+.p-button-outlined.p-button-secondary {
+  box-shadow: 0 3px 0 0 #e2e8f0 !important;
+}
+
+.p-button-secondary {
+  box-shadow: 0 3px 0 0 #bcc0c7 !important;
+  border-color: #bcc0c7 !important;
+}
+
+.p-dialog-footer {
+  justify-content: center !important;
 }
 
 .space-between {
@@ -114,7 +127,8 @@ textarea {
   padding: 2rem;
   margin-bottom: 1rem;
   border-radius: 8px;
-  border: 1px solid #eee;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 0 10px 1px #cbd5e1 !important;
 }
 
 @media (max-width: 768px) {
@@ -122,7 +136,7 @@ textarea {
     padding: 1rem;
     width: 100%;
     border-radius: 8px;
-    border: 1px solid #eee;
+    border: 1px solid #cbd5e1;
   }
 }
 
