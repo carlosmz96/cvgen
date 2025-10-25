@@ -1,20 +1,23 @@
 package dev.carlosmz96.cvgen.cvgen_api.models.entities;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
+import dev.carlosmz96.cvgen.cvgen_api.models.entities.security.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "Curriculum")
+@Table(name = "curriculum")
 public class Curriculum {
 
     @Id
@@ -28,19 +31,22 @@ public class Curriculum {
     private LocalDate createdAt;
     private LocalDate updatedAt;
 
-    @OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL)
-    private List<Experience> experiences;
+    @ManyToOne
+    private User user;
 
-    @OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL)
-    private List<Education> educations;
+    @OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Experience> experiences = new ArrayList<>();
 
-    @OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL)
-    private List<Skill> skills;
+    @OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Education> educations = new ArrayList<>();
 
-    @OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL)
-    private List<Certification> certifications;
+    @OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Skill> skills = new ArrayList<>();
 
-    @OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL)
-    private List<LanguageSkill> languageSkills;
+    @OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Certification> certifications = new ArrayList<>();
+
+    @OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<LanguageSkill> languageSkills = new ArrayList<>();
 
 }

@@ -6,13 +6,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "Education")
+@Table(name = "education")
 public class Education {
 
     @Id
@@ -27,6 +28,7 @@ public class Education {
     private String description;
 
     @ManyToOne
+    @JoinColumn(name = "education_id")
     private Curriculum curriculum;
     
 }
