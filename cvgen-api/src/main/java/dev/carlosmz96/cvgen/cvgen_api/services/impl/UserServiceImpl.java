@@ -2,10 +2,10 @@ package dev.carlosmz96.cvgen.cvgen_api.services.impl;
 
 import org.springframework.stereotype.Service;
 
-import dev.carlosmz96.cvgen.cvgen_api.models.dtos.security.UserDTO;
-import dev.carlosmz96.cvgen.cvgen_api.models.entities.security.User;
-import dev.carlosmz96.cvgen.cvgen_api.models.mappers.UserMapper;
-import dev.carlosmz96.cvgen.cvgen_api.repositories.security.UserRepository;
+import dev.carlosmz96.cvgen.cvgen_api.security.models.dtos.UserDTO;
+import dev.carlosmz96.cvgen.cvgen_api.security.models.entities.User;
+import dev.carlosmz96.cvgen.cvgen_api.security.models.mappers.UserMapper;
+import dev.carlosmz96.cvgen.cvgen_api.security.repositories.UserRepository;
 import dev.carlosmz96.cvgen.cvgen_api.services.UserService;
 import lombok.RequiredArgsConstructor;
 

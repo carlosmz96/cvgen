@@ -1,4 +1,4 @@
-package dev.carlosmz96.cvgen.cvgen_api.config;
+package dev.carlosmz96.cvgen.cvgen_api.security.config;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +20,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import dev.carlosmz96.cvgen.cvgen_api.services.security.JpaUserDetailsService;
+import dev.carlosmz96.cvgen.cvgen_api.security.filters.JwtAuthFilter;
+import dev.carlosmz96.cvgen.cvgen_api.security.services.JpaUserDetailsService;
 import lombok.RequiredArgsConstructor;
 
 @Configuration

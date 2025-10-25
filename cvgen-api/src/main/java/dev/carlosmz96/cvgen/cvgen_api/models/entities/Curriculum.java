@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.carlosmz96.cvgen.cvgen_api.models.entities.security.User;
+import dev.carlosmz96.cvgen.cvgen_api.security.models.entities.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.carlosmz96.cvgen.cvgen_api.models.dtos.security.UserDTO;
+import dev.carlosmz96.cvgen.cvgen_api.security.models.dtos.UserDTO;
 import lombok.Data;
 
 @Data

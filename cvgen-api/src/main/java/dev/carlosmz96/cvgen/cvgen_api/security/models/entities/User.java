@@ -1,4 +1,4 @@
-package dev.carlosmz96.cvgen.cvgen_api.models.entities.security;
+package dev.carlosmz96.cvgen.cvgen_api.security.models.entities;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -7,6 +7,7 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import dev.carlosmz96.cvgen.cvgen_api.enums.Role;
 import dev.carlosmz96.cvgen.cvgen_api.models.entities.Curriculum;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

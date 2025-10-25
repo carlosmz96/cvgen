@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.carlosmz96.cvgen.cvgen_api.models.dtos.security.AuthRequest;
-import dev.carlosmz96.cvgen.cvgen_api.models.dtos.security.AuthResponse;
-import dev.carlosmz96.cvgen.cvgen_api.models.dtos.security.RegisterRequest;
-import dev.carlosmz96.cvgen.cvgen_api.models.dtos.security.UserDTO;
-import dev.carlosmz96.cvgen.cvgen_api.models.entities.security.Role;
+import dev.carlosmz96.cvgen.cvgen_api.enums.Role;
+import dev.carlosmz96.cvgen.cvgen_api.security.models.dtos.AuthRequest;
+import dev.carlosmz96.cvgen.cvgen_api.security.models.dtos.AuthResponse;
+import dev.carlosmz96.cvgen.cvgen_api.security.models.dtos.RegisterRequest;
+import dev.carlosmz96.cvgen.cvgen_api.security.models.dtos.UserDTO;
+import dev.carlosmz96.cvgen.cvgen_api.security.services.JwtService;
 import dev.carlosmz96.cvgen.cvgen_api.services.UserService;
-import dev.carlosmz96.cvgen.cvgen_api.services.security.JwtService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 

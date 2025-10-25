@@ -1,4 +1,4 @@
-package dev.carlosmz96.cvgen.cvgen_api.services.security;
+package dev.carlosmz96.cvgen.cvgen_api.security.services;
 
 import java.security.Key;
 import java.util.Date;

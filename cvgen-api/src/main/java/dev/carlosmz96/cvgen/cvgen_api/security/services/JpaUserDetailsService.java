@@ -1,4 +1,4 @@
-package dev.carlosmz96.cvgen.cvgen_api.services.security;
+package dev.carlosmz96.cvgen.cvgen_api.security.services;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import dev.carlosmz96.cvgen.cvgen_api.repositories.security.UserRepository;
+import dev.carlosmz96.cvgen.cvgen_api.security.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service

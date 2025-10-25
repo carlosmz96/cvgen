@@ -1,4 +1,4 @@
-package dev.carlosmz96.cvgen.cvgen_api.config;
+package dev.carlosmz96.cvgen.cvgen_api.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

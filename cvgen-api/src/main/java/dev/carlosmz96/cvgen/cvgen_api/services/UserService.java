@@ -1,6 +1,6 @@
 package dev.carlosmz96.cvgen.cvgen_api.services;
 
-import dev.carlosmz96.cvgen.cvgen_api.models.dtos.security.UserDTO;
+import dev.carlosmz96.cvgen.cvgen_api.security.models.dtos.UserDTO;
 
 public interface UserService {
 

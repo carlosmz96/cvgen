@@ -1,11 +1,11 @@
-package dev.carlosmz96.cvgen.cvgen_api.models.dtos.security;
+package dev.carlosmz96.cvgen.cvgen_api.security.models.dtos;
 
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.carlosmz96.cvgen.cvgen_api.enums.Role;
 import dev.carlosmz96.cvgen.cvgen_api.models.dtos.CurriculumDTO;
-import dev.carlosmz96.cvgen.cvgen_api.models.entities.security.Role;
 import lombok.Data;
 
 @Data

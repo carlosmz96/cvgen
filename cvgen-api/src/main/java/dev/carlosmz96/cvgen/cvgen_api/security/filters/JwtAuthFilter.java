@@ -1,4 +1,4 @@
-package dev.carlosmz96.cvgen.cvgen_api.config;
+package dev.carlosmz96.cvgen.cvgen_api.security.filters;
 
 import java.io.IOException;
 
@@ -11,7 +11,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import dev.carlosmz96.cvgen.cvgen_api.services.security.JwtService;
+import dev.carlosmz96.cvgen.cvgen_api.security.services.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
