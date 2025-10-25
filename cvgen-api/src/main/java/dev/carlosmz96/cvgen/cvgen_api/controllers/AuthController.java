@@ -49,6 +49,7 @@ public class AuthController {
         return ResponseEntity.ok(new AuthResponse(token));
     }
 
+    @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody AuthRequest request) {
         authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(request.email(), request.password()));
