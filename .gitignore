@@ -1,0 +1,87 @@
+# =========================
+# GLOBAL SETTINGS
+# =========================
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDEs and editors
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.project
+.classpath
+.factorypath
+.settings/
+.sts4-cache
+.apt_generated
+
+# Logs
+*.log
+**/logs/
+**/log/
+**/target/logs/
+
+# Build artifacts
+/build/
+**/bin/
+**/out/
+**/dist/
+**/tmp/
+**/.cache/
+**/.angular/cache/
+**/.sass-cache/
+
+# =========================
+# BACKEND (Spring Boot / Maven)
+# =========================
+cvgen-api/target/
+cvgen-api/.mvn/wrapper/maven-wrapper.jar
+cvgen-api/.mvn/
+cvgen-api/mvnw
+cvgen-api/mvnw.cmd
+
+# Ignore Maven build output everywhere except source directories
+!cvgen-api/src/main/**/target/
+!cvgen-api/src/test/**/target/
+
+# =========================
+# FRONTEND (Angular)
+# =========================
+cvgen-client/node_modules/
+cvgen-client/dist/
+cvgen-client/tmp/
+cvgen-client/out-tsc/
+cvgen-client/.angular/cache/
+cvgen-client/.sass-cache/
+cvgen-client/coverage/
+cvgen-client/.vscode/
+cvgen-client/.history/
+
+# Ignore package manager logs
+cvgen-client/npm-debug.log*
+cvgen-client/yarn-error.log*
+cvgen-client/package-lock.json
+
+# =========================
+# MISCELLANEOUS
+# =========================
+# Environment files
+*.env
+*.env.local
+*.env.*.local
+
+# Docker
+**/.docker/
+**/docker-compose.override.yml
+**/Dockerfile.local
+
+# JetBrains, NetBeans, etc.
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
