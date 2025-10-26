@@ -13,6 +13,5 @@ public class CertificationDTO {
     private LocalDate obtainedDate;
     private LocalDate validUntil;
     private String credentialUrl;
-    private CurriculumDTO curriculum;
 
 }

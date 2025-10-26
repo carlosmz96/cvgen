@@ -27,7 +27,7 @@ public class Certification {
     private String credentialUrl;
 
     @ManyToOne
-    @JoinColumn(name = "certification_id")
+    @JoinColumn(name = "curriculum_id")
     private Curriculum curriculum;
     
 }

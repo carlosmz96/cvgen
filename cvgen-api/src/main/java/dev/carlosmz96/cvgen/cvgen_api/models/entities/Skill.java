@@ -23,7 +23,7 @@ public class Skill {
     private String category;
 
     @ManyToOne
-    @JoinColumn(name = "skill_id")
+    @JoinColumn(name = "curriculum_id")
     private Curriculum curriculum;
     
 }

@@ -22,7 +22,7 @@ public class LanguageSkill {
     private String level;
 
     @ManyToOne
-    @JoinColumn(name = "language_skill_id")
+    @JoinColumn(name = "curriculum_id")
     private Curriculum curriculum;
 
 }

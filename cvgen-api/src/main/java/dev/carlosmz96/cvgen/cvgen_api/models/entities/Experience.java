@@ -29,7 +29,7 @@ public class Experience {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "experience_id")
+    @JoinColumn(name = "curriculum_id")
     private Curriculum curriculum;
     
 }

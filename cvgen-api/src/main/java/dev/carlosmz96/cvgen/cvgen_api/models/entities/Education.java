@@ -28,7 +28,7 @@ public class Education {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "education_id")
+    @JoinColumn(name = "curriculum_id")
     private Curriculum curriculum;
     
 }

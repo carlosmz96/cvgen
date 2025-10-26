@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import dev.carlosmz96.cvgen.cvgen_api.security.models.dtos.UserDTO;
 import lombok.Data;
 
@@ -18,6 +20,7 @@ public class CurriculumDTO {
     private LocalDate createdAt;
     private LocalDate updatedAt;
 
+    @JsonIgnore
     private UserDTO user;
 
     private List<ExperienceDTO> experiences = new ArrayList<>();

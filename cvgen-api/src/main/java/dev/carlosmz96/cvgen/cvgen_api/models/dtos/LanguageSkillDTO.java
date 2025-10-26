@@ -8,6 +8,5 @@ public class LanguageSkillDTO {
     private Long id;
     private String language;
     private String level;
-    private CurriculumDTO curriculum;
 
 }

@@ -1,7 +1,7 @@
 package dev.carlosmz96.cvgen.cvgen_api.models.mappers;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.Mapping;
 
 import dev.carlosmz96.cvgen.cvgen_api.models.dtos.ExperienceDTO;
 import dev.carlosmz96.cvgen.cvgen_api.models.entities.Experience;
@@ -9,8 +9,7 @@ import dev.carlosmz96.cvgen.cvgen_api.models.entities.Experience;
 @Mapper(componentModel = "spring")
 public interface ExperienceMapper {
 
-    ExperienceMapper INSTANCE = Mappers.getMapper(ExperienceMapper.class);
-
+    @Mapping(target = "curriculum", ignore = true)
     Experience experienceDtoToExperience(ExperienceDTO experienceDto);
     ExperienceDTO experienceToExperienceDTO(Experience experience);
     

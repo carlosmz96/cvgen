@@ -15,6 +15,5 @@ public class ExperienceDTO {
     private LocalDate endDate;
     private boolean current;
     private String description;
-    private CurriculumDTO curriculum;
 
 }

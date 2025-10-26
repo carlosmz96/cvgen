@@ -9,6 +9,5 @@ public class SkillDTO {
     private String name;
     private String level;
     private String category;
-    private CurriculumDTO curriculum;
 
 }
