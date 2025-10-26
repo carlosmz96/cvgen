@@ -76,3 +76,16 @@ h3 {
   font-weight: 700;
   letter-spacing: .2px;
 }
+
+.input-group-text {
+  background-color: white !important;
+}
+
+.form-control:focus {
+  border-color: #dee2e6 !important;
+  box-shadow: none !important;
+}
+
+input.form-control {
+  font-size: 14px;
+}

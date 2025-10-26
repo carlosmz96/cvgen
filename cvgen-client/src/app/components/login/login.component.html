@@ -1,1 +1,42 @@
-<p>login works!</p>
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="card p-4" style="width: 25rem;">
+    <div class="text-center mt-2 mb-5">
+      <h3 class="login-title">Bienvenido de nuevo</h3>
+      <small class="description">Inicia sesión en tu cuenta para continuar</small>
+    </div>
+
+    <form (ngSubmit)="login()">
+      <div class="mb-3">
+        <label class="form-label">Correo Electrónico</label>
+        <div class="input-group mb-3">
+          <span class="input-group-text">
+            <i class="pi pi-envelope"></i>
+          </span>
+          <input type="email" name="email" class="form-control" [(ngModel)]="email" placeholder="ejemplo@correo.com">
+        </div>
+      </div>
+
+      <div class="mb-1">
+        <label class="form-label">Contraseña</label>
+        <div class="input-group mb-1">
+          <span class="input-group-text">
+            <i class="pi pi-lock"></i>
+          </span>
+          <input type="password" name="password" class="form-control" [(ngModel)]="password" placeholder="•••••••••••">
+        </div>
+      </div>
+
+      <div class="forgot-pw mb-3">
+        <small><a class="login-link" routerLink="#">¿Olvidé mi contraseña?</a></small>
+      </div>
+
+      <button type="submit" class="btn btn-success w-100 mb-3">
+        Iniciar sesión
+      </button>
+
+      <div class="register-info">
+        <small>¿No tienes cuenta? <a class="login-link" routerLink="/register">Regístrate</a></small>
+      </div>
+    </form>
+  </div>
+</div>
