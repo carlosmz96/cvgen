@@ -1,1 +1,78 @@
-/* You can add global styles to this file, and also import other style files */
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+@import 'primeicons/primeicons.css';
+@import 'primeflex/primeflex.css';
+
+:root {
+  --hero-bg: linear-gradient(135deg, #f4efe9 0%, #e7e0d9 60%, #e4d9d2 100%);
+}
+
+body {
+  background: #f8f9fb;
+  color: #111827;
+  font-family: "Roboto", sans-serif;
+}
+
+h1 {
+  font-size: 30px;
+}
+
+h2 {
+  font-size: 28px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+.section {
+  padding: 4rem 1rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.shadow-soft {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, .06);
+}
+
+.card-plain {
+  background: #fff;
+  border-radius: 20px;
+}
+
+.round-2xl {
+  border-radius: 20px;
+}
+
+.btn-cta {
+  font-weight: 600;
+  border-radius: 999px;
+}
+
+.hero-title {
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  line-height: 1.05;
+  font-weight: 800;
+  color: #fff;
+}
+
+.hero-sub {
+  color: #eef2f7;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+}
+
+.hero-wrap {
+  background: var(--hero-bg);
+}
+
+.hero-overlay {
+  background: rgba(0, 0, 0, .35);
+}
+
+.nav-logo {
+  font-weight: 700;
+  letter-spacing: .2px;
+}

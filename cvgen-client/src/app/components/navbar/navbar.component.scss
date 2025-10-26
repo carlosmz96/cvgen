@@ -1,0 +1,44 @@
+:host {
+  display: block;
+}
+
+.logo-icon {
+  font-size: 1.8rem; /* más grande */
+  color: #198754;   /* tu color */
+}
+
+
+.navbar {
+  backdrop-filter: blur(6px);
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: 0.3px;
+  font-size: 22px;
+}
+
+.nav-link {
+  color: #374151 !important;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: #111827 !important;
+}
+
+.btn-outline-success {
+  border-radius: 4px;
+  padding-inline: 1.25rem;
+  font-weight: 500;
+}
+
+.btn-success {
+  border-radius: 4px;
+  padding-inline: 1.25rem;
+  font-weight: 500;
+}

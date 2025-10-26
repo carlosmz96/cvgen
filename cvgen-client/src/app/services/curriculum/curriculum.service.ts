@@ -1,9 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
+import { environment } from '../../../environments/environment';
 import { Curriculum } from '../../models/Curriculum';
-import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,14 +12,22 @@ export class CurriculumService {
 
   private api = `${environment.apiUrl}/curriculums`;
 
-  constructor(
-    private http: HttpClient,
-    private auth: AuthService
-  ) {}
+  constructor(private http: HttpClient) {}
 
   listarPorUsuario(id: number): Observable<Curriculum[]> {
-    const headers: HttpHeaders = new HttpHeaders({'Authorization': 'Bearer ' + this.auth.token()})
-    return this.http.get<Curriculum[]>(`${this.api}/${id}`, { headers: headers });
+    return this.http.get<Curriculum[]>(`${this.api}/${id}`);
+  }
+
+  crearCurriculum(curriculum: Curriculum): Observable<Curriculum> {
+    return this.http.post<Curriculum>(`${this.api}/crear`, curriculum);
+  }
+
+  editarCurriculum(curriculum: Curriculum): Observable<Curriculum> {
+    return this.http.put<Curriculum>(`${this.api}/editar/${curriculum.id}`, curriculum);
+  }
+
+  eliminarCurriculum(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.api}/eliminar/${id}`);
   }
 
 }
