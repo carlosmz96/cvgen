@@ -11,7 +11,7 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class AuthService {
 
-  private api = environment.apiUrl;
+  private api = `${environment.apiUrl}/auth`;
   private _token = signal<string | null>(localStorage.getItem('token'));
   private _user = signal<User | null>(this.readUserFromToken(this._token()));
 
@@ -23,11 +23,11 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string) {
-    return this.http.post<AuthResponse>(`${this.api}/auth/login`, { email, password });
+    return this.http.post<AuthResponse>(`${this.api}/login`, { email, password });
   }
 
   register(user: User) {
-    return this.http.post<AuthResponse>(`${this.api}/auth/register`, user);
+    return this.http.post<AuthResponse>(`${this.api}/register`, user);
   }
 
   saveSession(response: AuthResponse) {
