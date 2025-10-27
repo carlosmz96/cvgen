@@ -1,1 +1,64 @@
-<p>register works!</p>
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="card p-4" style="width: 25rem;">
+    <div class="text-center mt-2 mb-5">
+      <h3 class="register-title">Crea tu cuenta</h3>
+      <small class="description">Regístrate para comenzar a crear tu CV</small>
+    </div>
+
+    <form (ngSubmit)="register()">
+      <div class="mb-3">
+        <label class="form-label">Nombre completo</label>
+        <p-inputgroup>
+          <p-inputgroup-addon>
+            <i class="pi pi-user"></i>
+          </p-inputgroup-addon>
+          <input type="text" pInputText [ngModelOptions]="{standalone: true}" [(ngModel)]="name"
+            placeholder="Introduce tu nombre completo" required />
+        </p-inputgroup>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Correo Electrónico</label>
+        <p-inputgroup>
+          <p-inputgroup-addon>
+            <i class="pi pi-envelope"></i>
+          </p-inputgroup-addon>
+          <input type="email" pInputText [ngModelOptions]="{standalone: true}" [(ngModel)]="email"
+            placeholder="Introduce un correo electrónico" required />
+        </p-inputgroup>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Contraseña</label>
+        <p-inputgroup>
+          <p-inputgroup-addon>
+            <i class="pi pi-lock"></i>
+          </p-inputgroup-addon>
+          <p-password [ngModelOptions]="{standalone: true}" styleClass="w-100" [(ngModel)]="password"
+            [toggleMask]="true" placeholder="Introduce una contraseña" [promptLabel]="'Introduce una contraseña'"
+            required></p-password>
+        </p-inputgroup>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">Confirmar Contraseña</label>
+        <p-inputgroup>
+          <p-inputgroup-addon>
+            <i class="pi pi-lock"></i>
+          </p-inputgroup-addon>
+          <p-password [ngModelOptions]="{standalone: true}" styleClass="w-100" [(ngModel)]="confirmPassword"
+            [toggleMask]="true" placeholder="Introduce de nuevo tu contraseña"
+            [promptLabel]="'Introduce una contraseña'" required></p-password>
+        </p-inputgroup>
+      </div>
+
+      <button type="submit" class="btn btn-success w-100 mb-3">
+        Registrarse
+      </button>
+
+      <div class="login-info">
+        <small>¿Ya tienes cuenta? <a class="login-link" routerLink="/login">Inicia sesión</a></small>
+      </div>
+    </form>
+  </div>
+</div>

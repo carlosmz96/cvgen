@@ -8,22 +8,25 @@
     <form (ngSubmit)="login()">
       <div class="mb-3">
         <label class="form-label">Correo Electrónico</label>
-        <div class="input-group mb-3">
-          <span class="input-group-text">
+        <p-inputgroup>
+          <p-inputgroup-addon>
             <i class="pi pi-envelope"></i>
-          </span>
-          <input type="email" name="email" class="form-control" [(ngModel)]="email" placeholder="ejemplo@correo.com">
-        </div>
+          </p-inputgroup-addon>
+          <input type="email" pInputText [ngModelOptions]="{standalone: true}" [(ngModel)]="email"
+            placeholder="Introduce tu correo electrónico" required />
+        </p-inputgroup>
       </div>
 
       <div class="mb-1">
         <label class="form-label">Contraseña</label>
-        <div class="input-group mb-1">
-          <span class="input-group-text">
+        <p-inputgroup>
+          <p-inputgroup-addon>
             <i class="pi pi-lock"></i>
-          </span>
-          <input type="password" name="password" class="form-control" [(ngModel)]="password" placeholder="•••••••••••">
-        </div>
+          </p-inputgroup-addon>
+          <p-password [ngModelOptions]="{standalone: true}" styleClass="w-100" [(ngModel)]="password"
+            [toggleMask]="true" placeholder="Introduce tu contraseña" [feedback]="false"
+            required></p-password>
+        </p-inputgroup>
       </div>
 
       <div class="forgot-pw mb-3">
