@@ -5,16 +5,22 @@
       <small class="description">Inicia sesión en tu cuenta para continuar</small>
     </div>
 
-    <form (ngSubmit)="login()">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="mb-3">
         <label class="form-label">Correo Electrónico</label>
         <p-inputgroup>
           <p-inputgroup-addon>
             <i class="pi pi-envelope"></i>
           </p-inputgroup-addon>
-          <input type="email" pInputText [ngModelOptions]="{standalone: true}" [(ngModel)]="email"
-            placeholder="Introduce tu correo electrónico" required />
+          <input type="email" pInputText formControlName="email" placeholder="Introduce tu correo electrónico"
+            required />
         </p-inputgroup>
+        <small class="novalid" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['required']">
+          El email es obligatorio
+        </small>
+        <small class="novalid" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['email']">
+          Email no válido
+        </small>
       </div>
 
       <div class="mb-1">
@@ -23,10 +29,13 @@
           <p-inputgroup-addon>
             <i class="pi pi-lock"></i>
           </p-inputgroup-addon>
-          <p-password [ngModelOptions]="{standalone: true}" styleClass="w-100" [(ngModel)]="password"
-            [toggleMask]="true" placeholder="Introduce tu contraseña" [feedback]="false"
-            required></p-password>
+          <p-password styleClass="w-100" formControlName="password" [toggleMask]="true"
+            placeholder="Introduce tu contraseña" [feedback]="false" required></p-password>
         </p-inputgroup>
+        <small class="novalid"
+          *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']">
+          La contraseña es obligatoria
+        </small>
       </div>
 
       <div class="forgot-pw mb-3">

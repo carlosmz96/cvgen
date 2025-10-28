@@ -5,16 +5,17 @@
       <small class="description">Regístrate para comenzar a crear tu CV</small>
     </div>
 
-    <form (ngSubmit)="register()">
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
       <div class="mb-3">
         <label class="form-label">Nombre completo</label>
         <p-inputgroup>
           <p-inputgroup-addon>
             <i class="pi pi-user"></i>
           </p-inputgroup-addon>
-          <input type="text" pInputText [ngModelOptions]="{standalone: true}" [(ngModel)]="name"
-            placeholder="Introduce tu nombre completo" required />
+          <input type="text" pInputText formControlName="name" placeholder="Introduce tu nombre completo" required />
         </p-inputgroup>
+        <small class="novalid" *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid">
+          El nombre es obligatorio.</small>
       </div>
 
       <div class="mb-3">
@@ -23,9 +24,13 @@
           <p-inputgroup-addon>
             <i class="pi pi-envelope"></i>
           </p-inputgroup-addon>
-          <input type="email" pInputText [ngModelOptions]="{standalone: true}" [(ngModel)]="email"
-            placeholder="Introduce un correo electrónico" required />
+          <input type="email" pInputText formControlName="email" placeholder="Introduce un correo electrónico"
+            required />
         </p-inputgroup>
+        <small class="novalid" *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
+          <span *ngIf="registerForm.get('email')?.errors?.['required']">El correo electrónico es obligatorio.</span>
+          <span *ngIf="registerForm.get('email')?.errors?.['email']">El correo electrónico no es válido.</span>
+        </small>
       </div>
 
       <div class="mb-3">
@@ -34,10 +39,15 @@
           <p-inputgroup-addon>
             <i class="pi pi-lock"></i>
           </p-inputgroup-addon>
-          <p-password [ngModelOptions]="{standalone: true}" styleClass="w-100" [(ngModel)]="password"
-            [toggleMask]="true" placeholder="Introduce una contraseña" [promptLabel]="'Introduce una contraseña'"
-            required></p-password>
+          <p-password styleClass="w-100" formControlName="password" [toggleMask]="true" [weakLabel]="'Débil'"
+            [mediumLabel]="'Medio'" [strongLabel]="'Fuerte'" placeholder="Introduce una contraseña"
+            [promptLabel]="'Introduce una contraseña'" required></p-password>
         </p-inputgroup>
+        <small class="novalid" *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
+          <span *ngIf="registerForm.get('password')?.errors?.['required']">La contraseña es obligatoria.</span>
+          <span *ngIf="registerForm.get('password')?.errors?.['minlength']">
+            La contraseña debe tener al menos 6 caracteres.</span>
+        </small>
       </div>
 
       <div class="mb-4">
@@ -46,10 +56,20 @@
           <p-inputgroup-addon>
             <i class="pi pi-lock"></i>
           </p-inputgroup-addon>
-          <p-password [ngModelOptions]="{standalone: true}" styleClass="w-100" [(ngModel)]="confirmPassword"
-            [toggleMask]="true" placeholder="Introduce de nuevo tu contraseña"
+          <p-password styleClass="w-100" formControlName="confirmPassword" [toggleMask]="true" [weakLabel]="'Débil'"
+            [mediumLabel]="'Medio'" [strongLabel]="'Fuerte'" placeholder="Introduce de nuevo tu contraseña"
             [promptLabel]="'Introduce una contraseña'" required></p-password>
         </p-inputgroup>
+        <small class="novalid"
+          *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.invalid">
+          <span *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">La confirmación de la contraseña es
+            obligatoria.</span>
+          <span *ngIf="registerForm.get('confirmPassword')?.errors?.['minlength']">
+            La confirmación de la contraseña debe tener al menos 6 caracteres.</span>
+        </small>
+        <small class="novalid" *ngIf="registerForm.hasError('passwordMismatch')">
+          Las contraseñas deben coincidir
+        </small>
       </div>
 
       <button type="submit" class="btn btn-success w-100 mb-3">
