@@ -17,6 +17,10 @@ export const routes: Routes = [
     component: RegisterComponent
   },
   {
+    path: 'curriculum',
+    loadChildren: () => import('./components/curriculum/curriculum.module').then(m => m.CurriculumModule)
+  },
+  {
     path: '**',
     redirectTo: '',
     pathMatch: 'full'

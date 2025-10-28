@@ -13,6 +13,9 @@ import lombok.Data;
 public class CurriculumDTO {
 
     private Long id;
+    private String country;
+    private String city;
+    private String phone;
     private String title;
     private String summary;
     private String theme;

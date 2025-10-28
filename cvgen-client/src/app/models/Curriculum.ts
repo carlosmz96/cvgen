@@ -6,6 +6,9 @@ import { Skill } from "./Skill";
 
 export interface Curriculum {
   id?: number;
+  country: string;
+  city: string;
+  phone?: string;
   title: string;
   summary?: string;
   theme: string;

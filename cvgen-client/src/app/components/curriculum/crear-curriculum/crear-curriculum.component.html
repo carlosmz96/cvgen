@@ -1,0 +1,98 @@
+<div class="container">
+  <div class="d-flex">
+    <!-- Formulario de creación -->
+    <div class="w-30 card mr-3 p-4">
+      <h3 class="mb-3">Genera tu CV</h3>
+
+      <form [formGroup]="curriculumForm">
+        <p-accordion value="0">
+          <p-accordion-panel value="0">
+            <p-accordion-header>Datos personales</p-accordion-header>
+            <p-accordion-content>
+              <!-- Nombre completo -->
+              <div class="mb-3 pt-3">
+                <label class="form-label">Nombre completo</label>
+                <input type="text" pInputText formControlName="name" placeholder="Introduce tu nombre completo"
+                  required />
+                <small class="novalid"
+                  *ngIf="curriculumForm.get('name')?.touched && curriculumForm.get('name')?.invalid">
+                  El nombre es obligatorio.</small>
+              </div>
+
+              <!-- Correo electrónico -->
+              <div class="mb-3">
+                <label class="form-label">Correo electrónico</label>
+                <input type="email" pInputText formControlName="email" placeholder="Introduce tu correo electrónico"
+                  required />
+                <small class="novalid"
+                  *ngIf="curriculumForm.get('email')?.touched && curriculumForm.get('email')?.invalid">
+                  El correo electrónico es obligatorio.</small>
+              </div>
+
+              <!-- País -->
+              <div class="mb-3">
+                <label class="form-label">País</label>
+                <input type="text" pInputText formControlName="country" placeholder="Introduce tu país" required />
+                <small class="novalid"
+                  *ngIf="curriculumForm.get('country')?.touched && curriculumForm.get('country')?.invalid">
+                  El país es obligatorio.</small>
+              </div>
+
+              <!-- Ciudad -->
+              <div class="mb-3">
+                <label class="form-label">Ciudad</label>
+                <input type="text" pInputText formControlName="city" placeholder="Introduce tu ciudad" required />
+                <small class="novalid"
+                  *ngIf="curriculumForm.get('city')?.touched && curriculumForm.get('city')?.invalid">
+                  La ciudad es obligatoria.</small>
+              </div>
+
+              <!-- Teléfono -->
+              <div class="mb-3">
+                <label class="form-label">Teléfono</label>
+                <input type="text" pInputText formControlName="phone" placeholder="Introduce tu teléfono" required />
+              </div>
+            </p-accordion-content>
+          </p-accordion-panel>
+
+          <p-accordion-panel value="1">
+            <p-accordion-header>Header II</p-accordion-header>
+            <p-accordion-content>
+              <p class="m-0">
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
+                rem
+                aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+                explicabo. Nemo
+                enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+                dolores
+                eos
+                qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+              </p>
+            </p-accordion-content>
+          </p-accordion-panel>
+
+          <p-accordion-panel value="2">
+            <p-accordion-header>Header III</p-accordion-header>
+            <p-accordion-content>
+              <p class="m-0">
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
+                rem
+                aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+                explicabo. Nemo
+                enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+                dolores
+                eos
+                qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+              </p>
+            </p-accordion-content>
+          </p-accordion-panel>
+        </p-accordion>
+      </form>
+    </div>
+
+    <!-- Vista previa -->
+    <div class="w-70 card p-4">
+      <p>Contenido principal del currículum</p>
+    </div>
+  </div>
+</div>

@@ -18,8 +18,8 @@
       </ul>
 
       <div class="d-flex align-items-center gap-2 ms-lg-3 mt-lg-0">
-        <a routerLink="/login" class="btn btn-outline-success">Iniciar sesión</a>
-        <a routerLink="/register" class="btn btn-success">Crea tu CV</a>
+        <a *ngIf="!isLoggedIn()" routerLink="/login" class="btn btn-outline-success">Iniciar sesión</a>
+        <a *ngIf="isLoggedIn()" routerLink="/curriculum/crear" class="btn btn-success">Crea tu CV</a>
       </div>
     </div>
   </div>
