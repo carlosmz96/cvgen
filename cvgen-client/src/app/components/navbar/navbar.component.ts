@@ -3,11 +3,14 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { CommonModule } from '@angular/common';
 
+import { ButtonModule } from 'primeng/button';
+
 @Component({
   selector: 'app-navbar',
   imports: [
     RouterModule,
-    CommonModule
+    CommonModule,
+    ButtonModule
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'

@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm">
-  <div class="container mt-2 mb-2">
+  <div class="container-fluid mt-2 mb-2">
     <a class="navbar-brand d-flex align-items-center gap-2" routerLink="/">
       <i class="pi pi-file-check logo-icon"></i>
       CVGen
@@ -18,8 +18,8 @@
       </ul>
 
       <div class="d-flex align-items-center gap-2 ms-lg-3 mt-lg-0">
-        <a *ngIf="!isLoggedIn()" routerLink="/login" class="btn btn-outline-success">Iniciar sesión</a>
-        <a *ngIf="isLoggedIn()" routerLink="/curriculum/crear" class="btn btn-success">Crea tu CV</a>
+        <p-button type="button" *ngIf="!isLoggedIn()" label="Vista previa" styleClass="mr-2" routerLink="/login" />
+        <p-button type="button" *ngIf="isLoggedIn()" label="Crea tu CV" styleClass="mr-2" routerLink="/curriculum/crear" />
       </div>
     </div>
   </div>

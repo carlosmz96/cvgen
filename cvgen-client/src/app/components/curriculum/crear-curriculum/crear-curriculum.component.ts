@@ -1,13 +1,17 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { AccordionModule } from 'primeng/accordion';
-import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { SelectModule } from 'primeng/select';
+import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
-import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
+import { CheckboxModule } from 'primeng/checkbox';
+import { DialogModule } from 'primeng/dialog';
 
+import { Curriculum } from '../../../models/Curriculum';
 import { AuthService } from '../../../services/auth/auth.service';
 import { CurriculumService } from '../../../services/curriculum/curriculum.service';
 
@@ -20,7 +24,10 @@ import { CurriculumService } from '../../../services/curriculum/curriculum.servi
     InputTextModule,
     ButtonModule,
     TextareaModule,
-    DropdownModule
+    SelectModule,
+    CalendarModule,
+    CheckboxModule,
+    DialogModule
   ],
   templateUrl: './crear-curriculum.component.html',
   styleUrl: './crear-curriculum.component.scss'
@@ -41,6 +48,8 @@ export class CrearCurriculumComponent {
     { label: 'Inglés', value: 'en' }
   ];
 
+  showPreview = false;
+
   constructor(
     private auth: AuthService,
     private curriculumService: CurriculumService,
@@ -56,11 +65,12 @@ export class CrearCurriculumComponent {
       summary: [''],
       theme: ['', Validators.required],
       language: ['', Validators.required],
-      experiences: [[]],
-      educations: [[]],
-      skills: [[]],
-      certifications: [[]],
-      languageSkills: [[]]
+
+      experiences: this.fb.array([]),
+      educations: this.fb.array([]),
+      skills: this.fb.array([]),
+      certifications: this.fb.array([]),
+      languageSkills: this.fb.array([])
     });
   }
 
@@ -70,8 +80,14 @@ export class CrearCurriculumComponent {
 
   guardarCurriculum(): void {
     if (this.curriculumForm.valid) {
-      const curriculumData = this.curriculumForm.value;
-      console.log('Guardando el currículum:', curriculumData);
+      const formValue = this.curriculumForm.value;
+      const curriculumData: Curriculum = {
+        ...formValue,
+        user: {
+          name: formValue.name,
+          email: formValue.email
+        }
+      }
 
       this.curriculumService.crearCurriculum(curriculumData).subscribe({
         next: (response) => {
@@ -88,16 +104,16 @@ export class CrearCurriculumComponent {
   }
 
   descargarCurriculum(): void {
-    const debug = Object.entries(this.curriculumForm.controls).map(([k, c]: any) => ({
-      control: k,
-      value: c.value,
-      valid: c.valid,
-      errors: c.errors,
-      status: c.status
-    }));
-    console.table(debug);
     if (this.curriculumForm.valid) {
-      const curriculumData = this.curriculumForm.value;
+      const formValue = this.curriculumForm.value;
+      const curriculumData: Curriculum = {
+        ...formValue,
+        user: {
+          name: formValue.name,
+          email: formValue.email
+        }
+      }
+
       this.curriculumService.generarPdf(curriculumData).subscribe({
         next: (blob) => {
           const url = window.URL.createObjectURL(blob);
@@ -115,6 +131,39 @@ export class CrearCurriculumComponent {
       this.curriculumForm.markAllAsTouched();
       console.log('El formulario no es válido');
     }
+  }
+
+  // atajo para el FormArray (en la clase del componente)
+  get experiencesArray(): FormArray {
+    return this.curriculumForm.get('experiences') as FormArray;
+  }
+
+  // acceder al FormGroup de una experiencia por índice
+  fgExp(i: number): FormGroup {
+    return this.experiencesArray.at(i) as FormGroup;
+  }
+
+  // crear un FormGroup de experiencia
+  private createExperienceGroup(): FormGroup {
+    return this.fb.group({
+      id: [null],
+      position: ['', Validators.required],
+      company: ['', Validators.required],
+      location: ['', Validators.required],
+      startDate: [null, Validators.required],
+      endDate: [null],
+      current: [false],
+      description: ['']
+    });
+  }
+
+  // handlers de añadir / eliminar
+  addExperience(): void {
+    this.experiencesArray.push(this.createExperienceGroup());
+  }
+
+  removeExperience(index: number): void {
+    this.experiencesArray.removeAt(index);
   }
 
 }

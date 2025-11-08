@@ -1,49 +1,108 @@
-<!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es" xml:lang="es">
+
 <head>
-  <meta charset="UTF-8"/>
-  <title th:text="${cv.fullName} + ' - CV'">CV</title>
-  <style>
-    /* CSS simple compatible con motores PDF (evita flex/posiciones complejas) */
-    body { font-family: sans-serif; font-size: 12px; color: #222; }
-    h1 { font-size: 20px; margin: 0 0 4px; }
-    h2 { font-size: 14px; margin: 16px 0 8px; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
-    .muted { color: #666; }
-    .header { border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 12px; }
-    .tag { display: inline-block; border: 1px solid #999; padding: 2px 6px; border-radius: 4px; margin: 2px 4px 0 0; }
-    .section { page-break-inside: avoid; }
-    .exp { margin-bottom: 8px; }
-    .exp .role { font-weight: bold; }
-    .exp .company { font-style: italic; }
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title th:text="${(cv.user?.name ?: '') + ' - CV'}">CV</title>
+  <style type="text/css">
+    body {
+      font-family: sans-serif;
+      font-size: 12px;
+      color: #222;
+    }
+
+    h1 {
+      font-size: 20px;
+      margin: 0 0 4px;
+    }
+
+    h2 {
+      font-size: 14px;
+      margin: 16px 0 8px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 4px;
+    }
+
+    .muted {
+      color: #666;
+    }
+
+    .header {
+      border-bottom: 2px solid #000;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+
+    .tag {
+      display: inline-block;
+      border: 1px solid #999;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin: 2px 4px 0 0;
+    }
+
+    .section {
+      page-break-inside: avoid;
+    }
+
+    .exp {
+      margin-bottom: 8px;
+    }
+
+    .exp .role {
+      font-weight: bold;
+    }
+
+    .exp .company {
+      font-style: italic;
+    }
   </style>
 </head>
+
 <body>
   <div class="header">
-    <h1 th:text="${cv.fullName}">Nombre Apellidos</h1>
-    <div class="muted" th:text="${cv.title}">Puesto / Especialidad</div>
+    <h1 th:text="${cv.user?.name ?: 'Nombre Apellidos'}">Nombre Apellidos</h1>
+    <div class="muted" th:text="${cv.title ?: 'Puesto / Especialidad'}">Puesto / Especialidad</div>
     <div class="muted">
-      <span th:text="${cv.email}">email@dominio.com</span> ·
-      <span th:text="${cv.phone}">+34 600 000 000</span>
+      <span
+        th:text="${(cv.city ?: '') + ((cv.city ?: '') != '' and (cv.country ?: '') != '' ? ', ' : '') + (cv.country ?: '')}">Ciudad,
+        País</span>
+      <span th:if="${(cv.user?.email ?: '') != '' or (cv.phone ?: '') != ''}"> · </span>
+      <span th:text="${cv.user?.email ?: ''}">email@dominio.com</span>
+      <span th:if="${(cv.user?.email ?: '') != '' and (cv.phone ?: '') != ''}"> · </span>
+      <span th:text="${cv.phone ?: ''}">+34 600 000 000</span>
     </div>
   </div>
 
-  <div class="section">
+  <div class="section" th:if="${cv.summary != null and !#strings.isEmpty(cv.summary)}">
     <h2>Resumen</h2>
     <p th:text="${cv.summary}">Aquí un breve resumen profesional.</p>
   </div>
 
-  <div class="section">
+  <div class="section" th:if="${cv.experiences != null and !#lists.isEmpty(cv.experiences)}">
     <h2>Experiencia</h2>
     <div th:each="e : ${cv.experiences}" class="exp">
-      <div><span class="role" th:text="${e.role}">Rol</span> — <span class="company" th:text="${e.company}">Empresa</span></div>
-      <div class="muted"><span th:text="${e.from}">2022</span> – <span th:text="${e.to}">2024</span></div>
-      <div th:text="${e.description}">Descripción de logros y responsabilidades.</div>
+      <div>
+        <span class="role" th:text="${e?.position ?: e?.role ?: 'Rol'}">Rol</span>
+        &#8212; <span class="company" th:text="${e?.company ?: e?.employer ?: 'Empresa'}">Empresa</span>
+      </div>
+      <div class="muted">
+        <span
+          th:text="${e?.startDate != null ? #temporals.format(e.startDate, 'yyyy-MM') : (e?.from ?: '')}">2022</span>
+        <span> &#8211; </span>
+        <span
+          th:text="${e?.endDate != null ? #temporals.format(e.endDate, 'yyyy-MM') : 'Actual'}">2024</span>
+      </div>
+      <div th:text="${e?.description ?: e?.summary ?: ''}">Descripción de logros y responsabilidades.</div>
     </div>
   </div>
 
-  <div class="section">
+  <div class="section" th:if="${cv.skills != null and !#lists.isEmpty(cv.skills)}">
     <h2>Habilidades</h2>
-    <span class="tag" th:each="s : ${cv.skills}" th:text="${s}">Skill</span>
+    <span class="tag" th:each="s : ${cv.skills}" th:text="${s?.name ?: s?.title ?: s}">
+      Skill
+    </span>
   </div>
 </body>
+
 </html>
