@@ -10,5 +10,7 @@ public interface CurriculumService {
     public CurriculumDTO create(CurriculumDTO dto);
     public CurriculumDTO update(CurriculumDTO dto, Long id);
     public void delete(Long id);
+
+    public byte[] generatePdf(CurriculumDTO dto);
     
 }

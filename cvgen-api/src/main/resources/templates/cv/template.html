@@ -1,0 +1,49 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <title th:text="${cv.fullName} + ' - CV'">CV</title>
+  <style>
+    /* CSS simple compatible con motores PDF (evita flex/posiciones complejas) */
+    body { font-family: sans-serif; font-size: 12px; color: #222; }
+    h1 { font-size: 20px; margin: 0 0 4px; }
+    h2 { font-size: 14px; margin: 16px 0 8px; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
+    .muted { color: #666; }
+    .header { border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 12px; }
+    .tag { display: inline-block; border: 1px solid #999; padding: 2px 6px; border-radius: 4px; margin: 2px 4px 0 0; }
+    .section { page-break-inside: avoid; }
+    .exp { margin-bottom: 8px; }
+    .exp .role { font-weight: bold; }
+    .exp .company { font-style: italic; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1 th:text="${cv.fullName}">Nombre Apellidos</h1>
+    <div class="muted" th:text="${cv.title}">Puesto / Especialidad</div>
+    <div class="muted">
+      <span th:text="${cv.email}">email@dominio.com</span> ·
+      <span th:text="${cv.phone}">+34 600 000 000</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Resumen</h2>
+    <p th:text="${cv.summary}">Aquí un breve resumen profesional.</p>
+  </div>
+
+  <div class="section">
+    <h2>Experiencia</h2>
+    <div th:each="e : ${cv.experiences}" class="exp">
+      <div><span class="role" th:text="${e.role}">Rol</span> — <span class="company" th:text="${e.company}">Empresa</span></div>
+      <div class="muted"><span th:text="${e.from}">2022</span> – <span th:text="${e.to}">2024</span></div>
+      <div th:text="${e.description}">Descripción de logros y responsabilidades.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Habilidades</h2>
+    <span class="tag" th:each="s : ${cv.skills}" th:text="${s}">Skill</span>
+  </div>
+</body>
+</html>

@@ -127,3 +127,23 @@ p-inputgroup .p-inputtext {
   padding-left: 0rem !important;
   padding-right: 0.5rem !important;
 }
+
+button {
+  background-color: #198754 !important;
+}
+
+button.p-button-info {
+  background-color: #0d8af0 !important;
+}
+
+button.p-button-secondary {
+  background-color: #6c757d !important;
+}
+
+button.p-button-danger {
+  background-color: #dc3545 !important;
+}
+
+textarea {
+  font-size: 14px !important;
+}

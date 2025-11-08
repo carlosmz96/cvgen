@@ -3,6 +3,7 @@ package dev.carlosmz96.cvgen.cvgen_api.controllers;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,15 @@ public class CurriculumController {
     public ResponseEntity<?> crearCurriculum(@RequestBody CurriculumDTO dto) {
         CurriculumDTO createdDto = service.create(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdDto);
+    }
+
+    @PostMapping("/generarPdf")
+    public ResponseEntity<?> generarPdf(@RequestBody CurriculumDTO dto) {
+        byte[] pdfBytes = service.generatePdf(dto);
+        return ResponseEntity.ok()
+                .header("Content-Disposition", "attachment; filename=curriculum.pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdfBytes);
     }
 
     @PutMapping("/editar/{id}")

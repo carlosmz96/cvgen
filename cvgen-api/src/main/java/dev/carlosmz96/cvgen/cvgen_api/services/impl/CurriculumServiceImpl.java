@@ -18,6 +18,8 @@ public class CurriculumServiceImpl implements CurriculumService {
 
     private final CurriculumRepository repository;
     private final CurriculumMapper mapper;
+    private final PdfServiceImpl pdfService;
+    private final CvTemplateServiceImpl templateService;
 
     @Override
     public List<CurriculumDTO> listByUserId(Long idUser) {
@@ -52,6 +54,12 @@ public class CurriculumServiceImpl implements CurriculumService {
         } else {
             throw new EntityNotFoundException("El currículum con id " + id + " no existe.");
         }
+    }
+
+    @Override
+    public byte[] generatePdf(CurriculumDTO dto) {
+        String html = templateService.renderCurriculumHtml(dto);
+        return pdfService.htmlToPdf(html);
     }
 
 }

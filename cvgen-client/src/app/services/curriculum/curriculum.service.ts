@@ -22,6 +22,10 @@ export class CurriculumService {
     return this.http.post<Curriculum>(`${this.api}/crear`, curriculum);
   }
 
+  generarPdf(curriculum: Curriculum): Observable<Blob> {
+    return this.http.post(`${this.api}/generar-pdf`, curriculum, { responseType: 'blob' });
+  }
+
   editarCurriculum(curriculum: Curriculum): Observable<Curriculum> {
     return this.http.put<Curriculum>(`${this.api}/editar/${curriculum.id}`, curriculum);
   }

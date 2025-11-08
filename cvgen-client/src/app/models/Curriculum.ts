@@ -3,6 +3,7 @@ import { Education } from "./Education";
 import { Experience } from "./Experience";
 import { LanguageSkill } from "./LanguageSkill";
 import { Skill } from "./Skill";
+import { User } from "./User";
 
 export interface Curriculum {
   id?: number;
@@ -13,9 +14,10 @@ export interface Curriculum {
   summary?: string;
   theme: string;
   language: string;
-  experiences: Experience[];
-  educations: Education[];
-  skills: Skill[];
-  certifications: Certification[];
-  languageSkills: LanguageSkill[];
+  user?: User;
+  experiences?: Experience[];
+  educations?: Education[];
+  skills?: Skill[];
+  certifications?: Certification[];
+  languageSkills?: LanguageSkill[];
 }
