@@ -1,0 +1,52 @@
+.w-70 {
+  width: 70% !important;
+}
+
+.w-30 {
+  width: 30% !important;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.botonera {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+/* Por defecto, el botón de preview para móvil oculto en escritorio */
+.botonera .btn-preview-sm {
+  display: none;
+}
+
+/* Reglas responsive para tablets/móviles */
+@media (max-width: 991.98px) {
+
+  /* Pasa a una columna */
+  .two-col {
+    flex-direction: column;
+  }
+
+  .w-30,
+  .w-70 {
+    width: 100% !important;
+  }
+
+  /* Oculta la columna de vista previa */
+  .preview-col {
+    display: none;
+  }
+
+  /* Muestra el botón "Vista previa" en móvil/tablet */
+  .botonera .btn-preview-sm {
+    display: inline-flex;
+  }
+
+  /* Ajustes de espaciado en móvil */
+  .two-col .card {
+    margin-right: 0 !important;
+  }
+}

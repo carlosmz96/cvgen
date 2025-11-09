@@ -32,6 +32,12 @@ public class CurriculumController {
         return ResponseEntity.ok(curriculums);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> obtenerCurriculumPorId(@PathVariable Long id) {
+        CurriculumDTO dto = service.getById(id);
+        return ResponseEntity.ok(dto);
+    }
+
     @PostMapping("/crear")
     public ResponseEntity<?> crearCurriculum(@RequestBody CurriculumDTO dto) {
         CurriculumDTO createdDto = service.create(dto);

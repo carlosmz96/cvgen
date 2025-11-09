@@ -32,6 +32,16 @@ public class CurriculumServiceImpl implements CurriculumService {
     }
 
     @Override
+    public CurriculumDTO getById(Long id) {
+        Optional<Curriculum> optCurriculum = repository.findById(id);
+        if (optCurriculum.isPresent()) {
+            return mapper.curriculumToCurriculumDTO(optCurriculum.get());
+        } else {
+            throw new EntityNotFoundException("El currículum con id " + id + " no existe.");
+        }
+    }
+
+    @Override
     public CurriculumDTO create(CurriculumDTO dto) {
         Curriculum curriculum = mapper.curriculumDtoToCurriculum(dto);
         

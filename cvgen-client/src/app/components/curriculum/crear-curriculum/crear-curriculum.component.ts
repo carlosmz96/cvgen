@@ -4,15 +4,14 @@ import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } fr
 
 import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
-import { SelectModule } from 'primeng/select';
-import { InputTextModule } from 'primeng/inputtext';
-import { TextareaModule } from 'primeng/textarea';
 import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { SelectModule } from 'primeng/select';
+import { TextareaModule } from 'primeng/textarea';
 
 import { Curriculum } from '../../../models/Curriculum';
-import { AuthService } from '../../../services/auth/auth.service';
 import { CurriculumService } from '../../../services/curriculum/curriculum.service';
 
 @Component({
@@ -36,8 +35,6 @@ export class CrearCurriculumComponent {
 
   curriculumForm: FormGroup;
 
-  name: string | undefined;
-
   themes = [
     { label: 'Por defecto', value: 'template' },
     { label: 'Tema Oscuro', value: 'oscuro' },
@@ -51,7 +48,6 @@ export class CrearCurriculumComponent {
   showPreview = false;
 
   constructor(
-    private auth: AuthService,
     private curriculumService: CurriculumService,
     private fb: FormBuilder
   ) {
@@ -74,9 +70,7 @@ export class CrearCurriculumComponent {
     });
   }
 
-  ngOnInit(): void {
-    this.name = this.auth.user()?.name;
-  }
+  ngOnInit(): void {}
 
   guardarCurriculum(): void {
     if (this.curriculumForm.valid) {

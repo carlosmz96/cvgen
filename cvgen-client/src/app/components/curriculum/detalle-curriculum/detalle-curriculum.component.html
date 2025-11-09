@@ -1,0 +1,226 @@
+<p-dialog [visible]="cargando" [closable]="false" [draggable]="false" [modal]="true" [style]="{'width': '10rem'}">
+  <div class="text-center">
+    <p-progress-spinner strokeWidth="8" fill="transparent" animationDuration=".5s"
+    [style]="{ width: '50px', height: '50px' }" />
+    <span>Cargando...</span>
+  </div>
+</p-dialog>
+
+<div class="container-fluid mb-5">
+  <div class="d-flex">
+    <!-- Formulario de creación -->
+    <div class="w-30 card mr-3 p-4">
+      <h3 class="mb-3">Genera tu CV</h3>
+
+      <form [formGroup]="curriculumForm" (ngSubmit)="guardarCurriculum()">
+        <!-- Título -->
+        <div class="mb-3">
+          <label class="form-label">Título *</label>
+          <input type="text" pInputText formControlName="title" placeholder="Introduce el título" required />
+          <small class="novalid" *ngIf="curriculumForm.get('title')?.touched && curriculumForm.get('title')?.invalid">
+            El título es obligatorio.</small>
+        </div>
+
+        <!-- Resumen -->
+        <div class="mb-3">
+          <label class="form-label">Resumen</label>
+          <div>
+            <textarea pInputTextarea formControlName="summary" rows="3" placeholder="Introduce un resumen" class="w-100"
+              autoResize="off"></textarea>
+          </div>
+        </div>
+
+        <p-accordion value="0">
+          <p-accordion-panel value="0">
+            <p-accordion-header>Datos personales</p-accordion-header>
+            <p-accordion-content>
+              <!-- Nombre completo -->
+              <div class="mb-3 pt-3">
+                <label class="form-label">Nombre completo *</label>
+                <input type="text" pInputText formControlName="name" placeholder="Introduce tu nombre completo"
+                  required />
+                <small class="novalid"
+                  *ngIf="curriculumForm.get('name')?.touched && curriculumForm.get('name')?.invalid">
+                  El nombre es obligatorio.</small>
+              </div>
+
+              <!-- Correo electrónico -->
+              <div class="mb-3">
+                <label class="form-label">Correo electrónico *</label>
+                <input type="email" pInputText formControlName="email" placeholder="Introduce tu correo electrónico"
+                  required />
+                <small class="novalid"
+                  *ngIf="curriculumForm.get('email')?.touched && curriculumForm.get('email')?.invalid">
+                  El correo electrónico es obligatorio.</small>
+              </div>
+
+              <!-- País -->
+              <div class="mb-3">
+                <label class="form-label">País *</label>
+                <input type="text" pInputText formControlName="country" placeholder="Introduce tu país" required />
+                <small class="novalid"
+                  *ngIf="curriculumForm.get('country')?.touched && curriculumForm.get('country')?.invalid">
+                  El país es obligatorio.</small>
+              </div>
+
+              <!-- Ciudad -->
+              <div class="mb-3">
+                <label class="form-label">Ciudad *</label>
+                <input type="text" pInputText formControlName="city" placeholder="Introduce tu ciudad" required />
+                <small class="novalid"
+                  *ngIf="curriculumForm.get('city')?.touched && curriculumForm.get('city')?.invalid">
+                  La ciudad es obligatoria.</small>
+              </div>
+
+              <!-- Teléfono -->
+              <div class="mb-3">
+                <label class="form-label">Teléfono</label>
+                <input type="text" pInputText formControlName="phone" placeholder="Introduce tu teléfono" />
+              </div>
+            </p-accordion-content>
+          </p-accordion-panel>
+
+          <!-- EXPERIENCIA PROFESIONAL -->
+          <p-accordion-panel value="1">
+            <p-accordion-header>Experiencia profesional</p-accordion-header>
+            <p-accordion-content>
+              <div formArrayName="experiences" class="w-100">
+                <div class="mb-3 text-right">
+                  <p-button type="button" icon="pi pi-plus" label="Añadir experiencia"
+                    (click)="addExperience()"></p-button>
+                </div>
+
+                <ng-container *ngFor="let exp of experiencesArray.controls; let i = index">
+                  <div [formGroupName]="i" class="card p-3 mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                      <h4 class="m-0">Experiencia {{ i + 1 }}</h4>
+                      <p-button type="button" icon="pi pi-trash" severity="danger" label="Eliminar"
+                        (click)="removeExperience(i)"></p-button>
+                    </div>
+
+                    <!-- Puesto -->
+                    <div class="mb-3">
+                      <label class="form-label">Puesto *</label>
+                      <input pInputText formControlName="position" class="w-100"
+                        placeholder="Ej. Analista programador" />
+                      <small class="novalid"
+                        *ngIf="fgExp(i).get('position')?.touched && fgExp(i).get('position')?.invalid">
+                        Campo obligatorio.
+                      </small>
+                    </div>
+
+                    <!-- Empresa -->
+                    <div class="mb-3">
+                      <label class="form-label">Empresa *</label>
+                      <input pInputText formControlName="company" class="w-100" placeholder="Ej. Empresa S.A." />
+                      <small class="novalid"
+                        *ngIf="fgExp(i).get('company')?.touched && fgExp(i).get('company')?.invalid">
+                        Campo obligatorio.
+                      </small>
+                    </div>
+
+                    <!-- Ubicación -->
+                    <div class="mb-3">
+                      <label class="form-label">Ubicación *</label>
+                      <input pInputText formControlName="location" class="w-100" placeholder="Ciudad, País" />
+                      <small class="novalid"
+                        *ngIf="fgExp(i).get('location')?.touched && fgExp(i).get('location')?.invalid">
+                        Campo obligatorio.
+                      </small>
+                    </div>
+
+                    <!-- Fecha desde -->
+                    <div class="mb-3">
+                      <label class="form-label d-block">Fecha de inicio *</label>
+                      <p-calendar formControlName="startDate" [showIcon]="true" dateFormat="yy-mm-dd" class="w-100"
+                        placeholder="Selecciona la fecha de inicio" appendTo="body"></p-calendar>
+                      <small class="novalid"
+                        *ngIf="fgExp(i).get('startDate')?.touched && fgExp(i).get('startDate')?.invalid">
+                        Fecha obligatoria.
+                      </small>
+                    </div>
+
+                    <!-- Fecha hasta -->
+                    <div class="mb-3" *ngIf="!fgExp(i).get('current')?.value">
+                      <label class="form-label d-block">Fecha de fin</label>
+                      <p-calendar formControlName="endDate" [showIcon]="true" dateFormat="yy-mm-dd" class="w-100"
+                        placeholder="Selecciona la fecha de fin" appendTo="body"></p-calendar>
+                    </div>
+
+                    <!-- Puesto actual (boolean) -->
+                    <div class="mb-3 d-flex align-items-center">
+                      <p-checkbox formControlName="current" binary="true" inputId="current-{{i}}"></p-checkbox>
+                      <label for="current-{{i}}" class="ml-2">Puesto actual</label>
+                    </div>
+
+                    <!-- Descripción -->
+                    <div class="mb-2">
+                      <label class="form-label">Descripción</label>
+                      <textarea pInputTextarea formControlName="description" rows="3" class="w-100"
+                        placeholder="Funciones, logros, tecnologías…"></textarea>
+                    </div>
+                  </div>
+                </ng-container>
+
+                <div *ngIf="experiencesArray.length === 0" class="text-muted">
+                  Aún no has añadido experiencia.
+                </div>
+              </div>
+            </p-accordion-content>
+          </p-accordion-panel>
+
+          <p-accordion-panel value="2">
+            <p-accordion-header>Configuración</p-accordion-header>
+            <p-accordion-content>
+              <div class="mb-3 pt-3">
+                <label class="form-label">Tema *</label>
+                <div>
+                  <p-select formControlName="theme" [options]="themes" placeholder="Selecciona un tema"
+                    styleClass="w-100" appendTo="body"></p-select>
+                  <small class="novalid"
+                    *ngIf="curriculumForm.get('theme')?.touched && curriculumForm.get('theme')?.invalid">
+                    El tema es obligatorio.</small>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Idioma *</label>
+                <div>
+                  <p-select formControlName="language" [options]="languages" placeholder="Selecciona un idioma"
+                    styleClass="w-100" appendTo="body"></p-select>
+                  <small class="novalid"
+                    *ngIf="curriculumForm.get('language')?.touched && curriculumForm.get('language')?.invalid">
+                    El idioma es obligatorio.</small>
+                </div>
+              </div>
+            </p-accordion-content>
+          </p-accordion-panel>
+        </p-accordion>
+
+        <div class="botonera">
+          <span class="d-inline-flex d-lg-none">
+            <p-button type="button" label="Vista previa" icon="pi pi-eye" styleClass="mr-2"
+              (click)="showPreview = true">
+            </p-button>
+          </span>
+
+          <p-button type="button" label="Descargar" icon="pi pi-download" severity="info" styleClass="mr-2"
+            (click)="descargarCurriculum()"></p-button>
+          <p-button type="submit" label="Guardar CV" icon="pi pi-save"></p-button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Vista previa -->
+    <div class="w-70 card p-4 preview-col">
+      <h3>Vista previa</h3>
+      <!-- INCLUIR VISTA PREVIA DE PDF -->
+    </div>
+  </div>
+
+  <!-- Diálogo de vista previa para móvil/tablet -->
+  <p-dialog [(visible)]="showPreview" header="Vista previa" [modal]="true" [dismissableMask]="true"
+    [style]="{ width: '95vw', maxWidth: '900px' }" [breakpoints]="{ '960px': '95vw', '640px': '98vw' }">
+    <!-- INCLUIR VISTA PREVIA DE PDF -->
+  </p-dialog>
+</div>

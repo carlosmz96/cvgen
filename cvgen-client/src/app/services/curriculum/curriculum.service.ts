@@ -18,6 +18,10 @@ export class CurriculumService {
     return this.http.get<Curriculum[]>(`${this.api}/${id}`);
   }
 
+  obtenerPorId(id: number): Observable<Curriculum> {
+    return this.http.get<Curriculum>(`${this.api}/${id}`);
+  }
+
   crearCurriculum(curriculum: Curriculum): Observable<Curriculum> {
     return this.http.post<Curriculum>(`${this.api}/crear`, curriculum);
   }
