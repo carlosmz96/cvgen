@@ -33,9 +33,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request) {
-        if (userService.existePorEmail(request.email())) {
-            return ResponseEntity.badRequest().build();
-        }
+        if (userService.existePorEmail(request.email())) return ResponseEntity.badRequest().build();
 
         UserDTO userDto = new UserDTO();
         userDto.setName(request.name());
@@ -44,19 +42,40 @@ public class AuthController {
         userDto.setRole(Role.USER);
         userService.registrarUsuario(userDto);
 
-        String token = jwtService.generateToken(userDto.getEmail(),
+        String access  = jwtService.generateToken(userDto.getEmail(),
                 Map.of("role", userDto.getRole().name(), "name", userDto.getName()));
-        return ResponseEntity.ok(new AuthResponse(token));
+        String refresh = jwtService.generateRefreshToken(userDto.getEmail());
+
+        return ResponseEntity.ok(new AuthResponse(access, refresh));
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody AuthRequest request) {
-        authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(request.email(), request.password()));
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.email(), request.password()));
         UserDTO userDto = userService.obtenerPorEmail(request.email());
-        String token = jwtService.generateToken(userDto.getEmail(),
+
+        String access  = jwtService.generateToken(userDto.getEmail(),
                 Map.of("role", userDto.getRole().name(), "name", userDto.getName()));
-        return ResponseEntity.ok(new AuthResponse(token));
+        String refresh = jwtService.generateRefreshToken(userDto.getEmail());
+
+        return ResponseEntity.ok(new AuthResponse(access, refresh));
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<AuthResponse> refresh(@RequestBody Map<String, String> body) {
+        String refresh = body.get("refreshToken");
+        if (refresh == null || !jwtService.isRefreshToken(refresh)) return ResponseEntity.status(401).build();
+
+        String email = jwtService.extractSubject(refresh);
+        if (!jwtService.isValid(refresh, email)) return ResponseEntity.status(401).build();
+
+        UserDTO userDto = userService.obtenerPorEmail(email);
+
+        String accessNew  = jwtService.generateToken(userDto.getEmail(),
+                Map.of("role", userDto.getRole().name(), "name", userDto.getName()));
+        String refreshNew = jwtService.generateRefreshToken(userDto.getEmail()); // rotación
+
+        return ResponseEntity.ok(new AuthResponse(accessNew, refreshNew));
     }
 
 }

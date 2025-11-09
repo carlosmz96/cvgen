@@ -3,3 +3,12 @@
 <div [ngClass]="showNavbar ? 'main-content' : ''">
   <router-outlet></router-outlet>
 </div>
+
+<!-- auth.warnExpiring() -->
+<p-dialog [visible]="auth.warnExpiring()" header="Sesión por expirar" [modal]="true" [closable]="false"
+  [draggable]="false" (onHide)="auth.warnExpiring.set(false)" [style]="{'width':'24rem'}">
+  <p class="text-center">Tu sesión caducará en breve. ¿Quieres mantenerla activa?</p>
+  <div class="flex justify-content-center gap-2 mt-3">
+    <p-button label="Mantener sesión" icon="pi pi-refresh" (onClick)="auth.refreshToken$().subscribe()"></p-button>
+  </div>
+</p-dialog>
