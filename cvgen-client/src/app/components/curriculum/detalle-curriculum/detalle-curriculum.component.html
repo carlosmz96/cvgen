@@ -1,7 +1,7 @@
 <p-dialog [visible]="cargando" [closable]="false" [draggable]="false" [modal]="true" [style]="{'width': '10rem'}">
   <div class="text-center">
     <p-progress-spinner strokeWidth="8" fill="transparent" animationDuration=".5s"
-    [style]="{ width: '50px', height: '50px' }" />
+      [style]="{ width: '50px', height: '50px' }" />
     <span>Cargando...</span>
   </div>
 </p-dialog>
@@ -206,7 +206,9 @@
 
           <p-button type="button" label="Descargar" icon="pi pi-download" severity="info" styleClass="mr-2"
             (click)="descargarCurriculum()"></p-button>
-          <p-button type="submit" label="Guardar CV" icon="pi pi-save"></p-button>
+          <p-button *ngIf="modoEdicion" type="submit" label="Guardar CV" icon="pi pi-save"></p-button>
+          <p-button *ngIf="!modoEdicion" type="button" label="Modificar CV" icon="pi pi-file-edit" severity="warn"
+            (click)="habilitarEdicion()"></p-button>
         </div>
       </form>
     </div>

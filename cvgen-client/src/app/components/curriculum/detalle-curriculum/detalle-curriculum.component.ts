@@ -53,6 +53,8 @@ export class DetalleCurriculumComponent {
   curriculumId: string;
   cargando: boolean = false;
 
+  modoEdicion: boolean = false;
+
   constructor(
     private curriculumService: CurriculumService,
     private fb: FormBuilder,
@@ -90,8 +92,6 @@ export class DetalleCurriculumComponent {
       {
         next: (cv: Curriculum) => {
           this.patchCurriculum(cv);
-
-          // modo solo lectura
           this.curriculumForm.disable({ emitEvent: false });
           this.cargando = false;
         },
@@ -107,6 +107,7 @@ export class DetalleCurriculumComponent {
     if (this.curriculumForm.valid) {
       const formValue = this.curriculumForm.value;
       const curriculumData: Curriculum = {
+        id: this.curriculumId,
         ...formValue,
         user: {
           name: formValue.name,
@@ -114,9 +115,11 @@ export class DetalleCurriculumComponent {
         }
       }
 
-      this.curriculumService.crearCurriculum(curriculumData).subscribe({
-        next: (response) => {
-          console.log('Currículum guardado con éxito:', response);
+      this.curriculumService.editarCurriculum(curriculumData).subscribe({
+        next: () => {
+          //TODO incluir un mensaje de éxito
+          this.curriculumForm.disable({ emitEvent: false });
+          this.modoEdicion = !this.modoEdicion;
         },
         error: (error) => {
           console.error('Error al guardar el currículum:', error);
@@ -346,6 +349,11 @@ export class DetalleCurriculumComponent {
       patcher(fg, item);
       formArray.push(fg);
     });
+  }
+
+  habilitarEdicion(): void {
+    this.modoEdicion = !this.modoEdicion;
+    this.curriculumForm.enable({ emitEvent: false });
   }
 
 }
